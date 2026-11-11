@@ -553,6 +553,8 @@
       .casino-cabinet {
         padding: 0.9rem 1rem;
         border-radius: 1.35rem;
+        max-height: calc(100dvh - 4.75rem);
+        overflow-y: auto;
       }
     }
 
@@ -882,14 +884,8 @@
             </div>
 
             <!-- Feedback Banner for "Il miliardario" after choosing an option -->
-            <div id="miliardario-feedback" class="hidden mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase">
+            <div id="miliardario-feedback" class="hidden mt-1 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase max-w-full break-words">
             </div>
-
-            <!-- "Start Again" Button shown when the user chooses the wrong option in "Il miliardario" -->
-            <button id="miliardario-restart-btn" type="button"
-              class="hidden mt-2.5 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-105 active:scale-95 transition cursor-pointer">
-              ↻ RICOMINCIA DA CAPO (START AGAIN)
-            </button>
           </div>
 
           <!-- STATE D: "HAI PERSO!" FLASHING SLOT DISPLAY -->
@@ -925,32 +921,38 @@
              MODE 2 CONTROLS: 3 OPTIONS QUIZ ("IL MILIARDARIO")
              ========================================================== -->
         <div id="miliardario-controls-wrap" class="button-section-wrap mt-2.5 sm:mt-3.5 hidden flex-col items-center w-full">
-          <div class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5">
+          <div id="miliardario-quiz-prompt" class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5 text-center">
             CHI HA PRONUNCIATO QUESTA FRASE? (SCEGLI 1 DELLE 3 OPZIONI)
           </div>
 
           <!-- 3 Option Buttons -->
           <div id="miliardario-options-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
             <button type="button" data-opt-idx="0"
-              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
               <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">A</span>
               <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione A</span>
             </button>
 
             <button type="button" data-opt-idx="1"
-              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
               <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">B</span>
               <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione B</span>
             </button>
 
             <button type="button" data-opt-idx="2"
-              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
               <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">C</span>
               <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione C</span>
             </button>
           </div>
 
-          <div class="mt-2 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-amber-200/75 text-center">
+          <!-- "Ricomincia da capo" Button shown inside the outer cabinet box when the user chooses the wrong option -->
+          <button id="miliardario-restart-btn" type="button"
+            class="hidden my-1 w-full sm:w-auto min-w-[220px] max-w-xs px-5 py-2.5 sm:px-7 sm:py-3 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-105 active:scale-95 transition cursor-pointer text-center">
+            ↻ RICOMINCIA DA CAPO
+          </button>
+
+          <div class="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs text-amber-200/75 text-center">
             <span>✅ ESATTA: <strong class="text-emerald-300">+1 PUNTO</strong></span>
             <span>•</span>
             <span>❌ ERRATA: <strong class="text-red-400">PERDI TUTTI I PUNTI (0)</strong></span>
@@ -1529,6 +1531,7 @@
 
     const storiaControlsWrap = document.getElementById('storia-controls-wrap');
     const miliardarioControlsWrap = document.getElementById('miliardario-controls-wrap');
+    const miliardarioQuizPrompt = document.getElementById('miliardario-quiz-prompt');
     const miliardarioOptionsGrid = document.getElementById('miliardario-options-grid');
     const optionButtons = Array.from(miliardarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
 
@@ -1863,6 +1866,9 @@
       miliardarioFeedback.classList.add('hidden');
       miliardarioRestartBtn.classList.add('hidden');
       miliardarioRestartBtn.classList.remove('inline-flex');
+      miliardarioQuizPrompt.classList.remove('hidden');
+      miliardarioOptionsGrid.classList.remove('hidden');
+      miliardarioOptionsGrid.classList.add('grid');
 
       quoteResultView.classList.remove('hidden');
       quoteResultView.classList.add('flex', 'animate-card-reveal');
@@ -1930,8 +1936,12 @@
         quoteAuthorBadge.classList.remove('hidden');
         quoteAuthorBadge.classList.add('inline-flex');
 
-        miliardarioFeedback.className = 'mt-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-red-600/35 border border-red-400 text-red-200';
+        miliardarioFeedback.className = 'mt-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-red-600/35 border border-red-400 text-red-200 max-w-full break-words';
         miliardarioFeedback.textContent = `❌ RISPOSTA ERRATA! HAI PERSO TUTTI I PUNTI`;
+
+        miliardarioQuizPrompt.classList.add('hidden');
+        miliardarioOptionsGrid.classList.add('hidden');
+        miliardarioOptionsGrid.classList.remove('grid');
 
         miliardarioRestartBtn.classList.remove('hidden');
         miliardarioRestartBtn.classList.add('inline-flex', 'items-center', 'justify-center');
