@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b0706" />
+  <title>LIVE CASINO • L'Oracolo delle Frasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-light: #ffe89e;
+      --gold-mid: #d4af37;
+      --gold-dark: #8a6415;
+      --crimson-deep: #3d060b;
+      --crimson-velvet: #6e0d16;
+      --neon-red: #ff2a2a;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      overscroll-behavior: none;
+      background-color: #0b0706;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #fff;
+    }
+
+    .app-safe-wrapper {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+      padding-left: max(0.75rem, env(safe-area-inset-left));
+      padding-right: max(0.75rem, env(safe-area-inset-right));
+    }
+
+    .font-casino {
+      font-family: 'Cinzel', serif;
+    }
+
+    .font-quote {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ==========================================
+       PARK MGM VEGAS LOUNGE ARCHITECTURAL SCENE
+       ========================================== */
+    #scene-container {
+      position: fixed;
+      inset: -4%;
+      width: 108%;
+      height: 108%;
+      perspective: 1400px;
+      overflow: hidden;
+      z-index: 0;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+      background: #070304;
+    }
+
+    .bg-photo-layer {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 50% 38%, rgba(255, 190, 90, 0.16) 0%, rgba(120, 15, 25, 0.25) 45%, rgba(5, 2, 3, 0.92) 95%),
+        url('image_023078.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.42;
+      mix-blend-mode: screen;
+      filter: contrast(1.12) saturate(1.15);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .casino-ceiling {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 27%;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.22) 0%, transparent 70%),
+        repeating-linear-gradient(90deg, rgba(255, 215, 120, 0.03) 0px, rgba(255, 215, 120, 0.03) 1px, transparent 1px, transparent 140px),
+        linear-gradient(180deg, #040303 0%, #0b0706 60%, #170e0b 94%, #291911 100%);
+      border-bottom: 4px solid #c99e3b;
+      box-shadow:
+        0 6px 0 #593d0b,
+        0 14px 45px rgba(0, 0, 0, 0.95),
+        0 4px 28px rgba(255, 185, 65, 0.32),
+        inset 0 -3px 12px rgba(255, 220, 130, 0.35);
+      z-index: 1;
+      transform-origin: top center;
+    }
+
+    .casino-walls {
+      position: absolute;
+      top: 26.5%;
+      left: 0;
+      right: 0;
+      height: 46.5%;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 175, 65, 0.2) 0%, transparent 58%),
+        radial-gradient(circle at 15% 50%, rgba(255, 60, 40, 0.14) 0%, transparent 35%),
+        radial-gradient(circle at 85% 50%, rgba(255, 60, 40, 0.14) 0%, transparent 35%),
+        repeating-linear-gradient(90deg,
+          rgba(15, 2, 4, 0.55) 0px,
+          rgba(15, 2, 4, 0.55) 3px,
+          rgba(212, 175, 55, 0.12) 3px,
+          rgba(212, 175, 55, 0.12) 4px,
+          transparent 4px,
+          transparent 110px
+        ),
+        repeating-linear-gradient(45deg,
+          rgba(0, 0, 0, 0.12) 0px,
+          rgba(0, 0, 0, 0.12) 2px,
+          transparent 2px,
+          transparent 18px
+        ),
+        linear-gradient(180deg, #4f0912 0%, #690d18 28%, #47070f 74%, #210306 100%);
+      border-bottom: 5px solid #d4af37;
+      box-shadow:
+        inset 0 28px 65px rgba(0, 0, 0, 0.85),
+        inset 0 -18px 40px rgba(0, 0, 0, 0.9),
+        0 6px 25px rgba(0, 0, 0, 0.9);
+      z-index: 1;
+    }
+
+    .casino-walls::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 22%;
+      background:
+        repeating-linear-gradient(90deg,
+          #1c0d06 0px,
+          #1c0d06 48px,
+          #3b1e0e 48px,
+          #3b1e0e 52px,
+          #261208 52px,
+          #261208 100px
+        );
+      border-top: 2px solid rgba(212, 175, 55, 0.7);
+      box-shadow: inset 0 6px 16px rgba(0, 0, 0, 0.85);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .casino-floor {
+      position: absolute;
+      bottom: 0;
+      left: -10%;
+      right: -10%;
+      height: 29%;
+      background-color: #3d2208;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 195, 85, 0.34) 0%, rgba(18, 9, 4, 0.92) 85%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.07) 0px, rgba(212, 175, 55, 0.07) 2px, transparent 2px, transparent 14px),
+        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.07) 0px, rgba(212, 175, 55, 0.07) 2px, transparent 2px, transparent 14px),
+        radial-gradient(#1a0d03 24%, transparent 27%),
+        radial-gradient(#522f0c 20%, transparent 23%),
+        radial-gradient(#9e6b20 26%, transparent 30%);
+      background-size: 100% 100%, 28px 28px, 28px 28px, 22px 16px, 30px 22px, 26px 20px;
+      background-position: 0 0, 0 0, 0 0, 0 0, 11px 8px, 6px 13px;
+      box-shadow: inset 0 30px 75px rgba(0, 0, 0, 0.92);
+      z-index: 1;
+      transition: background-color 0.8s ease, background-image 0.8s ease;
+    }
+
+    /* ==========================================================
+       100 POINTS EMERALD GREEN BACKGROUND TRANSFORMATION
+       ========================================================== */
+    body.emerald-jackpot-theme {
+      background-color: #031f10 !important;
+    }
+    body.emerald-jackpot-theme .casino-ceiling {
+      background: linear-gradient(180deg, #02140a 0%, #062915 75%, #0a3d20 100%);
+      border-bottom-color: #34d399;
+      box-shadow: 0 8px 35px rgba(16, 185, 129, 0.45), inset 0 -4px 12px rgba(110, 231, 183, 0.4);
+    }
+    body.emerald-jackpot-theme .casino-walls {
+      background: 
+        radial-gradient(circle at 50% 45%, rgba(52, 211, 153, 0.28) 0%, transparent 60%),
+        repeating-linear-gradient(90deg, 
+          rgba(0,0,0,0.28) 0px, 
+          rgba(0,0,0,0.28) 2px, 
+          transparent 2px, 
+          transparent 90px
+        ),
+        linear-gradient(180deg, #065f31 0%, #044724 50%, #022914 100%);
+      border-bottom-color: #6ee7b7;
+    }
+    body.emerald-jackpot-theme .casino-floor {
+      background-color: #0b5c30;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(52, 211, 153, 0.38) 0%, rgba(2, 20, 10, 0.88) 90%),
+        radial-gradient(#032411 22%, transparent 24%),
+        radial-gradient(#063b1d 18%, transparent 20%),
+        radial-gradient(#10b981 28%, transparent 32%);
+    }
+    body.emerald-jackpot-theme .lattice-arch {
+      border-color: #064e27;
+      box-shadow: 
+        0 0 32px rgba(16, 185, 129, 0.65),
+        inset 0 0 22px rgba(5, 150, 105, 0.9),
+        0 0 0 2px #6ee7b7;
+      background:
+        repeating-linear-gradient(45deg, rgba(4, 60, 30, 0.55) 0px, rgba(4, 60, 30, 0.55) 2px, transparent 2px, transparent 16px),
+        repeating-linear-gradient(-45deg, rgba(4, 60, 30, 0.55) 0px, rgba(4, 60, 30, 0.55) 2px, transparent 2px, transparent 16px),
+        radial-gradient(circle at 50% 50%, #a7f3d0 0%, #10b981 55%, #047857 100%);
+    }
+    body.emerald-jackpot-theme .neon-sconce {
+      background: #ecfdf5;
+      box-shadow: 
+        0 0 10px #34d399,
+        0 0 22px #10b981,
+        0 0 45px #059669;
+    }
+    body.emerald-jackpot-theme .roulette-table-fg {
+      background: radial-gradient(ellipse at 50% 35%, #10b981 0%, #047857 70%, #022c22 100%);
+      box-shadow: 
+        0 -3px 0 #6ee7b7,
+        0 15px 40px rgba(0,0,0,0.95),
+        inset 0 8px 20px rgba(0,0,0,0.65);
+    }
+    body.emerald-jackpot-theme .casino-cabinet {
+      background: linear-gradient(145deg, #052e16 0%, #02170b 55%, #042412 100%);
+      border-color: #6ee7b7;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.92),
+        0 0 50px rgba(16, 185, 129, 0.45),
+        inset 0 0 35px rgba(0, 0, 0, 0.85);
+    }
+    body.emerald-jackpot-theme .velvet-display-well {
+      background: radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.95) 0%, rgba(2, 28, 18, 0.98) 100%);
+      border-color: rgba(110, 231, 183, 0.7);
+    }
+
+    /* Mode Switcher Segmented Control */
+    .mode-switch-pill {
+      background: rgba(12, 3, 5, 0.9);
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.85), 0 0 18px rgba(212, 175, 55, 0.2);
+    }
+    .mode-tab-btn {
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+    }
+    .mode-tab-btn.active {
+      background: linear-gradient(180deg, #ffe89e 0%, #d4af37 55%, #9a6f18 100%);
+      color: #260407;
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.65);
+      text-shadow: none;
+    }
+
+    /* Quiz Option Buttons for "Il miliardario" */
+    .quiz-option-btn {
+      background: linear-gradient(145deg, rgba(45, 8, 14, 0.95) 0%, rgba(22, 3, 6, 0.98) 100%);
+      border: 2px solid rgba(212, 175, 55, 0.55);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65), inset 0 1px 4px rgba(255, 230, 150, 0.2);
+      transition: all 0.14s ease;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    @media (hover: hover) {
+      .quiz-option-btn:hover:not(:disabled) {
+        border-color: #fde047;
+        background: linear-gradient(145deg, rgba(75, 14, 24, 0.95) 0%, rgba(35, 5, 10, 0.98) 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), 0 0 15px rgba(251, 191, 36, 0.35);
+      }
+    }
+    .quiz-option-btn:active:not(:disabled) {
+      transform: translateY(2px) scale(0.99);
+    }
+    .quiz-option-btn.correct-choice {
+      background: linear-gradient(145deg, #059669 0%, #065f46 100%) !important;
+      border-color: #6ee7b7 !important;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.85) !important;
+      color: #ecfdf5 !important;
+    }
+    .quiz-option-btn.wrong-choice {
+      background: linear-gradient(145deg, #dc2626 0%, #7f1d1d 100%) !important;
+      border-color: #fca5a5 !important;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.85) !important;
+      color: #fef2f2 !important;
+    }
+
+    /* Arched Diamond-Lattice Glowing Windows */
+    .lattice-arch {
+      position: absolute;
+      top: 10%;
+      width: clamp(46px, 9vw, 130px);
+      height: clamp(110px, 26vh, 270px);
+      border-radius: 999px 999px 8px 8px;
+      border: 4px solid #4a2a0c;
+      box-shadow: 
+        0 0 30px rgba(255, 165, 30, 0.45),
+        inset 0 0 20px rgba(255, 120, 0, 0.85),
+        0 0 0 2px #d4af37;
+      background:
+        repeating-linear-gradient(45deg, rgba(90, 45, 5, 0.55) 0px, rgba(90, 45, 5, 0.55) 2px, transparent 2px, transparent 16px),
+        repeating-linear-gradient(-45deg, rgba(90, 45, 5, 0.55) 0px, rgba(90, 45, 5, 0.55) 2px, transparent 2px, transparent 16px),
+        radial-gradient(circle at 50% 50%, #ffdf85 0%, #f59e0b 55%, #b45309 100%);
+      z-index: 2;
+    }
+
+    /* Glowing Red Vertical Neon Sconces */
+    .neon-sconce {
+      position: absolute;
+      width: 5px;
+      height: clamp(50px, 10vh, 90px);
+      background: #fff0f0;
+      border-radius: 99px;
+      box-shadow: 
+        0 0 10px #ff3b3b,
+        0 0 22px #ff1a1a,
+        0 0 45px #ff0000;
+      animation: neonPulse 4s infinite alternate ease-in-out;
+      z-index: 2;
+    }
+    .neon-sconce::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -6px;
+      transform: translateY(-50%);
+      width: 17px;
+      height: 10px;
+      background: linear-gradient(90deg, #8a6415, #ffd700, #8a6415);
+      border-radius: 3px;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { opacity: 0.88; filter: brightness(1); }
+      50% { opacity: 1; filter: brightness(1.25); }
+    }
+
+    /* Park MGM Style Background Matrix Wall Sign */
+    .park-marquee-wall {
+      position: absolute;
+      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(200px, 52vw, 430px);
+      height: clamp(82px, 16vh, 195px);
+      background-color: #210e04;
+      background-image: radial-gradient(#ffb732 22%, transparent 28%);
+      background-size: 12px 12px;
+      border: 4px solid #2b180a;
+      outline: 2px solid #d4af37;
+      box-shadow: 0 0 45px rgba(255, 165, 20, 0.4), inset 0 0 30px rgba(0,0,0,0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      opacity: 0.88;
+      padding: 0.35rem 0.5rem;
+      text-align: center;
+    }
+
+    /* Foreground Roulette Table Silhouette */
+    .roulette-table-fg {
+      position: absolute;
+      bottom: -5%;
+      right: -4%;
+      width: clamp(230px, 50vw, 660px);
+      height: clamp(90px, 18vh, 220px);
+      background: radial-gradient(ellipse at 50% 35%, #b8141c 0%, #6e080d 70%, #380305 100%);
+      border-top: 12px solid #1a120e;
+      border-left: 16px solid #241813;
+      border-radius: 160px 40px 0 0;
+      box-shadow: 
+        0 -3px 0 #d4af37,
+        0 15px 40px rgba(0,0,0,0.95),
+        inset 0 8px 20px rgba(0,0,0,0.65);
+      transform: perspective(500px) rotateX(22deg) rotateZ(-4deg);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* ==========================================
+       MAIN HIGH-ROLLER SLOT / CASINO MACHINE
+       ========================================== */
+    .casino-cabinet {
+      background: linear-gradient(145deg, #2b070a 0%, #140304 55%, #240508 100%);
+      border: 3px solid #d4af37;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.92),
+        0 0 45px rgba(212, 175, 55, 0.25),
+        inset 0 0 35px rgba(0, 0, 0, 0.85);
+      position: relative;
+      width: 100%;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .gold-metallic-text {
+      background: linear-gradient(180deg, #fff8d6 0%, #f5c956 45%, #b58019 85%, #fff0a8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.75));
+    }
+
+    /* Chasing Marquee Bulbs (Gold & Red alternating) */
+    .bulb-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+    .marquee-bulb {
+      width: clamp(7px, 1.8vw, 10px);
+      height: clamp(7px, 1.8vw, 10px);
+      border-radius: 50%;
+      background: #ffefc2;
+      box-shadow: 0 0 8px #ffb700, 0 0 14px #ff8800;
+      animation: bulbChase 0.9s infinite ease-in-out;
+    }
+    .marquee-bulb:nth-child(even) {
+      background: #ffd6d6;
+      box-shadow: 0 0 8px #ff2a2a, 0 0 16px #ff0000;
+    }
+    .marquee-bulb:nth-child(3n) { animation-delay: 0.3s; }
+    .marquee-bulb:nth-child(3n+1) { animation-delay: 0.6s; }
+
+    @keyframes bulbChase {
+      0%, 100% { opacity: 0.32; transform: scale(0.82); }
+      50% { opacity: 1; transform: scale(1.16); }
+    }
+
+    /* 3D Tactile Casino Spin Button */
+    .spin-button-3d {
+      position: relative;
+      background: radial-gradient(circle at 50% 25%, #ff5252 0%, #d91414 55%, #7d0606 100%);
+      border: 3px solid #fce08b;
+      box-shadow: 
+        0 7px 0 #590404,
+        0 12px 22px rgba(0, 0, 0, 0.85),
+        0 0 30px rgba(255, 50, 50, 0.55),
+        inset 0 3px 10px rgba(255, 255, 255, 0.55);
+      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    @media (hover: hover) {
+      .spin-button-3d:hover {
+        transform: translateY(-2px) scale(1.015);
+        box-shadow: 
+          0 9px 0 #590404,
+          0 16px 28px rgba(0, 0, 0, 0.9),
+          0 0 45px rgba(255, 190, 60, 0.85),
+          inset 0 4px 15px rgba(255, 255, 255, 0.7);
+      }
+    }
+    .spin-button-3d:active, .spin-button-3d.pressed {
+      transform: translateY(5px) scale(0.985);
+      box-shadow: 
+        0 2px 0 #590404,
+        0 4px 10px rgba(0, 0, 0, 0.85),
+        0 0 22px rgba(255, 50, 50, 0.75),
+        inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Slot Display Screen with internal vertical scroll support for long quotes on small screens */
+    .velvet-display-well {
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(92, 11, 20, 0.94) 0%, rgba(23, 3, 6, 0.98) 100%);
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      box-shadow: 
+        inset 0 8px 30px rgba(0, 0, 0, 0.95),
+        0 0 22px rgba(212, 175, 55, 0.18);
+      min-height: clamp(110px, 19dvh, 200px);
+      max-height: clamp(150px, 30dvh, 260px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(212, 175, 55, 0.5) transparent;
+      transition: background 0.6s ease, border-color 0.6s ease;
+    }
+    .velvet-display-well::-webkit-scrollbar {
+      width: 4px;
+    }
+    .velvet-display-well::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.5);
+      border-radius: 99px;
+    }
+
+    /* Responsive Quote Text */
+    .responsive-quote-text {
+      font-size: clamp(0.98rem, 3.4vw, 1.55rem);
+      line-height: 1.34;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    /* Compact adjustments for short mobile viewports or landscape mode */
+    @media (max-height: 740px) {
+      .casino-cabinet {
+        padding: 0.65rem 0.9rem !important;
+      }
+      .velvet-display-well {
+        min-height: clamp(92px, 16dvh, 145px);
+        max-height: 24dvh;
+        padding: 0.6rem 0.75rem !important;
+      }
+      .responsive-quote-text {
+        font-size: clamp(0.9rem, 3vw, 1.25rem);
+      }
+      .bulb-strip {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+      }
+      .cabinet-header-wrap {
+        margin-bottom: 0.3rem !important;
+      }
+      .button-section-wrap {
+        margin-top: 0.45rem !important;
+      }
+      .attract-chips-row {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .casino-cabinet {
+        padding: 0.9rem 1rem;
+        border-radius: 1.35rem;
+      }
+    }
+
+    /* Paywall Siren Flash */
+    @keyframes sirenFlash {
+      0%, 100% { background-color: rgba(25, 2, 4, 0.93); }
+      50% { background-color: rgba(145, 10, 18, 0.93); }
+    }
+    .siren-backdrop {
+      animation: sirenFlash 0.85s infinite ease-in-out;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.86) translateY(14px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal-pop {
+      animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardReveal {
+      0% { opacity: 0; transform: scale(0.94) rotateX(12deg); filter: blur(3px); }
+      100% { opacity: 1; transform: scale(1) rotateX(0deg); filter: blur(0px); }
+    }
+    .animate-card-reveal {
+      animation: cardReveal 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes floatChip {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(6deg); }
+    }
+    .floating-chip {
+      animation: floatChip 3.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="relative select-none overflow-hidden">
+
+  <!-- ==============================================================
+       1. DYNAMIC PARK MGM VEGAS CASINO BACKGROUND SCENE
+       ============================================================== -->
+  <div id="scene-container">
+    <!-- Ceiling with recessed warm spotlights -->
+    <div class="casino-ceiling"></div>
+
+    <!-- Velvet Crimson Walls -->
+    <div class="casino-walls">
+      <!-- Left & Right Arched Lattice Windows -->
+      <div class="lattice-arch left-[3%] sm:left-[6%]"></div>
+      <div class="lattice-arch right-[3%] sm:right-[6%]"></div>
+
+      <!-- Red Neon Wall Sconces -->
+      <div class="neon-sconce left-[16%] top-[24%] hidden sm:block"></div>
+      <div class="neon-sconce right-[16%] top-[24%] hidden sm:block"></div>
+
+      <!-- Central Golden Matrix Board: "IN DIRETTA DAL CASINÒ REALE — SALA VIP" -->
+      <div class="park-marquee-wall rounded-lg">
+        <div class="flex gap-1 mb-1">
+          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">V</span>
+          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">I</span>
+          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">P</span>
+        </div>
+        <div class="font-casino text-amber-100 font-black tracking-[0.12em] text-[10px] sm:text-sm md:text-base leading-tight drop-shadow-[0_0_10px_rgba(251,191,36,0.9)]">
+          IN DIRETTA DAL CASINÒ REALE — SALA VIP
+        </div>
+      </div>
+    </div>
+
+    <!-- Leopard / Gold Patterned Casino Carpet -->
+    <div class="casino-floor"></div>
+
+    <!-- Reference Photo Blend Layer -->
+    <div class="bg-photo-layer"></div>
+
+    <!-- Foreground Roulette Table Silhouette -->
+    <div class="roulette-table-fg">
+      <div class="absolute -top-6 sm:-top-9 left-8 sm:left-14 w-24 sm:w-36 h-11 sm:h-16 rounded-full bg-gradient-to-b from-amber-700 via-amber-950 to-black border-2 sm:border-4 border-amber-400/80 shadow-2xl flex items-center justify-center overflow-hidden">
+        <div class="w-16 sm:w-24 h-5 sm:h-8 rounded-full border-2 border-dashed border-amber-300 animate-spin" style="animation-duration: 7s;"></div>
+        <div class="absolute w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-amber-300 shadow-[0_0_10px_#fcd34d]"></div>
+      </div>
+      <div class="mt-4 sm:mt-7 ml-36 sm:ml-52 mr-6 sm:mr-12 h-14 sm:h-24 border border-amber-300/40 grid grid-cols-6 grid-rows-3 opacity-60">
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+        <div class="border border-amber-300/30 bg-black/50"></div>
+        <div class="border border-amber-300/30 bg-red-800/50"></div>
+      </div>
+    </div>
+
+    <!-- Dynamic Canvas for Spotlights, Floating Gold Dust & Sparkles -->
+    <canvas id="casino-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
+
+    <!-- Warm Vignette Overlay -->
+    <div class="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(5,2,3,0.8)_100%)]"></div>
+  </div>
+
+  <!-- ==============================================================
+       SAFE-AREA APP WRAPPER (FITS 100dvh ON PHONES & LAPTOPS)
+       ============================================================== -->
+  <div class="app-safe-wrapper">
+
+    <!-- 2. TOP BAR HUD (ITALIAN VIP BADGE & SOUND TOGGLE) -->
+    <header class="w-full max-w-5xl mx-auto flex items-center justify-between gap-2 shrink-0">
+      <!-- Left VIP Badge -->
+      <div class="flex items-center gap-2 bg-black/80 border border-amber-500/50 rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+        <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="font-casino text-[10px] sm:text-xs md:text-sm font-bold tracking-wider text-amber-200">
+          CASINÒ REALE • <span class="text-amber-400">SALA VIP</span>
+        </span>
+      </div>
+
+      <!-- Right Controls: Audio Toggle & Home Reset -->
+      <div class="flex items-center gap-2">
+        <button id="sound-toggle-btn" type="button" title="Attiva/Disattiva Audio Casinò"
+          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-label" class="hidden sm:inline">AUDIO ATTIVO</span>
+        </button>
+
+        <button id="reset-home-btn" type="button" title="Torna alla pagina iniziale"
+          class="hidden items-center gap-1 bg-red-950/85 active:bg-red-800 hover:bg-red-900 border border-amber-400/60 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          <span>↺</span>
+          <span>INIZIO</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 3. CENTER STAGE: LAS VEGAS VIP RANDOMIZER MACHINE -->
+    <main class="flex-1 flex flex-col items-center justify-center w-full my-auto py-1">
+      
+      <div class="casino-cabinet rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 transition-all duration-300">
+        
+        <!-- Top Chasing Marquee Bulbs -->
+        <div class="bulb-strip mb-2 sm:mb-3 px-1">
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+        </div>
+
+        <!-- ==========================================================
+             INITIAL LANDING VIEW: CHOOSE MODE ("STORIA" vs "IL MILIARDARIO")
+             ========================================================== -->
+        <div id="landing-mode-select-view" class="flex flex-col items-center justify-center py-2 sm:py-4 px-1 sm:px-3 text-center">
+          <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-1">
+            ★ BENVENUTO AL CASINÒ REALE ★
+          </div>
+          <h1 class="font-casino text-lg sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-tight mb-1">
+            SCEGLI LA TUA MODALITÀ
+          </h1>
+          <p class="text-[11px] sm:text-xs text-amber-200/80 mb-3 sm:mb-4">
+            Seleziona un tavolo VIP per iniziare a giocare
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-xl">
+            <!-- Card 1: STORIA (Max 10 words description) -->
+            <button id="landing-choose-storia" type="button"
+              class="quiz-option-btn rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2 group cursor-pointer">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/20 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(251,191,36,0.4)] group-hover:scale-105 transition">
+                📖
+              </div>
+              <div class="font-casino font-black text-sm sm:text-lg text-amber-200 tracking-wider uppercase">
+                STORIA
+              </div>
+              <p class="text-xs sm:text-sm text-amber-100/90 leading-snug font-medium">
+                Estrai frasi casuali con autore e sfida la fortuna.
+              </p>
+              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
+                ENTRA NEL TAVOLO →
+              </span>
+            </button>
+
+            <!-- Card 2: IL MILIARDARIO (Max 10 words description) -->
+            <button id="landing-choose-miliardario" type="button"
+              class="quiz-option-btn rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2 group cursor-pointer">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/20 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(251,191,36,0.4)] group-hover:scale-105 transition">
+                💰
+              </div>
+              <div class="font-casino font-black text-sm sm:text-lg text-amber-200 tracking-wider uppercase">
+                IL MILIARDARIO
+              </div>
+              <p class="text-xs sm:text-sm text-amber-100/90 leading-snug font-medium">
+                Indovina chi ha detto la frase e raggiungi cento punti.
+              </p>
+              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
+                INIZIA LA SFIDA →
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==========================================================
+             MAIN GAMEPLAY CONTAINER (SHOWN AFTER INITIAL MODE SELECTION)
+             ========================================================== -->
+        <div id="main-game-content" class="hidden flex-col w-full">
+
+        <!-- ==========================================================
+             MODE SWITCHER ("STORIA" vs "IL MILIARDARIO")
+             ========================================================== -->
+        <div class="flex flex-col items-center justify-center mb-2 sm:mb-3">
+          <div class="mode-switch-pill p-1 rounded-full grid grid-cols-2 gap-1 w-full max-w-xs sm:max-w-sm">
+            <button id="mode-storia-btn" type="button"
+              class="mode-tab-btn active rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-amber-200">
+              <span>📖</span>
+              <span>STORIA</span>
+            </button>
+            <button id="mode-miliardario-btn" type="button"
+              class="mode-tab-btn rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-amber-200">
+              <span>💰</span>
+              <span>IL MILIARDARIO</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Machine Header Plaque -->
+        <div class="cabinet-header-wrap text-center mb-2 sm:mb-3">
+          <div id="mode-subtitle-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-0.5">
+            ★ SALA DELLE PERLE D'ORO ★
+          </div>
+          <h1 id="machine-main-title" class="font-casino text-base sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-tight">
+            LA ROULETTE DELLE FRASI
+          </h1>
+
+          <!-- "IL MILIARDARIO" SCORE & PROGRESS HUD (Hidden in Storia mode) -->
+          <div id="miliardario-hud" class="hidden flex-col items-center justify-center mt-1.5 w-full max-w-md mx-auto">
+            <div class="flex items-center justify-between w-full px-2 mb-1 text-[11px] sm:text-xs font-casino font-bold">
+              <div class="flex items-center gap-1.5 text-amber-200">
+                <span>🏆 PUNTI:</span>
+                <span id="miliardario-score" class="text-amber-300 text-sm sm:text-base font-black">0</span>
+                <span class="text-amber-400/70">/ 100</span>
+              </div>
+              <div id="emerald-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300 text-emerald-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse">
+                ✨ SALA SMERALDO SBLOCCATA! ✨
+              </div>
+              <div class="text-amber-300/80 text-[10px] sm:text-xs">
+                RECORD: <span id="miliardario-best" class="text-amber-200 font-extrabold">0</span>
+              </div>
+            </div>
+            <!-- Progress bar towards 100 points -->
+            <div class="w-full h-2 bg-black/80 rounded-full overflow-hidden border border-amber-500/40 p-0.5">
+              <div id="miliardario-progress-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-300 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================================
+             DISPLAY WINDOW (ATTRACT SCREEN vs. RANDOMIZED QUOTE CARD)
+             ========================================================== -->
+        <div id="display-well" class="velvet-display-well rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col items-center justify-center text-center relative">
+          
+          <!-- Corner Gold Ornaments -->
+          <div class="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-amber-400/70 pointer-events-none"></div>
+          <div class="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-amber-400/70 pointer-events-none"></div>
+          <div class="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-amber-400/70 pointer-events-none"></div>
+          <div class="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-amber-400/70 pointer-events-none"></div>
+
+          <!-- STATE A: INITIAL ATTRACT MODE SCREEN (PAGINA INIZIALE) -->
+          <div id="initial-attract-view" class="flex flex-col items-center justify-center space-y-2 sm:space-y-3 max-w-lg mx-auto my-auto">
+            <div class="attract-chips-row flex items-center justify-center gap-3 sm:gap-4 mb-0.5">
+              <div class="floating-chip w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 sm:border-4 border-dashed border-amber-300 bg-red-700 flex items-center justify-center shadow-[0_0_15px_rgba(251,191,36,0.5)]">
+                <span class="font-casino font-black text-amber-200 text-[9px] sm:text-xs">VIP</span>
+              </div>
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-amber-800 p-0.5 shadow-[0_0_25px_rgba(245,158,11,0.65)] flex items-center justify-center">
+                <div class="w-full h-full rounded-full bg-red-950 flex items-center justify-center text-lg sm:text-xl">
+                  🎰
+                </div>
+              </div>
+              <div class="floating-chip w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 sm:border-4 border-dashed border-amber-300 bg-neutral-900 flex items-center justify-center shadow-[0_0_15px_rgba(251,191,36,0.5)]" style="animation-delay: 0.7s;">
+                <span class="font-casino font-black text-amber-300 text-[9px] sm:text-xs">777</span>
+              </div>
+            </div>
+
+            <h2 id="attract-headline-text" class="font-quote responsive-quote-text text-amber-50 font-semibold px-1">
+              Premi il pulsante dorato per tentare la fortuna ed estrarre una perla di saggezza!
+            </h2>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-900/70 via-amber-700/60 to-amber-900/70 border border-amber-300/70 shadow-[0_0_15px_rgba(212,175,55,0.25)]">
+              <span class="text-amber-300 text-xs">♛</span>
+              <span id="attract-pill-label" class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-amber-100 uppercase">
+                MODALITÀ STORIA
+              </span>
+            </div>
+          </div>
+
+          <!-- STATE B: SLOT REEL SHUFFLING ANIMATION -->
+          <div id="slot-shuffle-view" class="hidden flex-col items-center justify-center space-y-2 w-full my-auto">
+            <div class="text-[10px] sm:text-xs font-casino tracking-[0.25em] text-amber-400 uppercase animate-pulse">
+              ⚡ LA RUOTA STA GIRANDO... ⚡
+            </div>
+            <div id="shuffle-preview-text" class="font-quote italic text-sm sm:text-lg md:text-xl text-amber-200/90 px-2 line-clamp-2">
+              Mescolando le perle...
+            </div>
+            <div class="w-36 sm:w-44 h-1.5 bg-amber-950 rounded-full overflow-hidden border border-amber-500/40">
+              <div class="h-full bg-gradient-to-r from-amber-500 via-yellow-200 to-amber-500 w-full animate-pulse"></div>
+            </div>
+          </div>
+
+          <!-- STATE C: RANDOMIZED SENTENCE POPUP CARD -->
+          <div id="quote-result-view" class="hidden flex-col items-center justify-center w-full px-1 sm:px-3 my-auto">
+            <div id="quote-top-pill" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-300 text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase mb-1.5">
+              <span>🎲</span>
+              <span id="quote-top-pill-text">PERLA ESTRATTA</span>
+              <span>🎲</span>
+            </div>
+
+            <blockquote id="quote-main-text" class="font-quote responsive-quote-text text-amber-50 font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] mb-2">
+              "..."
+            </blockquote>
+
+            <!-- VIP Author Plaque (Shown ONLY in "Storia" mode, hidden in "Il miliardario") -->
+            <div id="quote-author-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-900/70 via-amber-700/60 to-amber-900/70 border border-amber-300/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+              <span class="text-amber-300 text-xs">♛</span>
+              <span id="quote-author-text" class="font-casino text-[11px] sm:text-xs md:text-sm font-bold tracking-wider text-amber-100 uppercase">
+                ANONIMO
+              </span>
+            </div>
+
+            <!-- Feedback Banner for "Il miliardario" after choosing an option -->
+            <div id="miliardario-feedback" class="hidden mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase">
+            </div>
+
+            <!-- "Start Again" Button shown when the user chooses the wrong option in "Il miliardario" -->
+            <button id="miliardario-restart-btn" type="button"
+              class="hidden mt-2.5 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-105 active:scale-95 transition cursor-pointer">
+              ↻ RICOMINCIA DA CAPO (START AGAIN)
+            </button>
+          </div>
+
+          <!-- STATE D: "HAI PERSO!" FLASHING SLOT DISPLAY -->
+          <div id="lost-slot-view" class="hidden flex-col items-center justify-center w-full px-2 animate-pulse my-auto">
+            <div class="text-2xl sm:text-3xl mb-1">🚨</div>
+            <h2 class="font-casino text-xl sm:text-3xl font-black tracking-widest text-red-500 drop-shadow-[0_0_20px_rgba(255,0,0,0.9)]">
+              HAI PERSO!
+            </h2>
+            <p class="text-[10px] sm:text-xs text-red-200 uppercase tracking-widest mt-1">
+              CREDITI ESAURITI AL TAVOLO VIP
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ==========================================================
+             MODE 1 CONTROLS: TACTILE 3D CASINO RANDOMIZER BUTTON ("STORIA")
+             ========================================================== -->
+        <div id="storia-controls-wrap" class="button-section-wrap mt-3 sm:mt-4 flex flex-col items-center">
+          <button id="randomize-btn" type="button"
+            class="spin-button-3d w-full sm:w-auto min-w-[240px] sm:min-w-[320px] rounded-full px-6 py-3 sm:px-8 sm:py-3.5 flex items-center justify-center gap-2 text-white font-casino font-black tracking-wider text-sm sm:text-lg">
+            <span id="spin-btn-text">🎰 ESTRAI UNA FRASE 🎰</span>
+          </button>
+
+          <div class="mt-2 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-amber-200/75">
+            <span>PUNTATA: <strong class="text-amber-300">GRATUITA</strong></span>
+            <span>•</span>
+            <span>MODALITÀ: <strong class="text-amber-300">STORIA</strong></span>
+          </div>
+        </div>
+
+        <!-- ==========================================================
+             MODE 2 CONTROLS: 3 OPTIONS QUIZ ("IL MILIARDARIO")
+             ========================================================== -->
+        <div id="miliardario-controls-wrap" class="button-section-wrap mt-2.5 sm:mt-3.5 hidden flex-col items-center w-full">
+          <div class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5">
+            CHI HA PRONUNCIATO QUESTA FRASE? (SCEGLI 1 DELLE 3 OPZIONI)
+          </div>
+
+          <!-- 3 Option Buttons -->
+          <div id="miliardario-options-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+            <button type="button" data-opt-idx="0"
+              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">A</span>
+              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione A</span>
+            </button>
+
+            <button type="button" data-opt-idx="1"
+              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">B</span>
+              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione B</span>
+            </button>
+
+            <button type="button" data-opt-idx="2"
+              class="quiz-option-btn rounded-xl px-3 py-2.5 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
+              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">C</span>
+              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione C</span>
+            </button>
+          </div>
+
+          <div class="mt-2 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-amber-200/75 text-center">
+            <span>✅ ESATTA: <strong class="text-emerald-300">+1 PUNTO</strong></span>
+            <span>•</span>
+            <span>❌ ERRATA: <strong class="text-red-400">PERDI TUTTI I PUNTI (0)</strong></span>
+            <span>•</span>
+            <span>🎯 100 PUNTI: <strong class="text-emerald-300">SORPRESA</strong></span>
+          </div>
+        </div>
+
+        </div><!-- /#main-game-content -->
+
+        <!-- Bottom Chasing Marquee Bulbs -->
+        <div class="bulb-strip mt-3 sm:mt-3.5 px-1">
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+          <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Subtle Bottom Status Line -->
+    <footer class="text-center text-[10px] text-amber-200/50 tracking-widest uppercase shrink-0">
+      CASINÒ REALE LAS VEGAS • TOCCA O CLICCA PER GIOCARE
+    </footer>
+  </div>
+
+  <!-- ==============================================================
+       4. "HAI PERSO!" + €2,99 PAYWALL OVERLAY (ENTIRELY IN ITALIAN)
+          (CLICKING OR TAPPING ANYWHERE RETURNS TO INITIAL PAGE!)
+       ============================================================== -->
+  <div id="paywall-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 siren-backdrop cursor-pointer">
+    
+    <!-- Modal Card (Responsive & Phone-Friendly) -->
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-7 text-center shadow-[0_0_80px_rgba(255,30,30,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
+      
+      <!-- Top Flashing Siren Banner -->
+      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-red-600/30 border border-red-400 text-red-200 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-bounce">
+        🚨 BANCAROTTA • SALA VIP 🚨
+      </div>
+
+      <!-- Giant HAI PERSO Headline -->
+      <h2 class="font-casino text-2xl sm:text-4xl md:text-5xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-red-400 to-red-700 drop-shadow-[0_4px_15px_rgba(255,0,0,0.8)] mb-1.5">
+        🎰 HAI PERSO! 🎰
+      </h2>
+
+      <p class="text-amber-100/95 text-xs sm:text-base font-semibold mb-3.5 sm:mb-5 px-1">
+        CREDITI ESAURITI! La fortuna ti ha voltato le spalle.
+      </p>
+
+      <!-- €2,99 Paywall Box -->
+      <div class="rounded-xl sm:rounded-2xl bg-black/75 border-2 border-amber-500/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
+        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-amber-300/80 mb-0.5">
+          PASS ESCLUSIVO CASINÒ REALE
+        </div>
+        <div class="flex items-baseline justify-center gap-2 my-0.5">
+          <span class="text-amber-400/60 line-through text-xs sm:text-base">€9,99</span>
+          <span class="font-casino text-3xl sm:text-5xl font-black gold-metallic-text">€2,99</span>
+        </div>
+        <div class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-amber-300 mt-0.5">
+          Sblocca Giri Illimitati VIP
+        </div>
+      </div>
+
+      <!-- Fake Casino Payment Buttons in Italian -->
+      <div class="flex flex-col gap-2">
+        <button type="button"
+          class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-base tracking-wider shadow-[0_0_30px_rgba(251,191,36,0.8)] active:scale-95 transition cursor-pointer">
+          🔓 SBLOCCA ORA — €2,99
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button"
+            class="py-2 sm:py-2.5 px-3 rounded-full bg-amber-950/80 border border-amber-400/60 text-amber-100 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
+            💳 CARTA VIP
+          </button>
+          <button type="button"
+            class="py-2 sm:py-2.5 px-3 rounded-full bg-neutral-900/90 border border-amber-500/30 text-amber-200/80 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
+            ✕ TORNA ALL'INIZIO
+          </button>
+        </div>
+      </div>
+
+      <!-- Hint that tapping or clicking anywhere returns to initial page -->
+      <p class="mt-3 sm:mt-4 text-[11px] sm:text-xs text-amber-200/80 italic">
+        (Tocca o clicca in qualsiasi punto per tornare all'inizio)
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ==============================================================
+       5. APPLICATION LOGIC, DATASET & AUDIO SYNTHESIZER
+       ============================================================== -->
+  <script>
+    // Complete dataset of 364 sentences (updated with user amendments & deletions)
+    const FRASI_DB = [
+      "Sono interdetta - Franca Paludetto",
+      "Io ho un nome brutto: Girolama - Girolama Gambino",
+      "Insulto all'Inter: interfeci - Michela",
+      "La paura di The Roberto - Michela",
+      "Adesso come ci gestiamo? - Alberto F.",
+      "Mattia Moro - Gambino",
+      "Da piccola facevo nascere le lucertole - Irene",
+      "Cos'è l'utopia? Una carta di Yu-Gi-Oh - Palme",
+      "Chi più spende meno spende - Pitaccolo",
+      "Io sono un ninja - Catto",
+      "Voglio raggiungere l'Enciantix - Irene",
+      "Il boy della fauna è il fauno - Michela",
+      "Sono uscito con un giubbotto a puà - Alberto F.",
+      "Che bella giornata andiamo in Puglia - Alberto F.",
+      "La prof ha il pollice verde - Alberto F.",
+      "Il prof è un licantropo - Peru (Riferito a Milidone)",
+      "Pacifico questo - Rocco Milidone",
+      "L'Odovico - Mario",
+      "Deossiribosio - Gianni",
+      "Con voto? No con simboli atzechi - Gambino",
+      "Quod verum dixisti non punieris... questa è giusta per Tommaso - Paludetto",
+      "Giacché cravatta - Nicolò",
+      "Sono un gallinottero - Palme",
+      "Gli inglesi sono bastardi - Terrida",
+      "Carraro... manchi - Alberto F.",
+      "Ti piacciono i kitammuort? - Alberto F.",
+      "Che bella giornata... andiamo in Africa in bici - Catto",
+      "Lo scheletro carbonilico - Gianni",
+      "Siamo finanziati dall'Isis - Palme",
+      "Mi urta l'anima - Alberto F.",
+      "Chi è al secondo esercizio... è un pirla - Terrida",
+      "Questa prof non è terrona... strano - Alberto F.",
+      "Le rosse con lo sguardo magnetico, le more con lo sguardo deciso, le bionde un po' - Gambino",
+      "Giovanni, ti lascio il mio vecchio soprannome: labbra di fuoco - Cesetti",
+      "Sei figlio di un dio minore - Cesetti",
+      "Palu: State giocando a briscola? Palme: Un pochino",
+      "Mamma mia, che cesso! - Terrida",
+      "Gli americani sono bovari - Terrida",
+      "Gli australiani sono ex galeotti e prostitute - Terrida",
+      "L'ombellico - Pitaccolo",
+      "Regalare soldi... un simple present - Nicolò",
+      "Alberto manca - Catto",
+      "7 politico? - Carraro",
+      "Participio passato di esigo? Egitto? - Zago",
+      "Neanche io non pronuncio correttameeeente - Palu",
+      "Il punteggio grezzo - Prof di Fisica dell'inizio della terza",
+      "La Monica di Monza - Alberto F.",
+      "Io vivo! Io valgo! - Gianni",
+      "Il '600 è un monello per Manzoni - Peru",
+      "A.C. D.C.: Avanti Catto e Dopo Catto - Peru",
+      "Date una circonferenza a quell'uomo - Alberto F.",
+      "Mary è un uomo - Peru (Pensava che fosse un nome da uomo)",
+      "Date un compasso a quell'uomo - Alberto F.",
+      "Come ti chiami? Michela. Ah, Micheli - Gambino",
+      "Che degrado - Gambino",
+      "Catto: la Tina Cipollari della 2^ D - Michela",
+      "Sabrina Ferulli - Simone",
+      "Datti una regolata - Alberto F.",
+      "Vi state perdendo gli errori di Simone di cui possiamo ridere insieme - Terrida",
+      "Com'è bello questo crasso! - Gambino",
+      "Il prof è un unicorno - Alberto F.",
+      "Stay accorto - Rocco Milidone",
+      "Non c'hanno sale in zucca - Gambino",
+      "Mia nonna ha fatto la casalinga - Alberto F.",
+      "Stival: Sapete che sono un po' sordo; Peru: Ah ecco perché urla",
+      "È l'Ipsia tedesco - Palu",
+      "L'altra sembra un tappeto - Alberto F.",
+      "Ti odio! - Terrida",
+      "No arrogo - Alberto F.",
+      "Potrei dirvelo, ma oggi sono nella fase del dispetto - Gambino",
+      "La preposizione fa da segnaposto - Carraro",
+      "Non farti trascinare da uno spazio vuoto - Terrida",
+      "Se dici \"that\" sei uno zotico - Terrida",
+      "Quello uomo - Terrida",
+      "Così ti tormenti l'anima - Terrida",
+      "Che mal di cuore - Terrida",
+      "Ti do una lellera - Milidone",
+      "Ognuno fa i suoi porci comodi - Milidone",
+      "Le dichiarative sono l'ultima spiaggia? - Carraro",
+      "Il vandalismo va al di fuori dell'umana comprensione - Palu",
+      "E che? I filosofi erano calzolai? - Gambino",
+      "Sui libri di grammatica lo trovi a manate - Terrida",
+      "La dirimpettaia di mia nonna - Carlotta",
+      "Non era di mia competenza - Alberto F.",
+      "In America ci sono tantissime pizzerie gestite da italiani... e da napoletani - Gambino",
+      "Palme è un vaso di pottery - Peru",
+      "Hanno cambiato la tenda? Ah no c'è ancora quella schifa - Terrida",
+      "Io vi insulto mentalmente - Terrida",
+      "Mi scrivono di quelle fregnacce - Terrida",
+      "Ma no ma dai... totano - Terrida",
+      "Mi suicido?? Mi devo suicidare?? - Terrida",
+      "Perché mi fai difetto, idiota? - Terrida",
+      "Ho scritto malissimo: gallinaceo - Terrida",
+      "Sta ancora interrogando quella baldracca? - Alberto F.",
+      "Io non l'ho ancora audito, devo audirlo - Terrida",
+      "Ho fatto un esempio infame - Terrida",
+      "Ipsolon è diventato una mina vagante - Milidone",
+      "Sciocca macchina! - Terrida",
+      "La famosa mano lampeggiante o mano con l'Alzheimer - Gambino",
+      "Ti immagini se i pulcini invece di diventare polli diventassero pulcioni? - Peru",
+      "Quando correggo i compiti mi faccio di quelle sbaccanate - Terrida",
+      "Prof, io sono un caso speciale - Palme",
+      "Magna Charta: eat paper - Zago",
+      "La frase come l'ha fatta lei è un po' bislacca - Terrida",
+      "Voi italiani - Terrida",
+      "Common: raffreddore - Alberto F.",
+      "Tu non parlare sennò ti grattugio - Milidone a Palmegiano",
+      "E che è la fanciulla del West? - Gambino",
+      "Ma i pesci hanno i polmoni? - Zago",
+      "Peru: Chiamatemi Francesca da Trapani; Simone: Sei sicula?",
+      "Cosa avrebbe pensato? Madre, libero di nuovo - Terrida",
+      "Impatto metereologico, quindi di meteoriti - Greta",
+      "Cos'è questo Shrek? - Stival",
+      "Vai a vivere a Zungri - Milidone",
+      "Milidone: Qualcuno dice anche forma canonica; Carraro: Sì, i frati",
+      "Ho un'assioma sulla spalla - Zago",
+      "Ho una spuria sulla gamba - Alberto F.",
+      "Non ho paura di te, Mario - Terrida",
+      "Alessandra Amorosio - Simone",
+      "Peru: Quando passano le pecore? Michela: Exeunte vere",
+      "Loads of: cariolate - Terrida",
+      "Fai la Gambino che è più pinia - Zago",
+      "Stival: Ti metto la I; Zago: Di impreparato? Stival: Di interrogazione",
+      "Non posso quella crrragna lì - Terrida",
+      "Mi fa veramente senso - Terrida",
+      "Date un soggetto a quella frase! - Simone",
+      "A Parigi c'è il Lourdes - Simone",
+      "Lava cane, pettina cane, sempre di cane puzza - Anonimo",
+      "Quella A è uno sbaffo di penna - Terrida",
+      "Panigutto: Si sa che in primavera i gatti... Zago: Migrano",
+      "Si rivolgono con atteggiamento amicale - Panigutto",
+      "A manate, a borse, a scatoloni - Terrida",
+      "Allora io mi vesto da suora e vado in giro - Terrida",
+      "E chi siete voi? Mr. Muscolo e Miss Minigonna? - Gambino",
+      "Panigutto: Palmegiano dai scriviamo vangelo o vangeli? Palme: Vangelo; Peru: Secondo Giovanni...",
+      "Terrida: È andata un po' come il tuo nome... Zago: Cioè? Terrida: A zigo zago",
+      "Con voi tutto diventa ostico e disgraziato - Terrida",
+      "Pitaccolo: Cosa porti?; Palme: Pittura su tavola; Pitaccolo: Ma non l'abbiamo ancora fatta",
+      "Pitaccolo: Quante volte ha fallito Edison? Alberto F.: 7",
+      "Ma tu ti guardi allo specchio? - Terrida a Palme",
+      "C'è un limite all'obrobrio - Terrida a Palme (Sui risvoltini)",
+      "La gazzetta fatta per voi mentecatti - Terrida",
+      "Terrida: \"Sei orrendo\", Peru: \"Chiaretta fashion blogger\"",
+      "Siete esilaranti - Terrida",
+      "Il mio pesce si è suicidato - Irene",
+      "Il mio criceto è morto di solitudine - Irene",
+      "It is not concess to you - Chiara Valente",
+      "Mattia dolens - Palu in gita a Trento",
+      "Mi chiamano Franco, Frankie, Frank, Francuz, Franca - Palu",
+      "Cos'avete lunedì? Postumi da sbronza? - Gianni",
+      "Gianni: C'è un corso per genitori; Mario: 16 anni incinta?",
+      "I = 6 - Gianni",
+      "È un organismo diploide come te - Gianni",
+      "Ti metto un -2 in valore assoluto - Milidone",
+      "Sta raffreddando la sostanza gialla - Terrida",
+      "Gambino: Allah ha 99 nomi; Carraro: Allah faccia",
+      "Fino a mezz'ora fa non sapevo del pacco - Milidone",
+      "Ho 14 gatti (prima ne avevo 21) - Gianni",
+      "Quello è il capobranco - Gianni",
+      "Sono impegnativi, infatti non vedo l'ora che diminuiscano (riferito ai 14 gatti, in precedenza 21) - Gianni",
+      "Waterista - Anna",
+      "La Paludetto chiama la Girolama Mimma - Milidone",
+      "Non siamo alla TV - Venturin",
+      "Mi perdoni? - Palu",
+      "La palla deve entrare (Tutti: clap clap clap) - Anonimo",
+      "Prof... va bene AFFRANCARE? - Carraro alla Paludetto",
+      "Marco è Giotto - Milidone",
+      "E che amministravano? La minestra? - Gambino",
+      "Non puoi stare paludato - Terrida",
+      "Ho avuto il cane ammazzato - Terrida",
+      "Preferisco l'orale - Pitaccolo",
+      "Zago: Non si fa Gabry il primo giugno; Marso: Ponte",
+      "Tua mamma è come Pingu... nut nut - Filippo",
+      "Cruciani: Poi voglio iniziare a spiegare goniometria; Palme: Serve il goniometro?",
+      "Le chiese gotiche erano instabili e fiammeggianti - Emma",
+      "Come si chiama l'insegnante di arte? Pirandelli? - Vincentini",
+      "Marco Borriello? Quello di Squadra Antimafia - Giovanna",
+      "Perché Portogruaro non è provincia di Venezia, è città-stato - Anna",
+      "Senza una staccaletta? - Tecla",
+      "Piove... non è giusto sono indispettita - Tecla",
+      "Io come funzioni oserei mettere... - Carlotta",
+      "Le cartelline sono grandi come la casa di un pappone - Carraro",
+      "Peru: Facciamo una petizione per insegnare alla Ghiraldelli... Simone: A vivere",
+      "Domani andiamo in laboratorio per fare la mole - Peressini",
+      "Terrida: La Tirone mi è epidermicamente... Pietro: Sublime",
+      "Brutto, brutto... tante Lidl - Terrida",
+      "La Rizzi ha i capelli da Troy Bolton - Anna",
+      "Altrimenti facciamo le cose alla cavolo via - Peressini",
+      "Le leggevano con più filologia - Greta",
+      "Vivit. VIVIT? Anadiplosi. - Vincentini",
+      "Def: Potrebbero scalare di posto ogni giorno... Tecla: Nomadi?",
+      "Uffa - Ghiraldelli",
+      "Io shekero le cimici - Tirone",
+      "Ci sono rimasta stronza - Anna",
+      "Sono un centauro anche io? - Tecla",
+      "Ma che è? Un messaggino vocalico? - Tecla",
+      "Avete mai visto qualcuno che gioca con un'anguilla - Tecla",
+      "Emma butta giù il pelo - Tecla",
+      "Romeo è caduto in amore - Greta",
+      "Hai l'infezione da articoli - Terrida",
+      "I protagonisti come si chiamano? Tony, Meni, Bepi? - Terrida",
+      "Sciogliamo le castagne - Terrida",
+      "Sono un fenomeno a sbavarmi - Palme alla Tecla",
+      "Terne pitagoriche, no magia - Cruciani",
+      "Pietro legati e procrea con Filippo - Profeta",
+      "Le relazioni oggi sono fast food - Profeta",
+      "Siete sciroccati - Terrida",
+      "Io questo errore lo valuto il 100% dello 0 - Terrida",
+      "Peressini: Regola dell'ottetto che viene rispe...cchiata - Peressini",
+      "Morivano a sbrego - Terrida",
+      "Le configurazioni di Levis - Peressini",
+      "Raffaella Clerici - Anna",
+      "I musulmani in paradiso trovano le ballerine svolazzanti - Terrida",
+      "Tu ti svegli e poi ti colpevolizzi? - Terrida",
+      "Voglio comprare un'automobile color grigio-pietra lavica di Napoli - Tirone",
+      "Letto, approvato, aggiudicato - Tecla",
+      "Volete vivere in mezzo all'immondizia? Andate a Napoli - Cruciani",
+      "Concordia, essendo stata sede papale... - Emma",
+      "Direi che no! - Cruciani",
+      "Nuo! - Cruciani",
+      "E che? Ci facciamo le lampade per essere come i neri? - Tecla",
+      "I due personaggi sono Platone e Aristotele, Platone indica le cose del cielo che sono meglio di quelle della terra - Ghiraldelli",
+      "Rizzi: Ti è venuto l'esercizio? Zago: Eh scusi a casa non mi è venuto (era un esercizio nuovo appena fatto a scuola)",
+      "E uno e due e tre e quattro e cinque e sei - Cruciani",
+      "Chi sa rispondere può far baldoria, chi invece risponde correttamente non può - Peressini",
+      "C'è Zago che confubola - Anna",
+      "Machiavelli era uno stoicista - Greta",
+      "Guardo musica, gioco al kickbox - Terrida",
+      "Sennò rimanete rape - Cruciani",
+      "Come si fa a essere così crudi - Peressini",
+      "I capelli che si mettono per isolare i tubi - Carlotta",
+      "Platone indica il mondo degli dei - Ghiraldelli",
+      "Dammi tempo amore - Peressini a Carraro",
+      "Questa è falsamente... una cosa falsa - Terrida",
+      "Io non è che sbavo - Peressini",
+      "Complemento di maniera - Terrida",
+      "Anche io sono una persona che mi devo mettere il giubbotto - Anna",
+      "Vi espullo - Anna",
+      "Voi guardate il culo dei cani? Io sì - Anna",
+      "Siete veramente interattivi - Anna",
+      "Tasso utilizza un Ariosto - Filippo",
+      "Il numero A, il numero B, il numero C - Ghiraldelli",
+      "Inevitabilmente io so tutta la letteratura quindi faccio collegamenti - Terrida",
+      "L'alba boreale - Terrida",
+      "6 e 4 12, no 6 e 4 14 - Terrida",
+      "È Duncan che è falso perché è morto - Terrida",
+      "Non sopporto più le lezioni frontali, per questo sono soggetta a bronchiti - Tirone",
+      "Stiamo qui a cincischiare - Tecla",
+      "Prendiamo uno a caso... Pietro Zago - Peressini",
+      "Ma Pietro Zago esiste, ed è anche un mio amico - Peressini",
+      "È tutto un'anastrofe per te - Tecla a Greta",
+      "L'università di Atene - Pietro",
+      "Le matricole erano tormentate con scherzi, razzi, ecc. - Tecla",
+      "Stoccata - Terrida",
+      "Ghiraldelli: \"Quelli di Asa... gli dai un'unghia e si prendono...\", Peru: \"50 euro\"",
+      "Carta penna e calamaro - Anna",
+      "Chi non sa fare l'esercizio diventa solfato di alluminio - Peressini",
+      "Mi sono svegliata addormentata dall'idea dei compiti - Terrida",
+      "Ma secondo me anche la pietra ha una forma di memoria - Tirone",
+      "Io farei un film su come un pappagallo vede il mondo - Tirone",
+      "50 sfumature di incontinenza urinaria - Tirone e Simone",
+      "Michelangelo è stato mandato abbalia - Ghiraldelli",
+      "Ho fatto qualche imprecisazione - Greta",
+      "Ma che cavolo va dicendo? - Tirone",
+      "Carlotta: \"Scusi\", Tecla: \"Prego\"",
+      "Dai amore... - Peressini a Carraro",
+      "L'orrido è un buco, uno strapiombo, un cuneo dove se cadi per tirarti su ti servono gli speleologi - Terrida",
+      "Nessun apporto state apportando - Tecla",
+      "Sarà che la nebbia mi ha shekerata - Tirone",
+      "Oggi non è qui! Ahh ma c'è la nebbia - Terrida su Tirone",
+      "Non finisco mai di stupirmi di come uno come Fedez possa avere successo, è orrido - Terrida",
+      "Cosa siete? Autistici? - Cruciani",
+      "Io a questo punto faccio il tifo per i terroristi - Tirone",
+      "Cruciani: \"Chi ce lo assicura?\", Pietro: \"Il teorema di Richelieu\"",
+      "Hai delle fasi in cui la metti accaciara - Tirone a Greta",
+      "Pietro tu sei un segugio - Peressini",
+      "Accosta la finestra - Ghirardelli",
+      "Emma sei come un puledro selvaggio - Tirone",
+      "Coito ergo sum - Filippo durante interrogazione Tirone",
+      "Herman Metal - Greta",
+      "Tirone: Perché mi cadete sulle bucce di banana che stanno a 3000 km? Anna: L'ha buttata la Ghiraldelli",
+      "Ci sono le fuck news - Tirone",
+      "Le pistolettate, ah, pensavo fossero tipo le stoccate - Carraro",
+      "Jonny Travolta - Tecla",
+      "Tramontana... il gelato - Greta",
+      "Nessuno è mai arrivato al centro della terra... se non con la fantasia - Peressini",
+      "La lunghezza la rimango - Ghiraldelli",
+      "Son quelle che usano Moodle... tajarghe le mani è sempre troppo tardi - Terrida",
+      "C'è la Rizzi, una Chiara e un'altra imbecille - Terrida",
+      "Giovanna: Sai chi è Yotobi? Non è quello di Star Wars? - Giovanna",
+      "San Tommaso non è quello che mette le dita nei buchi di Gesù? - Carraro",
+      "Giovanna, Camilla e Carlotta sono tutti nomi a me familiari, una è mia mamma, una mia nipote e l'altra è un nome che avrei voluto utilizzare in altro modo - Tirone",
+      "I contadini avevano geneticamente le caviglie più tozze, lo diceva già Darwin - Tecla",
+      "Pietro sei un dilettante - Tirone",
+      "Lei non sa resistere ai suoi istinti famelici primordiali - Terrida",
+      "Tu pensi di poter camminare in piedi, ma rimani seduto - Terrida a Pietro",
+      "Che cosa mi stai dicendo... (IDIOTA - Labiale) - Terrida a Marco",
+      "Qua l'unica persona che fa casino è lei - Marco a Ghiraldelli",
+      "Iugual = Equal - Greta",
+      "Convertisce - Emma",
+      "Catalogalizzate - Carlotta",
+      "Canti Pisano-Recanatensi - Giovanna",
+      "Giulia, ho scoperto che vai al Serd - Giovanna",
+      "Ministro degli Esterni - Giovanna",
+      "Kuski = Kautski - Giovanna",
+      "Sains = Since - Marco",
+      "Spiega l'importanza e l'utilità dell'uscita didatta alla Biennale di Venezia - Ghirardelli",
+      "Coadiuvare = Unire - Giovanna",
+      "Tesor = Treasure - Cristian",
+      "Angel / Engels - Marco",
+      "Le 35 euro non sono molte - Peritore",
+      "Pelux = Pelloux - Greta",
+      "Macabo... Marcabo... Macrabo = Macabro - Greta",
+      "Cristian: \"Le superfici equipotenziali sono circolari.\" Cruciani: \"Un po' di più.\" Cristian: \"Ellittiche\"",
+      "Il potenziale aumenta perché mi sposto lontano dalla carica, quindi diminuisce - Cristian",
+      "1 Columb = 1 Coulomb - Greta",
+      "Gast = Gusto - Giovanna",
+      "Strass = Strauss - Greta",
+      "Separamento = Separazione - Alberto D.",
+      "Baldings = Buildings - Giovanna",
+      "Basi = Busy - Giovanna",
+      "Personificated = Personified - Giovanna",
+      "Obligated = Obliged - Giovanna",
+      "L'associamento - Alberto F.",
+      "Aràno (voce del verbo Arare) - Emma",
+      "Legge di Faraday-Newmann - Greta",
+      "The Final = The End - Anna",
+      "Niu Dial - Greta",
+      "\"Quale parte dell'estate?\", \"La sera\" - Giovanna",
+      "Il Deo = Il Dio - Carlotta",
+      "Famus = Famous - Greta",
+      "Vittorianesimo = Età Vittoriana - Greta",
+      "Alienamento = Alienazione - Anonimo",
+      "\"Un litro equivale ad un metro cubo?\", \"Sì\" - Greta",
+      "Descripted = Described - Simone",
+      "Wednesdei = \"Wednesday\" - Alberto D.",
+      "Gli argomenti vengono descritti con un sistema annuale - Tommaso",
+      "Brez-Livotz = Brest-Litovsk - Nicolò",
+      "La tuta di forza - Giovanna",
+      "Ciaracter - Giovanna",
+      "Simone ma ti fa male il dito, posso farti leggere? - Tirone",
+      "Pirl Arbur - Giovanna",
+      "Temò - Passador",
+      "\"Che tipo di corrente?\", \"Elettrica\" - Giovanna",
+      "Oerstred - Giovanna",
+      "\"Se la velocità fosse stata zero, la terra sarebbe dovuta essere...?\", \"Piatta\" - Nicolò",
+      "Brevster = Brewster - Giovanna",
+      "Ovulare = Ovale - Ghirardelli",
+      "Wrailess - Cruciani",
+      "Ma non se li mangiano (i cinesi) - Giovanna",
+      "Viòla (voce del verbo violare) - Giovanna & Greta",
+      "Togliatti esponente del comunismo (consigliata dalla Peru) - Greta",
+      "Il 25 aprile è la liberazione di San Marco - Greta",
+      "Il professor Bernardersen - Giovanna",
+      "Si dilaniò un incendio - Giovanna",
+      "Accadette - Cristian",
+      "Il fusto della spira - Tommaso",
+      "Newslettere - Ghirardelli",
+      "\"Di che tipo di corrente abbiamo parlato fin'ora?\", \"Di corrente... elettrica\" - Anna",
+      "Akopoloniktosis = Apokolokynthosis - Giovanna",
+      "Il bossolo della pistola di Claudio - Giovanna",
+      "Seneca parla ai suoi coetanei - Greta",
+      "Polìptoto - Greta",
+      "Ho male al ginocchio, me ne farò una ragione - Alberto F."
+    ];
+
+    // ==============================================================
+    // WEB AUDIO SYNTHESIZER (MOBILE & DESKTOP CASINO SOUND EFFECTS)
+    // ==============================================================
+    const audio = {
+      ctx: null,
+      enabled: true,
+      init() {
+        try {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        } catch (err) {
+          // Ignore audio context restrictions if blocked by browser
+        }
+      },
+      playTick(freq = 520) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.045);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.05);
+        } catch (e) {}
+      },
+      playWinChime() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((n, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            const startTime = this.ctx.currentTime + idx * 0.065;
+            osc.frequency.setValueAtTime(n, startTime);
+            gain.gain.setValueAtTime(0.08, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.28);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.3);
+          });
+        } catch (e) {}
+      },
+      playLoseBuzzer() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const freqs = [190, 145];
+          freqs.forEach((f, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sawtooth';
+            const startTime = this.ctx.currentTime + idx * 0.16;
+            osc.frequency.setValueAtTime(f, startTime);
+            gain.gain.setValueAtTime(0.11, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.32);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.35);
+          });
+        } catch (e) {}
+      }
+    };
+
+    // ==============================================================
+    // STATE MANAGEMENT, MODES ("STORIA" & "IL MILIARDARIO") & LOGIC
+    // ==============================================================
+    const landingModeSelectView = document.getElementById('landing-mode-select-view');
+    const mainGameContent = document.getElementById('main-game-content');
+    const landingChooseStoriaBtn = document.getElementById('landing-choose-storia');
+    const landingChooseMiliardarioBtn = document.getElementById('landing-choose-miliardario');
+
+    const attractView = document.getElementById('initial-attract-view');
+    const attractHeadlineText = document.getElementById('attract-headline-text');
+    const attractPillLabel = document.getElementById('attract-pill-label');
+    const shuffleView = document.getElementById('slot-shuffle-view');
+    const shufflePreviewText = document.getElementById('shuffle-preview-text');
+    const quoteResultView = document.getElementById('quote-result-view');
+    const quoteTopPillText = document.getElementById('quote-top-pill-text');
+    const quoteMainText = document.getElementById('quote-main-text');
+    const quoteAuthorBadge = document.getElementById('quote-author-badge');
+    const quoteAuthorText = document.getElementById('quote-author-text');
+    const miliardarioFeedback = document.getElementById('miliardario-feedback');
+    const miliardarioRestartBtn = document.getElementById('miliardario-restart-btn');
+    const lostSlotView = document.getElementById('lost-slot-view');
+
+    const modeStoriaBtn = document.getElementById('mode-storia-btn');
+    const modeMiliardarioBtn = document.getElementById('mode-miliardario-btn');
+    const modeSubtitleBadge = document.getElementById('mode-subtitle-badge');
+    const machineMainTitle = document.getElementById('machine-main-title');
+    const miliardarioHud = document.getElementById('miliardario-hud');
+    const miliardarioScoreEl = document.getElementById('miliardario-score');
+    const miliardarioBestEl = document.getElementById('miliardario-best');
+    const miliardarioProgressBar = document.getElementById('miliardario-progress-bar');
+    const emeraldStatusPill = document.getElementById('emerald-status-pill');
+
+    const storiaControlsWrap = document.getElementById('storia-controls-wrap');
+    const miliardarioControlsWrap = document.getElementById('miliardario-controls-wrap');
+    const miliardarioOptionsGrid = document.getElementById('miliardario-options-grid');
+    const optionButtons = Array.from(miliardarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
+
+    const randomizeBtn = document.getElementById('randomize-btn');
+    const spinBtnText = document.getElementById('spin-btn-text');
+    const resetHomeBtn = document.getElementById('reset-home-btn');
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
+    const paywallOverlay = document.getElementById('paywall-overlay');
+    const displayWell = document.getElementById('display-well');
+
+    // Exact 2.3% independent chance on EVERY click/tap in "Storia" mode
+    const LOSS_PROBABILITY = 0.023;
+    let currentMode = 'storia'; // 'storia' | 'miliardario'
+    let isSpinning = false;
+    let isPaywallOpen = false;
+    let paywallOpenedAt = 0;
+    let lastQuoteIndex = -1;
+
+    // "Il miliardario" state
+    let miliardarioScore = 0;
+    let miliardarioBest = 0;
+    let currentQuizQuestion = null;
+    let quizLocked = false;
+    let nextQuestionTimer = null;
+
+    function normalizePersonKey(name) {
+      const n = name.trim().toLowerCase().replace(/\./g, '');
+      if (n.includes('paludetto') || n === 'palu') return 'palu';
+      if (n.includes('gambino') || n.includes('girolama')) return 'gambino';
+      if (n.includes('alberto f')) return 'alberto_f';
+      if (n.includes('alberto d')) return 'alberto_d';
+      if (n.includes('milidone') || n.includes('rocco')) return 'milidone';
+      if (n.includes('palmegiano') || n === 'palme') return 'palme';
+      if (n.includes('terrida') || n === 'terry' || n === 'terru') return 'terrida';
+      if (n.includes('ghiraldelli') || n.includes('ghirardelli')) return 'ghiraldelli';
+      if (n.includes('prof di fisica')) return 'prof_fisica';
+      return n;
+    }
+
+    const SINGLE_NAMES_POOL = [
+      "Franca Paludetto", "Girolama Gambino", "Michela", "Alberto F.", "Irene",
+      "Palme", "Pitaccolo", "Catto", "Rocco Milidone", "Mario", "Gianni",
+      "Nicolò", "Terrida", "Cesetti", "Carraro", "Zago", "Peru", "Simone",
+      "Carlotta", "Greta", "Stival", "Panigutto", "Chiara Valente", "Anna",
+      "Venturin", "Filippo", "Emma", "Vincentini", "Giovanna", "Tecla",
+      "Peressini", "Tirone", "Cruciani", "Profeta", "Pietro", "Marco",
+      "Cristian", "Peritore", "Alberto D.", "Tommaso", "Passador"
+    ];
+
+    function parseSentence(raw) {
+      const cleaned = raw.trim();
+      const separatorIdx = cleaned.lastIndexOf(' - ');
+      if (separatorIdx !== -1) {
+        return {
+          quote: cleaned.slice(0, separatorIdx).trim(),
+          author: cleaned.slice(separatorIdx + 3).trim(),
+          hasAuthor: true
+        };
+      }
+      const fallbackMatch = cleaned.match(/^(.*)\s*-\s*([^-]+)$/);
+      if (fallbackMatch && fallbackMatch[2].trim().length < 45) {
+        return {
+          quote: fallbackMatch[1].trim(),
+          author: fallbackMatch[2].trim(),
+          hasAuthor: true
+        };
+      }
+      return {
+        quote: cleaned,
+        author: "Anonimo",
+        hasAuthor: false
+      };
+    }
+
+    function buildMiliardarioQuestion(raw) {
+      const cleaned = raw.trim();
+
+      let quotePart = cleaned;
+      let authorPart = null;
+
+      const sepIdx = cleaned.lastIndexOf(' - ');
+      if (sepIdx !== -1) {
+        quotePart = cleaned.slice(0, sepIdx).trim();
+        authorPart = cleaned.slice(sepIdx + 3).trim();
+      } else {
+        const fallback = cleaned.match(/^(.*)\s*-\s*([^-]+)$/);
+        if (fallback && fallback[2].trim().length < 45) {
+          quotePart = fallback[1].trim();
+          authorPart = fallback[2].trim();
+        }
+      }
+
+      if (authorPart) {
+        const multiPatterns = [
+          { regex: /^(.+?)\s+&\s+(.+)$/i, sep: ' & ' },
+          { regex: /^(.+?)\s+E\s+(.+)$/i, sep: ' e ' },
+          { regex: /^(.+?)\s+A\s+(.+)$/i, sep: ' a ' },
+          { regex: /^(.+?)\s+Alla\s+(.+)$/i, sep: ' a ' },
+          { regex: /^(.+?)\s+Su\s+(.+)$/i, sep: ' su ' },
+          { regex: /^(.+?)\s+Durante Interrogazione\s+(.+)$/i, sep: ' e ' }
+        ];
+
+        let cleanAuthor = authorPart.replace(/\s*\((?!Riferito)[^)]*\)\s*/gi, '').trim();
+        const riferitoMatch = cleanAuthor.match(/^(.+?)\s*\(Riferito A\s+([^)]+)\)$/i);
+        if (riferitoMatch) {
+          return createMultiNameQuestion(quotePart, [riferitoMatch[1].trim(), riferitoMatch[2].trim()], ' a ');
+        }
+
+        for (const pat of multiPatterns) {
+          const m = cleanAuthor.match(pat.regex);
+          if (m && !cleanAuthor.toLowerCase().includes('galeotti')) {
+            return createMultiNameQuestion(quotePart, [m[1].trim(), m[2].trim()], pat.sep);
+          }
+        }
+
+        return createSingleNameQuestion(quotePart, cleanAuthor);
+      }
+
+      const speakerRegex = /(?:^|[;,.]\s*)([A-Za-zÀ-ÿ]+(?:\s+[fFdD])?)\s*:/g;
+      const speakers = [];
+      let match;
+      while ((match = speakerRegex.exec(cleaned)) !== null) {
+        const sp = match[1].trim();
+        if (sp.toLowerCase() !== 'tutti' && sp.toLowerCase() !== 'common' && sp.toLowerCase() !== 'loads of' && sp.toLowerCase() !== 'magna charta') {
+          speakers.push(sp);
+        }
+      }
+
+      if (speakers.length >= 2) {
+        const uniqueSpeakers = [];
+        const seenKeys = new Set();
+        speakers.forEach(s => {
+          const k = normalizePersonKey(s);
+          if (!seenKeys.has(k)) {
+            seenKeys.add(k);
+            uniqueSpeakers.push(s.charAt(0).toUpperCase() + s.slice(1));
+          }
+        });
+
+        let maskedQuote = cleaned;
+        uniqueSpeakers.forEach((sp, idx) => {
+          const escaped = sp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const re = new RegExp(`\\b${escaped}\\s*:`, 'gi');
+          maskedQuote = maskedQuote.replace(re, `[Persona ${idx + 1}]:`);
+        });
+
+        if (uniqueSpeakers.length >= 2) {
+          return createMultiNameQuestion(maskedQuote, uniqueSpeakers, ' & ');
+        } else if (uniqueSpeakers.length === 1) {
+          return createSingleNameQuestion(maskedQuote, uniqueSpeakers[0]);
+        }
+      }
+
+      const parenMulti = cleaned.match(/^(.*)\(([^)]+?)\s+sulla\s+([^)]+)\)\s*$/i);
+      if (parenMulti) {
+        const n1 = parenMulti[2].trim();
+        const n2 = parenMulti[3].trim();
+        return createMultiNameQuestion(
+          parenMulti[1].trim(),
+          [n1.charAt(0).toUpperCase() + n1.slice(1), n2.charAt(0).toUpperCase() + n2.slice(1)],
+          ' & '
+        );
+      }
+
+      const trailingQuestionName = cleaned.match(/^(.*[?!])\s+([A-Za-zÀ-ÿ]+)$/);
+      if (trailingQuestionName) {
+        const name = trailingQuestionName[2].trim();
+        return createSingleNameQuestion(
+          trailingQuestionName[1].trim(),
+          name.charAt(0).toUpperCase() + name.slice(1)
+        );
+      }
+
+      return null;
+    }
+
+    function pickDistinctSingleNames(count, excludedKeysSet) {
+      const pool = [...SINGLE_NAMES_POOL];
+      const chosen = [];
+      const usedKeys = new Set(excludedKeysSet);
+
+      while (chosen.length < count && pool.length > 0) {
+        const idx = Math.floor(Math.random() * pool.length);
+        const candidate = pool.splice(idx, 1)[0];
+        const key = normalizePersonKey(candidate);
+        if (!usedKeys.has(key)) {
+          usedKeys.add(key);
+          chosen.push(candidate);
+        }
+      }
+      return chosen;
+    }
+
+    function createSingleNameQuestion(quoteText, correctName) {
+      const correctKey = normalizePersonKey(correctName);
+      const distractors = pickDistinctSingleNames(2, new Set([correctKey]));
+      const options = [correctName, ...distractors];
+      return shuffleOptions(quoteText, correctName, options, 1);
+    }
+
+    function createMultiNameQuestion(quoteText, namesArray, connector) {
+      const count = namesArray.length;
+      const correctLabel = namesArray.join(connector);
+      const excluded = new Set(namesArray.map(normalizePersonKey));
+
+      const options = [correctLabel];
+      while (options.length < 3) {
+        const fakeNames = pickDistinctSingleNames(count, excluded);
+        const fakeLabel = fakeNames.join(connector);
+        if (!options.includes(fakeLabel)) {
+          options.push(fakeLabel);
+        }
+      }
+      return shuffleOptions(quoteText, correctLabel, options, count);
+    }
+
+    function shuffleOptions(quoteText, correctLabel, optionsArray, nameCount) {
+      const shuffled = [...optionsArray];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return {
+        quote: quoteText,
+        correctOption: correctLabel,
+        options: shuffled,
+        correctIndex: shuffled.indexOf(correctLabel),
+        nameCount
+      };
+    }
+
+    const VALID_QUIZ_INDICES = [];
+    FRASI_DB.forEach((raw, idx) => {
+      const q = buildMiliardarioQuestion(raw);
+      if (q && q.correctOption && q.correctOption.toLowerCase() !== 'anonimo') {
+        VALID_QUIZ_INDICES.push(idx);
+      }
+    });
+
+    function updateMiliardarioUI() {
+      miliardarioScoreEl.textContent = String(miliardarioScore);
+      miliardarioBestEl.textContent = String(miliardarioBest);
+      const pct = Math.min(100, Math.max(0, miliardarioScore));
+      miliardarioProgressBar.style.width = `${pct}%`;
+
+      if (miliardarioScore >= 100) {
+        document.body.classList.add('emerald-jackpot-theme');
+        emeraldStatusPill.classList.remove('hidden');
+        emeraldStatusPill.classList.add('inline-flex');
+      } else {
+        document.body.classList.remove('emerald-jackpot-theme');
+        emeraldStatusPill.classList.add('hidden');
+        emeraldStatusPill.classList.remove('inline-flex');
+      }
+    }
+
+    function switchMode(newMode) {
+      if (nextQuestionTimer) {
+        clearTimeout(nextQuestionTimer);
+        nextQuestionTimer = null;
+      }
+      isSpinning = false;
+      quizLocked = false;
+      currentMode = newMode;
+
+      landingModeSelectView.classList.add('hidden');
+      landingModeSelectView.classList.remove('flex');
+      mainGameContent.classList.remove('hidden');
+      mainGameContent.classList.add('flex');
+
+      if (newMode === 'storia') {
+        modeStoriaBtn.classList.add('active');
+        modeMiliardarioBtn.classList.remove('active');
+        modeSubtitleBadge.textContent = '★ SALA DELLE PERLE D\'ORO ★';
+        machineMainTitle.textContent = 'LA ROULETTE DELLE FRASI';
+        miliardarioHud.classList.add('hidden');
+        miliardarioHud.classList.remove('flex');
+        storiaControlsWrap.classList.remove('hidden');
+        storiaControlsWrap.classList.add('flex');
+        miliardarioControlsWrap.classList.add('hidden');
+        miliardarioControlsWrap.classList.remove('flex');
+        resetToInitialPage();
+      } else {
+        modeMiliardarioBtn.classList.add('active');
+        modeStoriaBtn.classList.remove('active');
+        modeSubtitleBadge.textContent = '★ SFIDA A 100 PUNTI • SALA VIP ★';
+        machineMainTitle.textContent = 'IL MILIARDARIO DELLE FRASI';
+        miliardarioHud.classList.remove('hidden');
+        miliardarioHud.classList.add('flex');
+        storiaControlsWrap.classList.add('hidden');
+        storiaControlsWrap.classList.remove('flex');
+        miliardarioControlsWrap.classList.remove('hidden');
+        miliardarioControlsWrap.classList.add('flex');
+        updateMiliardarioUI();
+        loadNextMiliardarioQuestion();
+      }
+    }
+
+    function loadNextMiliardarioQuestion() {
+      if (nextQuestionTimer) {
+        clearTimeout(nextQuestionTimer);
+        nextQuestionTimer = null;
+      }
+      quizLocked = false;
+
+      let poolIdx;
+      do {
+        poolIdx = VALID_QUIZ_INDICES[Math.floor(Math.random() * VALID_QUIZ_INDICES.length)];
+      } while (poolIdx === lastQuoteIndex && VALID_QUIZ_INDICES.length > 1);
+      lastQuoteIndex = poolIdx;
+
+      currentQuizQuestion = buildMiliardarioQuestion(FRASI_DB[poolIdx]);
+
+      attractView.classList.add('hidden');
+      attractView.classList.remove('flex');
+      shuffleView.classList.add('hidden');
+      shuffleView.classList.remove('flex');
+      lostSlotView.classList.add('hidden');
+      lostSlotView.classList.remove('flex');
+
+      quoteTopPillText.textContent = currentQuizQuestion.nameCount > 1
+        ? `INDIZIO: ${currentQuizQuestion.nameCount} NOMI COINVOLTI`
+        : 'INDIZIO: 1 NOME COINVOLTO';
+
+      quoteMainText.textContent = `“${currentQuizQuestion.quote}”`;
+
+      quoteAuthorBadge.classList.add('hidden');
+      quoteAuthorBadge.classList.remove('inline-flex');
+
+      miliardarioFeedback.classList.add('hidden');
+      miliardarioRestartBtn.classList.add('hidden');
+      miliardarioRestartBtn.classList.remove('inline-flex');
+
+      quoteResultView.classList.remove('hidden');
+      quoteResultView.classList.add('flex', 'animate-card-reveal');
+      displayWell.scrollTop = 0;
+
+      optionButtons.forEach((btn, idx) => {
+        btn.disabled = false;
+        btn.classList.remove('correct-choice', 'wrong-choice');
+        const labelSpan = btn.querySelector('.opt-label');
+        if (labelSpan) {
+          labelSpan.textContent = currentQuizQuestion.options[idx];
+        }
+      });
+
+      resetHomeBtn.classList.remove('hidden');
+      resetHomeBtn.classList.add('flex');
+    }
+
+    function handleMiliardarioChoice(selectedIndex, e) {
+      if (e) e.stopPropagation();
+      if (currentMode !== 'miliardario' || quizLocked || !currentQuizQuestion) return;
+
+      audio.init();
+      quizLocked = true;
+
+      const isCorrect = selectedIndex === currentQuizQuestion.correctIndex;
+
+      optionButtons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === currentQuizQuestion.correctIndex) {
+          btn.classList.add('correct-choice');
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.classList.add('wrong-choice');
+        }
+      });
+
+      miliardarioFeedback.classList.remove('hidden');
+
+      if (isCorrect) {
+        miliardarioScore += 1;
+        if (miliardarioScore > miliardarioBest) {
+          miliardarioBest = miliardarioScore;
+        }
+        updateMiliardarioUI();
+        audio.playWinChime();
+        burstGoldConfetti();
+
+        if (miliardarioScore === 100) {
+          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-emerald-500/30 border border-emerald-300 text-emerald-200 animate-bounce';
+          miliardarioFeedback.textContent = '🎉 100 PUNTI RAGGIUNTI! IL CASINÒ È DIVENTATO VERDE SMERALDO! 🎉';
+          setTimeout(burstGoldConfetti, 250);
+          setTimeout(burstGoldConfetti, 500);
+        } else {
+          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/30 border border-emerald-400 text-emerald-200';
+          miliardarioFeedback.textContent = `✅ ESATTO! +1 PUNTO (TOTALE: ${miliardarioScore})`;
+        }
+
+        nextQuestionTimer = setTimeout(() => {
+          loadNextMiliardarioQuestion();
+        }, miliardarioScore === 100 ? 1800 : 850);
+      } else {
+        audio.playLoseBuzzer();
+
+        quoteAuthorText.textContent = `RISPOSTA ESATTA: ${currentQuizQuestion.correctOption}`;
+        quoteAuthorBadge.classList.remove('hidden');
+        quoteAuthorBadge.classList.add('inline-flex');
+
+        miliardarioFeedback.className = 'mt-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-red-600/35 border border-red-400 text-red-200';
+        miliardarioFeedback.textContent = `❌ RISPOSTA ERRATA! HAI PERSO TUTTI I PUNTI`;
+
+        miliardarioRestartBtn.classList.remove('hidden');
+        miliardarioRestartBtn.classList.add('inline-flex', 'items-center', 'justify-center');
+      }
+    }
+
+    function resetToInitialPage() {
+      if (nextQuestionTimer) {
+        clearTimeout(nextQuestionTimer);
+        nextQuestionTimer = null;
+      }
+      isPaywallOpen = false;
+      isSpinning = false;
+      quizLocked = false;
+      paywallOverlay.classList.add('hidden');
+      paywallOverlay.classList.remove('flex');
+      miliardarioRestartBtn.classList.add('hidden');
+      miliardarioRestartBtn.classList.remove('inline-flex');
+
+      miliardarioScore = 0;
+      updateMiliardarioUI();
+
+      if (currentMode === 'miliardario') {
+        loadNextMiliardarioQuestion();
+        return;
+      }
+
+      attractHeadlineText.textContent = 'Premi il pulsante dorato per tentare la fortuna ed estrarre una perla di saggezza!';
+      attractPillLabel.textContent = 'MODALITÀ STORIA';
+      attractView.classList.remove('hidden');
+      attractView.classList.add('flex');
+      shuffleView.classList.add('hidden');
+      shuffleView.classList.remove('flex');
+      quoteResultView.classList.add('hidden');
+      quoteResultView.classList.remove('flex');
+      lostSlotView.classList.add('hidden');
+      lostSlotView.classList.remove('flex');
+
+      displayWell.scrollTop = 0;
+      spinBtnText.textContent = '🎰 ESTRAI UNA FRASE 🎰';
+      resetHomeBtn.classList.add('hidden');
+      resetHomeBtn.classList.remove('flex');
+    }
+
+    function triggerYouLostPaywall() {
+      isSpinning = false;
+      isPaywallOpen = true;
+      paywallOpenedAt = performance.now();
+      audio.playLoseBuzzer();
+
+      shuffleView.classList.add('hidden');
+      shuffleView.classList.remove('flex');
+      lostSlotView.classList.remove('hidden');
+      lostSlotView.classList.add('flex');
+
+      paywallOverlay.classList.remove('hidden');
+      paywallOverlay.classList.add('flex');
+    }
+
+    function handleRandomizeClick(e) {
+      if (e) {
+        e.stopPropagation();
+      }
+      if (isSpinning || isPaywallOpen) return;
+
+      audio.init();
+
+      isSpinning = true;
+      randomizeBtn.classList.add('pressed');
+      setTimeout(() => randomizeBtn.classList.remove('pressed'), 140);
+
+      const shouldLose = Math.random() < LOSS_PROBABILITY;
+
+      attractView.classList.add('hidden');
+      attractView.classList.remove('flex');
+      quoteResultView.classList.add('hidden');
+      quoteResultView.classList.remove('flex');
+      lostSlotView.classList.add('hidden');
+      lostSlotView.classList.remove('flex');
+      shuffleView.classList.remove('hidden');
+      shuffleView.classList.add('flex');
+
+      let ticks = 0;
+      const maxTicks = 9;
+      const shuffleInterval = setInterval(() => {
+        ticks++;
+        const tempIdx = Math.floor(Math.random() * FRASI_DB.length);
+        const parsedTemp = parseSentence(FRASI_DB[tempIdx]);
+        shufflePreviewText.textContent = `“${parsedTemp.quote}”`;
+        audio.playTick(430 + ticks * 42);
+
+        if (ticks >= maxTicks) {
+          clearInterval(shuffleInterval);
+
+          if (shouldLose) {
+            triggerYouLostPaywall();
+          } else {
+            revealRandomQuote();
+          }
+        }
+      }, 50);
+    }
+
+    function revealRandomQuote() {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * FRASI_DB.length);
+      } while (randomIndex === lastQuoteIndex && FRASI_DB.length > 1);
+      lastQuoteIndex = randomIndex;
+
+      const parsed = parseSentence(FRASI_DB[randomIndex]);
+
+      shuffleView.classList.add('hidden');
+      shuffleView.classList.remove('flex');
+
+      quoteTopPillText.textContent = 'PERLA ESTRATTA';
+      quoteMainText.textContent = `“${parsed.quote}”`;
+      quoteAuthorText.textContent = parsed.author || 'Anonimo';
+      quoteAuthorBadge.classList.remove('hidden');
+      quoteAuthorBadge.classList.add('inline-flex');
+      miliardarioFeedback.classList.add('hidden');
+      miliardarioRestartBtn.classList.add('hidden');
+      miliardarioRestartBtn.classList.remove('inline-flex');
+
+      quoteResultView.classList.remove('hidden');
+      quoteResultView.classList.add('flex', 'animate-card-reveal');
+      displayWell.scrollTop = 0;
+
+      spinBtnText.textContent = '🎰 ESTRAI UNA FRASE 🎰';
+      resetHomeBtn.classList.remove('hidden');
+      resetHomeBtn.classList.add('flex');
+
+      audio.playWinChime();
+      burstGoldConfetti();
+      isSpinning = false;
+    }
+
+    let lastTriggerTime = 0;
+    function onPrimaryTrigger(e) {
+      const now = performance.now();
+      if (now - lastTriggerTime < 250) return;
+      lastTriggerTime = now;
+      handleRandomizeClick(e);
+    }
+
+    randomizeBtn.addEventListener('pointerup', onPrimaryTrigger);
+    randomizeBtn.addEventListener('click', onPrimaryTrigger);
+
+    let lastModeTap = 0;
+    function bindTapAndClick(el, callback) {
+      const handler = (e) => {
+        e.stopPropagation();
+        const now = performance.now();
+        if (now - lastModeTap < 220) return;
+        lastModeTap = now;
+        callback(e);
+      };
+      el.addEventListener('pointerup', handler);
+      el.addEventListener('click', handler);
+    }
+
+    bindTapAndClick(modeStoriaBtn, () => switchMode('storia'));
+    bindTapAndClick(modeMiliardarioBtn, () => switchMode('miliardario'));
+    bindTapAndClick(landingChooseStoriaBtn, () => {
+      audio.init();
+      switchMode('storia');
+    });
+    bindTapAndClick(landingChooseMiliardarioBtn, () => {
+      audio.init();
+      switchMode('miliardario');
+    });
+
+    bindTapAndClick(miliardarioRestartBtn, () => {
+      audio.init();
+      miliardarioScore = 0;
+      updateMiliardarioUI();
+      loadNextMiliardarioQuestion();
+    });
+
+    optionButtons.forEach((btn, idx) => {
+      let lastOptTap = 0;
+      const optHandler = (e) => {
+        e.stopPropagation();
+        const now = performance.now();
+        if (now - lastOptTap < 250) return;
+        lastOptTap = now;
+        handleMiliardarioChoice(idx, e);
+      };
+      btn.addEventListener('pointerup', optHandler);
+      btn.addEventListener('click', optHandler);
+    });
+
+    resetHomeBtn.addEventListener('pointerup', (e) => {
+      e.stopPropagation();
+      resetToInitialPage();
+    });
+    resetHomeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetToInitialPage();
+    });
+
+    let lastSoundToggle = 0;
+    function handleSoundToggle(e) {
+      e.stopPropagation();
+      const now = performance.now();
+      if (now - lastSoundToggle < 250) return;
+      lastSoundToggle = now;
+      audio.init();
+      audio.enabled = !audio.enabled;
+      soundIcon.textContent = audio.enabled ? '🔊' : '🔇';
+      soundLabel.textContent = audio.enabled ? 'AUDIO ATTIVO' : 'AUDIO MUTO';
+    }
+    soundToggleBtn.addEventListener('pointerup', handleSoundToggle);
+    soundToggleBtn.addEventListener('click', handleSoundToggle);
+
+    function handleGlobalPaywallDismiss(e) {
+      if (!isPaywallOpen) return;
+      if (performance.now() - paywallOpenedAt < 350) return;
+      if (e) e.preventDefault();
+      resetToInitialPage();
+    }
+
+    paywallOverlay.addEventListener('pointerup', handleGlobalPaywallDismiss);
+    paywallOverlay.addEventListener('click', handleGlobalPaywallDismiss);
+    window.addEventListener('pointerup', handleGlobalPaywallDismiss);
+    window.addEventListener('click', handleGlobalPaywallDismiss);
+
+    // ==============================================================
+    // DYNAMIC BACKGROUND CANVAS (PIN SPOTLIGHTS, BOKEH & CONFETTI)
+    // ==============================================================
+    const canvas = document.getElementById('casino-canvas');
+    const ctx = canvas.getContext('2d');
+    const sceneContainer = document.getElementById('scene-container');
+
+    let cw = window.innerWidth;
+    let ch = window.innerHeight;
+    let particles = [];
+    let confettiParticles = [];
+    let spotlights = [];
+    let lastPointerMove = 0;
+
+    function resizeCanvas() {
+      cw = canvas.width = window.innerWidth;
+      ch = canvas.height = window.innerHeight;
+      initSpotlights();
+    }
+
+    function initSpotlights() {
+      spotlights = [];
+      const cols = cw < 640 ? 4 : 6;
+      for (let i = 0; i < cols; i++) {
+        spotlights.push({
+          x: (cw / (cols + 1)) * (i + 1),
+          y: ch * 0.05 + (i % 2) * (ch * 0.055),
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.015 + Math.random() * 0.02
+        });
+      }
+    }
+
+    function initDustParticles() {
+      particles = [];
+      const count = cw < 640 ? 28 : 48;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * cw,
+          y: Math.random() * ch,
+          r: Math.random() * 2.4 + 0.8,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: -Math.random() * 0.45 - 0.1,
+          alpha: Math.random() * 0.65 + 0.2,
+          pulse: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function burstGoldConfetti() {
+      const count = cw < 640 ? 22 : 34;
+      const isEmerald = document.body.classList.contains('emerald-jackpot-theme');
+      for (let i = 0; i < count; i++) {
+        confettiParticles.push({
+          x: cw / 2 + (Math.random() - 0.5) * Math.min(180, cw * 0.45),
+          y: ch / 2,
+          vx: (Math.random() - 0.5) * 6.5,
+          vy: -Math.random() * 5.5 - 2,
+          size: Math.random() * 5.5 + 3,
+          color: isEmerald
+            ? (i % 2 === 0 ? '#34d399' : '#ffd700')
+            : (i % 2 === 0 ? '#ffd700' : '#ff4d4d'),
+          alpha: 1,
+          rot: Math.random() * Math.PI
+        });
+      }
+    }
+
+    function animateCasinoScene(timestamp) {
+      ctx.clearRect(0, 0, cw, ch);
+      const isEmerald = document.body.classList.contains('emerald-jackpot-theme');
+
+      if (timestamp - lastPointerMove > 2500) {
+        const driftX = Math.sin(timestamp * 0.0005) * 5;
+        const driftY = Math.cos(timestamp * 0.00035) * 3.5;
+        sceneContainer.style.transform = `translate3d(${driftX.toFixed(1)}px, ${driftY.toFixed(1)}px, 0)`;
+      }
+
+      spotlights.forEach(light => {
+        light.phase += light.speed;
+        const glow = 0.65 + Math.sin(light.phase) * 0.35;
+        const grad = ctx.createRadialGradient(light.x, light.y, 1, light.x, light.y, 24);
+        if (isEmerald) {
+          grad.addColorStop(0, `rgba(209, 250, 229, ${glow})`);
+          grad.addColorStop(0.35, `rgba(16, 185, 129, ${glow * 0.55})`);
+          grad.addColorStop(1, 'rgba(5, 150, 105, 0)');
+        } else {
+          grad.addColorStop(0, `rgba(255, 248, 210, ${glow})`);
+          grad.addColorStop(0.35, `rgba(255, 190, 75, ${glow * 0.45})`);
+          grad.addColorStop(1, 'rgba(255, 160, 30, 0)');
+        }
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(light.x, light.y, 24, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.pulse += 0.03;
+
+        if (p.y < -10) p.y = ch + 10;
+        if (p.x < -10) p.x = cw + 10;
+        if (p.x > cw + 10) p.x = -10;
+
+        const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
+        ctx.fillStyle = isEmerald
+          ? `rgba(110, 231, 183, ${currentAlpha})`
+          : `rgba(255, 210, 110, ${currentAlpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      for (let i = confettiParticles.length - 1; i >= 0; i--) {
+        const c = confettiParticles[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.vy += 0.18;
+        c.alpha -= 0.018;
+        c.rot += 0.1;
+
+        if (c.alpha <= 0) {
+          confettiParticles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, c.alpha);
+        ctx.translate(c.x, c.y);
+        ctx.rotate(c.rot);
+        ctx.fillStyle = c.color;
+        ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size * 0.6);
+        ctx.restore();
+      }
+
+      requestAnimationFrame(animateCasinoScene);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      lastPointerMove = performance.now();
+      const normX = (e.clientX / window.innerWidth - 0.5) * 2;
+      const normY = (e.clientY / window.innerHeight - 0.5) * 2;
+      sceneContainer.style.transform = `translate3d(${(-normX * 10).toFixed(1)}px, ${(-normY * 6).toFixed(1)}px, 0)`;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      lastPointerMove = performance.now();
+      const touch = e.touches[0];
+      const normX = (touch.clientX / window.innerWidth - 0.5) * 2;
+      const normY = (touch.clientY / window.innerHeight - 0.5) * 2;
+      sceneContainer.style.transform = `translate3d(${(-normX * 7).toFixed(1)}px, ${(-normY * 5).toFixed(1)}px, 0)`;
+    }, { passive: true });
+
+    window.addEventListener('deviceorientation', (e) => {
+      if (e.gamma === null || e.beta === null) return;
+      lastPointerMove = performance.now();
+      const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
+      const tiltY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+      sceneContainer.style.transform = `translate3d(${(-tiltX * 8).toFixed(1)}px, ${(-tiltY * 5).toFixed(1)}px, 0)`;
+    }, { passive: true });
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(resizeCanvas, 150);
+    });
+
+    window.onload = function () {
+      resizeCanvas();
+      initDustParticles();
+      requestAnimationFrame(animateCasinoScene);
+    };
+  </script>
+</body>
+</html>
