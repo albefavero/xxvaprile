@@ -670,22 +670,28 @@
     <header class="w-full max-w-5xl mx-auto flex items-center justify-between gap-2 shrink-0">
       <!-- Left VIP Badge -->
       <div class="flex items-center gap-2 bg-black/80 border border-amber-500/50 rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-        <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-        <span class="font-casino text-[10px] sm:text-xs md:text-sm font-bold tracking-wider text-amber-200">
-          CASINÒ REALE • <span class="text-amber-400">SALA VIP</span>
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+        <span class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-amber-200 uppercase">
+          CASINÒ REALE • VIP
         </span>
       </div>
 
-      <!-- Right Controls: Audio Toggle & Home Reset -->
-      <div class="flex items-center gap-2">
+      <!-- Right Controls: Leaderboard, Audio Toggle & Home Reset -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button id="leaderboard-open-btn" type="button" title="Visualizza la Classifica"
+          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          <span>🏆</span>
+          <span class="font-casino font-bold tracking-wider">CLASSIFICA</span>
+        </button>
+
         <button id="sound-toggle-btn" type="button" title="Attiva/Disattiva Audio Casinò"
-          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
           <span id="sound-icon">🔊</span>
           <span id="sound-label" class="hidden sm:inline">AUDIO ATTIVO</span>
         </button>
 
         <button id="reset-home-btn" type="button" title="Torna alla pagina iniziale"
-          class="hidden items-center gap-1 bg-red-950/85 active:bg-red-800 hover:bg-red-900 border border-amber-400/60 rounded-full px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          class="hidden items-center gap-1 bg-red-950/85 active:bg-red-800 hover:bg-red-900 border border-amber-400/60 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
           <span>↺</span>
           <span>INIZIO</span>
         </button>
@@ -791,16 +797,20 @@
 
           <!-- "IL MILIARDARIO" SCORE & PROGRESS HUD (Hidden in Storia mode) -->
           <div id="miliardario-hud" class="hidden flex-col items-center justify-center mt-1.5 w-full max-w-md mx-auto">
-            <div class="flex items-center justify-between w-full px-2 mb-1 text-[11px] sm:text-xs font-casino font-bold">
-              <div class="flex items-center gap-1.5 text-amber-200">
+            <div class="flex items-center justify-between w-full px-2 mb-1 text-[10px] sm:text-xs font-casino font-bold gap-1">
+              <div class="flex items-center gap-1 text-amber-200 truncate">
+                <span>👤</span>
+                <span id="miliardario-player-label" class="text-amber-300 font-black truncate max-w-[95px] sm:max-w-[140px]">OSPITE</span>
+              </div>
+              <div class="flex items-center gap-1 text-amber-200 shrink-0">
                 <span>🏆 PUNTI:</span>
-                <span id="miliardario-score" class="text-amber-300 text-sm sm:text-base font-black">0</span>
+                <span id="miliardario-score" class="text-amber-300 text-xs sm:text-base font-black">0</span>
                 <span class="text-amber-400/70">/ 100</span>
               </div>
               <div id="emerald-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300 text-emerald-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse">
-                ✨ SALA SMERALDO SBLOCCATA! ✨
+                ✨ SALA SMERALDO! ✨
               </div>
-              <div class="text-amber-300/80 text-[10px] sm:text-xs">
+              <div class="text-amber-300/80 text-[10px] sm:text-xs shrink-0">
                 RECORD: <span id="miliardario-best" class="text-amber-200 font-extrabold">0</span>
               </div>
             </div>
@@ -1043,6 +1053,100 @@
       </p>
     </div>
 
+  </div>
+
+  <!-- ==============================================================
+       4B. USERNAME ENTRY MODAL (SHOWN EVERY TIME "IL MILIARDARIO" IS CHOSEN)
+       ============================================================== -->
+  <div id="username-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_60px_rgba(212,175,55,0.45)] relative">
+      <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
+        ★ REGISTRAZIONE TAVOLO VIP ★
+      </div>
+      <h2 class="font-casino text-xl sm:text-2xl font-black tracking-wider gold-metallic-text mb-1">
+        IL MILIARDARIO
+      </h2>
+      <p class="text-xs sm:text-sm text-amber-100/85 mb-4">
+        Inserisci il tuo nome per salvare i tuoi punteggi in classifica:
+      </p>
+      <form id="username-form" class="flex flex-col gap-3">
+        <input id="username-input" type="text" maxlength="24" placeholder="Il tuo nome o nickname..." autocomplete="off"
+          style="user-select: text; -webkit-user-select: text;"
+          class="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-black/80 border-2 border-amber-400/70 text-amber-100 placeholder-amber-300/40 font-casino font-bold text-sm sm:text-base text-center focus:outline-none focus:border-yellow-300 shadow-inner" />
+        <p id="username-error" class="hidden text-[11px] text-red-400 font-semibold -mt-1">
+          Inserisci un nome valido per iniziare!
+        </p>
+        <div class="flex items-center gap-2 mt-1">
+          <button id="username-cancel-btn" type="button"
+            class="w-1/3 py-2.5 px-3 rounded-full bg-neutral-900/90 border border-amber-500/40 text-amber-200/80 font-casino font-bold text-xs tracking-wider uppercase hover:bg-neutral-800 transition cursor-pointer">
+            ANNULLA
+          </button>
+          <button id="username-submit-btn" type="submit"
+            class="w-2/3 py-2.5 sm:py-3 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.75)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+            ENTRA IN SFIDA →
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       4C. CLASSIFICA (LEADERBOARD) MODAL (TOP 10 + USER SEARCH)
+       ============================================================== -->
+  <div id="leaderboard-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_65px_rgba(212,175,55,0.5)] relative max-h-[90dvh] flex flex-col">
+      <!-- Top Header -->
+      <div class="flex items-center justify-between border-b border-amber-500/30 pb-2.5 mb-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-xl sm:text-2xl">🏆</span>
+          <div class="text-left">
+            <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text leading-none">
+              CLASSIFICA VIP
+            </h2>
+            <p class="text-[10px] text-amber-300/75 uppercase tracking-widest mt-0.5">
+              I MIGLIORI 10 PUNTEGGI • IL MILIARDARIO
+            </p>
+          </div>
+        </div>
+        <button id="leaderboard-close-btn" type="button"
+          class="w-8 h-8 rounded-full bg-red-950/90 border border-amber-400/60 text-amber-200 font-bold text-sm flex items-center justify-center hover:bg-red-800 transition cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Search Box for a Specific Username -->
+      <div class="mb-3 shrink-0">
+        <div class="text-[10px] sm:text-xs font-casino font-bold text-amber-300 uppercase tracking-wider text-left mb-1">
+          🔍 CERCA IL MIGLIOR PUNTEGGIO DI UN GIOCATORE:
+        </div>
+        <div class="flex items-center gap-1.5">
+          <input id="leaderboard-search-input" type="text" maxlength="24" placeholder="Digita un nome utente..." autocomplete="off"
+            style="user-select: text; -webkit-user-select: text;"
+            class="flex-1 px-3 py-2 rounded-xl bg-black/80 border border-amber-400/60 text-amber-100 placeholder-amber-300/40 text-xs sm:text-sm focus:outline-none focus:border-yellow-300" />
+          <button id="leaderboard-search-btn" type="button"
+            class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-red-950 font-casino font-black text-xs tracking-wider uppercase shrink-0 cursor-pointer">
+            CERCA
+          </button>
+        </div>
+        <div id="leaderboard-search-result" class="hidden mt-2 px-3 py-2 rounded-xl bg-amber-950/70 border border-amber-400/50 text-xs sm:text-sm text-amber-100 font-semibold text-left">
+        </div>
+      </div>
+
+      <!-- Top 10 List -->
+      <div class="text-[10px] sm:text-xs font-casino font-bold text-amber-300 uppercase tracking-wider text-left mb-1.5 shrink-0">
+        👑 TOP 10 CLASSIFICA GENERALE:
+      </div>
+      <div id="leaderboard-list-container" class="flex-1 overflow-y-auto space-y-1.5 pr-1 text-left min-h-[160px]" style="touch-action: pan-y;">
+      </div>
+
+      <!-- Footer Close -->
+      <div class="mt-3 pt-2 border-t border-amber-500/30 shrink-0">
+        <button id="leaderboard-footer-close-btn" type="button"
+          class="w-full py-2.5 rounded-full bg-amber-950/80 hover:bg-amber-900 border border-amber-400/60 text-amber-200 font-casino font-bold text-xs tracking-widest uppercase transition cursor-pointer">
+          CHIUDI CLASSIFICA
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ==============================================================
@@ -1418,7 +1522,7 @@
     ];
 
     // ==============================================================
-    // WEB AUDIO SYNTHESIZER (MOBILE & DESKTOP CASINO SOUND EFFECTS)
+    // WEB AUDIO SYNTHESIZER (NO EXTERNAL MP3s REQUIRED)
     // ==============================================================
     const audio = {
       ctx: null,
@@ -1432,20 +1536,16 @@
           if (this.ctx && this.ctx.state === 'suspended') {
             this.ctx.resume();
           }
-        } catch (err) {
-          // Ignore audio context restrictions if blocked by browser
-        }
+        } catch (e) {}
       },
-      playTick(freq = 520) {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
+      playTick(freq = 500) {
+        if (!this.enabled || !this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.045);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
@@ -1454,57 +1554,67 @@
         } catch (e) {}
       },
       playWinChime() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
+        if (!this.enabled || !this.ctx) return;
         try {
           const notes = [523.25, 659.25, 783.99, 1046.5];
-          notes.forEach((n, idx) => {
+          notes.forEach((f, idx) => {
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
+            const start = this.ctx.currentTime + idx * 0.06;
             osc.type = 'sine';
-            const startTime = this.ctx.currentTime + idx * 0.065;
-            osc.frequency.setValueAtTime(n, startTime);
-            gain.gain.setValueAtTime(0.08, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.28);
+            osc.frequency.setValueAtTime(f, start);
+            gain.gain.setValueAtTime(0.11, start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.25);
             osc.connect(gain);
             gain.connect(this.ctx.destination);
-            osc.start(startTime);
-            osc.stop(startTime + 0.3);
+            osc.start(start);
+            osc.stop(start + 0.26);
           });
         } catch (e) {}
       },
       playLoseBuzzer() {
-        if (!this.enabled) return;
-        this.init();
-        if (!this.ctx) return;
+        if (!this.enabled || !this.ctx) return;
         try {
           const freqs = [190, 145];
           freqs.forEach((f, idx) => {
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
+            const start = this.ctx.currentTime + idx * 0.18;
             osc.type = 'sawtooth';
-            const startTime = this.ctx.currentTime + idx * 0.16;
-            osc.frequency.setValueAtTime(f, startTime);
-            gain.gain.setValueAtTime(0.11, startTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.32);
+            osc.frequency.setValueAtTime(f, start);
+            gain.gain.setValueAtTime(0.14, start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.32);
             osc.connect(gain);
             gain.connect(this.ctx.destination);
-            osc.start(startTime);
-            osc.stop(startTime + 0.35);
+            osc.start(start);
+            osc.stop(start + 0.34);
           });
         } catch (e) {}
       }
     };
 
     // ==============================================================
-    // STATE MANAGEMENT, MODES ("STORIA" & "IL MILIARDARIO") & LOGIC
+    // CORE STATE & DOM REFERENCES
     // ==============================================================
+    const LOSS_PROBABILITY = 0.023; // 2.3% chance on each spin in Storia mode
+    let currentMode = 'storia';
+    let isSpinning = false;
+    let isPaywallOpen = false;
+    let paywallOpenedAt = 0;
+    let lastQuoteIndex = -1;
+
+    // Landing & Mode Switcher DOM Elements
     const landingModeSelectView = document.getElementById('landing-mode-select-view');
     const mainGameContent = document.getElementById('main-game-content');
     const landingChooseStoriaBtn = document.getElementById('landing-choose-storia');
     const landingChooseMiliardarioBtn = document.getElementById('landing-choose-miliardario');
+    const modeStoriaBtn = document.getElementById('mode-storia-btn');
+    const modeMiliardarioBtn = document.getElementById('mode-miliardario-btn');
+    const modeSubtitleBadge = document.getElementById('mode-subtitle-badge');
+    const machineMainTitle = document.getElementById('machine-main-title');
 
+    // Display Well & Views
+    const displayWell = document.getElementById('display-well');
     const attractView = document.getElementById('initial-attract-view');
     const attractHeadlineText = document.getElementById('attract-headline-text');
     const attractPillLabel = document.getElementById('attract-pill-label');
@@ -1515,44 +1625,36 @@
     const quoteMainText = document.getElementById('quote-main-text');
     const quoteAuthorBadge = document.getElementById('quote-author-badge');
     const quoteAuthorText = document.getElementById('quote-author-text');
-    const miliardarioFeedback = document.getElementById('miliardario-feedback');
-    const miliardarioRestartBtn = document.getElementById('miliardario-restart-btn');
     const lostSlotView = document.getElementById('lost-slot-view');
 
-    const modeStoriaBtn = document.getElementById('mode-storia-btn');
-    const modeMiliardarioBtn = document.getElementById('mode-miliardario-btn');
-    const modeSubtitleBadge = document.getElementById('mode-subtitle-badge');
-    const machineMainTitle = document.getElementById('machine-main-title');
+    // Controls & Buttons
+    const storiaControlsWrap = document.getElementById('storia-controls-wrap');
+    const randomizeBtn = document.getElementById('randomize-btn');
+    const spinBtnText = document.getElementById('spin-btn-text');
+    const miliardarioControlsWrap = document.getElementById('miliardario-controls-wrap');
+    const miliardarioQuizPrompt = document.getElementById('miliardario-quiz-prompt');
+    const miliardarioOptionsGrid = document.getElementById('miliardario-options-grid');
+    const optionButtons = Array.from(miliardarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
+    const miliardarioFeedback = document.getElementById('miliardario-feedback');
+    const miliardarioRestartBtn = document.getElementById('miliardario-restart-btn');
+
+    // Miliardario HUD Elements
     const miliardarioHud = document.getElementById('miliardario-hud');
     const miliardarioScoreEl = document.getElementById('miliardario-score');
     const miliardarioBestEl = document.getElementById('miliardario-best');
     const miliardarioProgressBar = document.getElementById('miliardario-progress-bar');
     const emeraldStatusPill = document.getElementById('emerald-status-pill');
 
-    const storiaControlsWrap = document.getElementById('storia-controls-wrap');
-    const miliardarioControlsWrap = document.getElementById('miliardario-controls-wrap');
-    const miliardarioQuizPrompt = document.getElementById('miliardario-quiz-prompt');
-    const miliardarioOptionsGrid = document.getElementById('miliardario-options-grid');
-    const optionButtons = Array.from(miliardarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
-
-    const randomizeBtn = document.getElementById('randomize-btn');
-    const spinBtnText = document.getElementById('spin-btn-text');
-    const resetHomeBtn = document.getElementById('reset-home-btn');
+    // Top Bar & Paywall Elements
     const soundToggleBtn = document.getElementById('sound-toggle-btn');
     const soundIcon = document.getElementById('sound-icon');
     const soundLabel = document.getElementById('sound-label');
+    const resetHomeBtn = document.getElementById('reset-home-btn');
     const paywallOverlay = document.getElementById('paywall-overlay');
-    const displayWell = document.getElementById('display-well');
 
-    // Exact 2.3% independent chance on EVERY click/tap in "Storia" mode
-    const LOSS_PROBABILITY = 0.023;
-    let currentMode = 'storia'; // 'storia' | 'miliardario'
-    let isSpinning = false;
-    let isPaywallOpen = false;
-    let paywallOpenedAt = 0;
-    let lastQuoteIndex = -1;
-
-    // "Il miliardario" state
+    // "Il miliardario" state & Persistent Leaderboard
+    const LEADERBOARD_STORAGE_KEY = 'casino_reale_miliardario_scores_v1';
+    let currentPlayerName = '';
     let miliardarioScore = 0;
     let miliardarioBest = 0;
     let currentQuizQuestion = null;
@@ -1560,9 +1662,170 @@
     let nextQuestionTimer = null;
     let questionLoadedAt = 0;
 
+    // Additional DOM Elements for Username Prompt & Leaderboard Modal
+    const miliardarioPlayerLabel = document.getElementById('miliardario-player-label');
+    const usernameModalOverlay = document.getElementById('username-modal-overlay');
+    const usernameForm = document.getElementById('username-form');
+    const usernameInput = document.getElementById('username-input');
+    const usernameError = document.getElementById('username-error');
+    const usernameCancelBtn = document.getElementById('username-cancel-btn');
+
+    const leaderboardOpenBtn = document.getElementById('leaderboard-open-btn');
+    const leaderboardModalOverlay = document.getElementById('leaderboard-modal-overlay');
+    const leaderboardCloseBtn = document.getElementById('leaderboard-close-btn');
+    const leaderboardFooterCloseBtn = document.getElementById('leaderboard-footer-close-btn');
+    const leaderboardListContainer = document.getElementById('leaderboard-list-container');
+    const leaderboardSearchInput = document.getElementById('leaderboard-search-input');
+    const leaderboardSearchBtn = document.getElementById('leaderboard-search-btn');
+    const leaderboardSearchResult = document.getElementById('leaderboard-search-result');
+
+    function loadScoresMap() {
+      try {
+        const raw = localStorage.getItem(LEADERBOARD_STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        return (parsed && typeof parsed === 'object') ? parsed : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveScoresMap(map) {
+      try {
+        localStorage.setItem(LEADERBOARD_STORAGE_KEY, JSON.stringify(map));
+      } catch (e) {}
+    }
+
+    function recordPlayerScore(username, scoreVal) {
+      if (!username) return;
+      const cleanName = username.trim();
+      if (!cleanName) return;
+      const key = cleanName.toLowerCase();
+      const map = loadScoresMap();
+      const existing = map[key];
+      const bestScore = existing ? Math.max(existing.score, scoreVal) : scoreVal;
+      map[key] = {
+        name: existing ? existing.name : cleanName,
+        score: bestScore,
+        updatedAt: Date.now()
+      };
+      saveScoresMap(map);
+    }
+
+    function getPlayerBestScore(username) {
+      if (!username) return 0;
+      const key = username.trim().toLowerCase();
+      const map = loadScoresMap();
+      return map[key] ? map[key].score : 0;
+    }
+
+    function renderLeaderboardModal() {
+      const map = loadScoresMap();
+      const entries = Object.values(map).sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return (a.updatedAt || 0) - (b.updatedAt || 0);
+      });
+
+      const top10 = entries.slice(0, 10);
+      leaderboardListContainer.innerHTML = '';
+
+      if (top10.length === 0) {
+        leaderboardListContainer.innerHTML = `
+          <div class="text-center py-8 text-amber-200/60 text-xs sm:text-sm italic">
+            Nessun punteggio registrato finora.<br/>Gioca a "Il Miliardario" per inaugurare la classifica!
+          </div>
+        `;
+        return;
+      }
+
+      top10.forEach((item, idx) => {
+        const rank = idx + 1;
+        let badge = `<span class="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-200 font-casino font-bold text-xs flex items-center justify-center shrink-0">${rank}</span>`;
+        if (rank === 1) badge = `<span class="w-6 h-6 rounded-full bg-yellow-400/30 border border-yellow-300 text-yellow-200 font-casino font-black text-sm flex items-center justify-center shrink-0">🥇</span>`;
+        else if (rank === 2) badge = `<span class="w-6 h-6 rounded-full bg-slate-300/30 border border-slate-200 text-slate-100 font-casino font-black text-sm flex items-center justify-center shrink-0">🥈</span>`;
+        else if (rank === 3) badge = `<span class="w-6 h-6 rounded-full bg-amber-700/40 border border-amber-500 text-amber-200 font-casino font-black text-sm flex items-center justify-center shrink-0">🥉</span>`;
+
+        const isCurrentUser = currentPlayerName && item.name.toLowerCase() === currentPlayerName.toLowerCase();
+        const row = document.createElement('div');
+        row.className = `flex items-center justify-between px-3 py-2 rounded-xl border ${
+          isCurrentUser
+            ? 'bg-amber-500/25 border-yellow-300 shadow-[0_0_12px_rgba(251,191,36,0.3)]'
+            : 'bg-black/60 border-amber-500/30'
+        }`;
+
+        const nameContainer = document.createElement('div');
+        nameContainer.className = 'flex items-center gap-2.5 truncate pr-2';
+        nameContainer.innerHTML = badge;
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'font-casino font-bold text-xs sm:text-sm text-amber-100 truncate';
+        nameSpan.textContent = item.name;
+        nameContainer.appendChild(nameSpan);
+
+        const scoreSpan = document.createElement('span');
+        scoreSpan.className = 'font-casino font-black text-xs sm:text-sm text-amber-300 shrink-0';
+        scoreSpan.textContent = `${item.score} PT`;
+
+        row.appendChild(nameContainer);
+        row.appendChild(scoreSpan);
+        leaderboardListContainer.appendChild(row);
+      });
+    }
+
+    function handleLeaderboardSearch() {
+      const query = (leaderboardSearchInput.value || '').trim();
+      leaderboardSearchResult.classList.remove('hidden');
+      if (!query) {
+        leaderboardSearchResult.innerHTML = `<span class="text-amber-300">Inserisci un nome utente da cercare.</span>`;
+        return;
+      }
+
+      const map = loadScoresMap();
+      const key = query.toLowerCase();
+      const allSorted = Object.values(map).sort((a, b) => b.score - a.score);
+
+      if (map[key]) {
+        const entry = map[key];
+        const rank = allSorted.findIndex(e => e.name.toLowerCase() === key) + 1;
+        leaderboardSearchResult.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span>👤 <strong class="text-amber-200 font-casino">${entry.name}</strong> (Posizione #${rank})</span>
+            <span class="font-casino font-black text-amber-300">MIGLIOR PUNTEGGIO: ${entry.score} PT</span>
+          </div>
+        `;
+      } else {
+        const partial = allSorted.find(e => e.name.toLowerCase().includes(key));
+        if (partial) {
+          const rank = allSorted.findIndex(e => e.name.toLowerCase() === partial.name.toLowerCase()) + 1;
+          leaderboardSearchResult.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span>👤 <strong class="text-amber-200 font-casino">${partial.name}</strong> (Posizione #${rank})</span>
+              <span class="font-casino font-black text-amber-300">MIGLIOR PUNTEGGIO: ${partial.score} PT</span>
+            </div>
+          `;
+        } else {
+          leaderboardSearchResult.innerHTML = `<span class="text-red-300">Nessun punteggio trovato per "<strong>${query.replace(/[<>&"']/g, '')}</strong>".</span>`;
+        }
+      }
+    }
+
+    function openLeaderboardModal() {
+      audio.init();
+      leaderboardSearchInput.value = '';
+      leaderboardSearchResult.classList.add('hidden');
+      renderLeaderboardModal();
+      leaderboardModalOverlay.classList.remove('hidden');
+      leaderboardModalOverlay.classList.add('flex');
+    }
+
+    function closeLeaderboardModal() {
+      leaderboardModalOverlay.classList.add('hidden');
+      leaderboardModalOverlay.classList.remove('flex');
+    }
+
     function normalizePersonKey(name) {
       const n = name.trim().toLowerCase().replace(/\./g, '');
-      if (n.includes('paludetto') || n === 'palu') return 'palu';
+      if (n.includes('paludetto') || n === 'palu' || n === 'franca') return 'palu';
       if (n.includes('gambino') || n.includes('girolama')) return 'gambino';
       if (n.includes('alberto f')) return 'alberto_f';
       if (n.includes('alberto d')) return 'alberto_d';
@@ -1570,15 +1833,43 @@
       if (n.includes('palmegiano') || n === 'palme') return 'palme';
       if (n.includes('terrida') || n === 'terry' || n === 'terru') return 'terrida';
       if (n.includes('ghiraldelli') || n.includes('ghirardelli')) return 'ghiraldelli';
+      if (n.includes('stival')) return 'stival';
+      if (n.includes('gianni')) return 'gianni';
+      if (n.includes('valente')) return 'valente';
       if (n.includes('prof di fisica')) return 'prof_fisica';
       return n;
     }
 
+    // Format every option name for "Il Miliardario" according to rules:
+    // - Never show both first name and last name (e.g. "Girolama Gambino" -> "Gambino", "Gianni Stival" -> "Stival", "Franca Paludetto" -> "Paludetto", "Rocco Milidone" -> "Milidone", "Chiara Valente" -> "Valente")
+    // - Always include initial for Alberto: "Alberto F." or "Alberto D."
+    // - Always use "Terrida" instead of "Terry"
+    function formatQuizOptionPersonName(rawName) {
+      const raw = rawName.trim();
+      const low = raw.toLowerCase().replace(/\./g, '').trim();
+
+      if (low === 'alberto f' || low === 'albertp f' || low === 'alberto') return 'Alberto F.';
+      if (low === 'alberto d') return 'Alberto D.';
+      if (low.includes('girolama') || low.includes('gambino')) return 'Gambino';
+      if (low.includes('gianni stival') || low === 'stival') return 'Stival';
+      if (low.includes('franca paludetto') || low === 'paludetto') return 'Paludetto';
+      if (low === 'palu') return 'Palu';
+      if (low.includes('rocco milidone') || low === 'milidone') return 'Milidone';
+      if (low.includes('chiara valente') || low === 'valente') return 'Valente';
+      if (low === 'terry' || low === 'terru' || low.includes('terrida')) return 'Terrida';
+      if (low === 'palmegiano' || low === 'palme') return 'Palme';
+      if (low.includes('ghirardelli') || low.includes('ghiraldelli')) return 'Ghiraldelli';
+      if (low.includes('prof di fisica')) return 'Prof di Fisica';
+
+      return raw.charAt(0).toUpperCase() + raw.slice(1);
+    }
+
+    // Pool of single names for "Il Miliardario" (no first+last name pairs, Alberto always has initial)
     const SINGLE_NAMES_POOL = [
-      "Franca Paludetto", "Girolama Gambino", "Michela", "Alberto F.", "Irene",
-      "Palme", "Pitaccolo", "Catto", "Rocco Milidone", "Mario", "Gianni",
+      "Paludetto", "Gambino", "Michela", "Alberto F.", "Irene",
+      "Palme", "Pitaccolo", "Catto", "Milidone", "Mario", "Gianni",
       "Nicolò", "Terrida", "Cesetti", "Carraro", "Zago", "Peru", "Simone",
-      "Carlotta", "Greta", "Stival", "Panigutto", "Chiara Valente", "Anna",
+      "Carlotta", "Greta", "Stival", "Panigutto", "Valente", "Anna",
       "Venturin", "Filippo", "Emma", "Vincentini", "Giovanna", "Tecla",
       "Peressini", "Tirone", "Cruciani", "Profeta", "Pietro", "Marco",
       "Cristian", "Peritore", "Alberto D.", "Tommaso", "Passador"
@@ -1622,9 +1913,14 @@
       } else {
         const fallback = cleaned.match(/^(.*)\s*-\s*([^-]+)$/);
         if (fallback && fallback[2].trim().length < 45) {
-          quotePart = fallback[1].trim();
+          quotePart = cleaned.slice(0, cleaned.lastIndexOf('-')).trim();
           authorPart = fallback[2].trim();
         }
+      }
+
+      // Specific masking rule: "Io ho un nome brutto: Girolama" -> "Io ho un nome brutto: [NOME]"
+      if (/Io ho un nome brutto:\s*Girolama/i.test(quotePart)) {
+        quotePart = quotePart.replace(/Girolama/gi, '[NOME]');
       }
 
       if (authorPart) {
@@ -1637,23 +1933,35 @@
           { regex: /^(.+?)\s+Durante Interrogazione\s+(.+)$/i, sep: ' e ' }
         ];
 
-        let cleanAuthor = authorPart.replace(/\s*\((?!Riferito)[^)]*\)\s*/gi, '').trim();
+        let cleanAuthor = authorPart
+          .replace(/\s+in gita a\s+.+$/i, '')
+          .replace(/\s*\((?!Riferito)[^)]*\)\s*/gi, '')
+          .trim();
+
         const riferitoMatch = cleanAuthor.match(/^(.+?)\s*\(Riferito A\s+([^)]+)\)$/i);
         if (riferitoMatch) {
-          return createMultiNameQuestion(quotePart, [riferitoMatch[1].trim(), riferitoMatch[2].trim()], ' a ');
+          return createMultiNameQuestion(
+            quotePart,
+            [formatQuizOptionPersonName(riferitoMatch[1]), formatQuizOptionPersonName(riferitoMatch[2])],
+            ' a '
+          );
         }
 
         for (const pat of multiPatterns) {
           const m = cleanAuthor.match(pat.regex);
           if (m && !cleanAuthor.toLowerCase().includes('galeotti')) {
-            return createMultiNameQuestion(quotePart, [m[1].trim(), m[2].trim()], pat.sep);
+            return createMultiNameQuestion(
+              quotePart,
+              [formatQuizOptionPersonName(m[1]), formatQuizOptionPersonName(m[2])],
+              pat.sep
+            );
           }
         }
 
-        return createSingleNameQuestion(quotePart, cleanAuthor);
+        return createSingleNameQuestion(quotePart, formatQuizOptionPersonName(cleanAuthor));
       }
 
-      const speakerRegex = /(?:^|[;,.]\s*)([A-Za-zÀ-ÿ]+(?:\s+[fFdD])?)\s*:/g;
+      const speakerRegex = /(?:^|[;,.]\s*)([A-Za-zÀ-ÿ]+(?:\s+[fFdD]\.?)?)\s*:/g;
       const speakers = [];
       let match;
       while ((match = speakerRegex.exec(cleaned)) !== null) {
@@ -1665,19 +1973,21 @@
 
       if (speakers.length >= 2) {
         const uniqueSpeakers = [];
+        const rawUniqueSpeakers = [];
         const seenKeys = new Set();
         speakers.forEach(s => {
           const k = normalizePersonKey(s);
           if (!seenKeys.has(k)) {
             seenKeys.add(k);
-            uniqueSpeakers.push(s.charAt(0).toUpperCase() + s.slice(1));
+            rawUniqueSpeakers.push(s);
+            uniqueSpeakers.push(formatQuizOptionPersonName(s));
           }
         });
 
         let maskedQuote = cleaned;
-        uniqueSpeakers.forEach((sp, idx) => {
+        rawUniqueSpeakers.forEach((sp, idx) => {
           const escaped = sp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const re = new RegExp(`\\b${escaped}\\s*:`, 'gi');
+          const re = new RegExp(`${escaped}\\s*:`, 'gi');
           maskedQuote = maskedQuote.replace(re, `[Persona ${idx + 1}]:`);
         });
 
@@ -1690,21 +2000,21 @@
 
       const parenMulti = cleaned.match(/^(.*)\(([^)]+?)\s+sulla\s+([^)]+)\)\s*$/i);
       if (parenMulti) {
-        const n1 = parenMulti[2].trim();
-        const n2 = parenMulti[3].trim();
+        const n1 = formatQuizOptionPersonName(parenMulti[2]);
+        const n2 = formatQuizOptionPersonName(parenMulti[3]);
         return createMultiNameQuestion(
           parenMulti[1].trim(),
-          [n1.charAt(0).toUpperCase() + n1.slice(1), n2.charAt(0).toUpperCase() + n2.slice(1)],
+          [n1, n2],
           ' & '
         );
       }
 
       const trailingQuestionName = cleaned.match(/^(.*[?!])\s+([A-Za-zÀ-ÿ]+)$/);
       if (trailingQuestionName) {
-        const name = trailingQuestionName[2].trim();
+        const name = formatQuizOptionPersonName(trailingQuestionName[2]);
         return createSingleNameQuestion(
           trailingQuestionName[1].trim(),
-          name.charAt(0).toUpperCase() + name.slice(1)
+          name
         );
       }
 
@@ -1729,16 +2039,18 @@
     }
 
     function createSingleNameQuestion(quoteText, correctName) {
-      const correctKey = normalizePersonKey(correctName);
+      const formattedCorrect = formatQuizOptionPersonName(correctName);
+      const correctKey = normalizePersonKey(formattedCorrect);
       const distractors = pickDistinctSingleNames(2, new Set([correctKey]));
-      const options = [correctName, ...distractors];
-      return shuffleOptions(quoteText, correctName, options, 1);
+      const options = [formattedCorrect, ...distractors];
+      return shuffleOptions(quoteText, formattedCorrect, options, 1);
     }
 
     function createMultiNameQuestion(quoteText, namesArray, connector) {
-      const count = namesArray.length;
-      const correctLabel = namesArray.join(connector);
-      const excluded = new Set(namesArray.map(normalizePersonKey));
+      const formattedNames = namesArray.map(formatQuizOptionPersonName);
+      const count = formattedNames.length;
+      const correctLabel = formattedNames.join(connector);
+      const excluded = new Set(formattedNames.map(normalizePersonKey));
 
       const options = [correctLabel];
       while (options.length < 3) {
@@ -1775,6 +2087,9 @@
     });
 
     function updateMiliardarioUI() {
+      if (miliardarioPlayerLabel) {
+        miliardarioPlayerLabel.textContent = currentPlayerName || 'OSPITE';
+      }
       miliardarioScoreEl.textContent = String(miliardarioScore);
       miliardarioBestEl.textContent = String(miliardarioBest);
       const pct = Math.min(100, Math.max(0, miliardarioScore));
@@ -1790,6 +2105,43 @@
         emeraldStatusPill.classList.remove('inline-flex');
       }
     }
+
+    // Prompt for player name every time "Il Miliardario" mode is chosen
+    function requestMiliardarioModeWithUsername() {
+      audio.init();
+      usernameError.classList.add('hidden');
+      usernameInput.value = currentPlayerName || '';
+      usernameModalOverlay.classList.remove('hidden');
+      usernameModalOverlay.classList.add('flex');
+      setTimeout(() => {
+        try { usernameInput.focus(); } catch (e) {}
+      }, 60);
+    }
+
+    function closeUsernameModal() {
+      usernameModalOverlay.classList.add('hidden');
+      usernameModalOverlay.classList.remove('flex');
+    }
+
+    usernameForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = (usernameInput.value || '').trim();
+      if (!entered) {
+        usernameError.classList.remove('hidden');
+        return;
+      }
+      currentPlayerName = entered;
+      miliardarioScore = 0;
+      miliardarioBest = getPlayerBestScore(currentPlayerName);
+      recordPlayerScore(currentPlayerName, 0);
+      closeUsernameModal();
+      switchMode('miliardario');
+    });
+
+    usernameCancelBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeUsernameModal();
+    });
 
     function switchMode(newMode) {
       if (nextQuestionTimer) {
@@ -1914,6 +2266,9 @@
         miliardarioScore += 1;
         if (miliardarioScore > miliardarioBest) {
           miliardarioBest = miliardarioScore;
+        }
+        if (currentPlayerName) {
+          recordPlayerScore(currentPlayerName, miliardarioScore);
         }
         updateMiliardarioUI();
         audio.playWinChime();
@@ -2108,14 +2463,30 @@
     }
 
     bindTapAndClick(modeStoriaBtn, () => switchMode('storia'));
-    bindTapAndClick(modeMiliardarioBtn, () => switchMode('miliardario'));
+    bindTapAndClick(modeMiliardarioBtn, () => requestMiliardarioModeWithUsername());
     bindTapAndClick(landingChooseStoriaBtn, () => {
       audio.init();
       switchMode('storia');
     });
     bindTapAndClick(landingChooseMiliardarioBtn, () => {
-      audio.init();
-      switchMode('miliardario');
+      requestMiliardarioModeWithUsername();
+    });
+
+    // Leaderboard open/close & search bindings
+    bindTapAndClick(leaderboardOpenBtn, () => openLeaderboardModal());
+    bindTapAndClick(leaderboardCloseBtn, () => closeLeaderboardModal());
+    bindTapAndClick(leaderboardFooterCloseBtn, () => closeLeaderboardModal());
+    bindTapAndClick(leaderboardSearchBtn, () => handleLeaderboardSearch());
+    leaderboardSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleLeaderboardSearch();
+      }
+    });
+    leaderboardModalOverlay.addEventListener('click', (e) => {
+      if (e.target === leaderboardModalOverlay) {
+        closeLeaderboardModal();
+      }
     });
 
     bindTapAndClick(miliardarioRestartBtn, () => {
