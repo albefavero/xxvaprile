@@ -1100,9 +1100,15 @@
         <div class="flex items-center gap-2">
           <span class="text-xl sm:text-2xl">🏆</span>
           <div class="text-left">
-            <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text leading-none">
-              CLASSIFICA VIP
-            </h2>
+            <div class="flex items-center gap-2">
+              <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text leading-none">
+                CLASSIFICA VIP
+              </h2>
+              <span id="cloud-sync-badge" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-[9px] font-bold tracking-wider uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>GLOBALE</span>
+              </span>
+            </div>
             <p class="text-[10px] text-amber-300/75 uppercase tracking-widest mt-0.5">
               I MIGLIORI 10 PUNTEGGI • IL MILIARDARIO
             </p>
@@ -1148,6 +1154,108 @@
       </div>
     </div>
   </div>
+
+  <!-- ==============================================================
+       4D. CLOUD LEADERBOARD REAL-TIME SYNC MODULE (CROSS-DEVICE)
+       ============================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Firebase configuration for xxvaprilefrasi (Cloud Leaderboard)
+    const EXTERNAL_CLOUD_CONFIG = {
+      apiKey: "AIzaSyA2tdImRRk1sRQ6Q-cHB55eW4fGACdAHMg",
+      authDomain: "xxvaprilefrasi.firebaseapp.com",
+      projectId: "xxvaprilefrasi",
+      storageBucket: "xxvaprilefrasi.firebasestorage.app",
+      messagingSenderId: "868844713448",
+      appId: "1:868844713448:web:23138ddb6a2a51ae0d605d",
+      measurementId: "G-PX4FBGHFC7"
+    };
+
+    const rawConfig = EXTERNAL_CLOUD_CONFIG && EXTERNAL_CLOUD_CONFIG.apiKey
+      ? EXTERNAL_CLOUD_CONFIG
+      : (typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null);
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'casino-reale-vip';
+
+    if (rawConfig && rawConfig.apiKey) {
+      try {
+        const app = initializeApp(rawConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUser = null;
+
+        const initCloudAuth = async () => {
+          try {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+              await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+              await signInAnonymously(auth);
+            }
+          } catch (err) {
+            console.warn("Cloud auth fallback:", err);
+          }
+        };
+
+        await initCloudAuth();
+
+        onAuthStateChanged(auth, (user) => {
+          currentUser = user;
+          if (!user) return;
+
+          const scoresColRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores');
+          onSnapshot(
+            scoresColRef,
+            (snapshot) => {
+              const cloudScores = {};
+              snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                if (data && data.name && typeof data.score === 'number') {
+                  const key = data.name.trim().toLowerCase();
+                  if (!cloudScores[key] || data.score > cloudScores[key].score) {
+                    cloudScores[key] = {
+                      name: data.name.trim(),
+                      score: data.score,
+                      updatedAt: data.updatedAt || 0
+                    };
+                  }
+                }
+              });
+
+              if (typeof window.__onCloudLeaderboardUpdate === 'function') {
+                window.__onCloudLeaderboardUpdate(cloudScores);
+              }
+            },
+            (err) => {
+              console.warn("Leaderboard snapshot error:", err);
+            }
+          );
+        });
+
+        window.__saveScoreToCloud = async (username, scoreVal) => {
+          if (!currentUser || !username) return;
+          const cleanName = username.trim();
+          if (!cleanName) return;
+          const docKey = cleanName.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+          try {
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores', docKey);
+            await setDoc(docRef, {
+              name: cleanName,
+              score: Number(scoreVal) || 0,
+              updatedAt: Date.now(),
+              uid: currentUser.uid
+            }, { merge: true });
+          } catch (err) {
+            console.warn("Errore salvataggio punteggio cloud:", err);
+          }
+        };
+      } catch (e) {
+        console.warn("Cloud leaderboard non inizializzato:", e);
+      }
+    }
+  </script>
 
   <!-- ==============================================================
        5. APPLICATION LOGIC, DATASET & AUDIO SYNTHESIZER
@@ -1652,8 +1760,8 @@
     const resetHomeBtn = document.getElementById('reset-home-btn');
     const paywallOverlay = document.getElementById('paywall-overlay');
 
-    // "Il miliardario" state & Persistent Leaderboard
-    const LEADERBOARD_STORAGE_KEY = 'casino_reale_miliardario_scores_v1';
+    // "Il miliardario" state & Shared Cloud + In-Memory Leaderboard
+    let sharedScoresMap = {};
     let currentPlayerName = '';
     let miliardarioScore = 0;
     let miliardarioBest = 0;
@@ -1679,21 +1787,32 @@
     const leaderboardSearchBtn = document.getElementById('leaderboard-search-btn');
     const leaderboardSearchResult = document.getElementById('leaderboard-search-result');
 
-    function loadScoresMap() {
-      try {
-        const raw = localStorage.getItem(LEADERBOARD_STORAGE_KEY);
-        if (!raw) return {};
-        const parsed = JSON.parse(raw);
-        return (parsed && typeof parsed === 'object') ? parsed : {};
-      } catch (e) {
-        return {};
-      }
-    }
+    // Receive live updates from the shared Cloud Leaderboard
+    window.__onCloudLeaderboardUpdate = function (cloudMap) {
+      if (!cloudMap || typeof cloudMap !== 'object') return;
+      Object.keys(cloudMap).forEach((key) => {
+        const incoming = cloudMap[key];
+        const existing = sharedScoresMap[key];
+        if (!existing || incoming.score >= existing.score) {
+          sharedScoresMap[key] = incoming;
+        }
+      });
 
-    function saveScoresMap(map) {
-      try {
-        localStorage.setItem(LEADERBOARD_STORAGE_KEY, JSON.stringify(map));
-      } catch (e) {}
+      if (currentPlayerName) {
+        const myBest = getPlayerBestScore(currentPlayerName);
+        if (myBest > miliardarioBest) {
+          miliardarioBest = myBest;
+          updateMiliardarioUI();
+        }
+      }
+
+      if (!leaderboardModalOverlay.classList.contains('hidden')) {
+        renderLeaderboardModal();
+      }
+    };
+
+    function loadScoresMap() {
+      return sharedScoresMap;
     }
 
     function recordPlayerScore(username, scoreVal) {
@@ -1701,22 +1820,23 @@
       const cleanName = username.trim();
       if (!cleanName) return;
       const key = cleanName.toLowerCase();
-      const map = loadScoresMap();
-      const existing = map[key];
+      const existing = sharedScoresMap[key];
       const bestScore = existing ? Math.max(existing.score, scoreVal) : scoreVal;
-      map[key] = {
+      sharedScoresMap[key] = {
         name: existing ? existing.name : cleanName,
         score: bestScore,
         updatedAt: Date.now()
       };
-      saveScoresMap(map);
+
+      if (typeof window.__saveScoreToCloud === 'function') {
+        window.__saveScoreToCloud(sharedScoresMap[key].name, bestScore);
+      }
     }
 
     function getPlayerBestScore(username) {
       if (!username) return 0;
       const key = username.trim().toLowerCase();
-      const map = loadScoresMap();
-      return map[key] ? map[key].score : 0;
+      return sharedScoresMap[key] ? sharedScoresMap[key].score : 0;
     }
 
     function renderLeaderboardModal() {
