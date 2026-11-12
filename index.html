@@ -1558,6 +1558,7 @@
     let currentQuizQuestion = null;
     let quizLocked = false;
     let nextQuestionTimer = null;
+    let questionLoadedAt = 0;
 
     function normalizePersonKey(name) {
       const n = name.trim().toLowerCase().replace(/\./g, '');
@@ -1838,6 +1839,7 @@
         nextQuestionTimer = null;
       }
       quizLocked = false;
+      questionLoadedAt = performance.now();
 
       let poolIdx;
       do {
@@ -1890,6 +1892,7 @@
     function handleMiliardarioChoice(selectedIndex, e) {
       if (e) e.stopPropagation();
       if (currentMode !== 'miliardario' || quizLocked || !currentQuizQuestion) return;
+      if (performance.now() - questionLoadedAt < 350) return;
 
       audio.init();
       quizLocked = true;
@@ -2093,9 +2096,10 @@
     let lastModeTap = 0;
     function bindTapAndClick(el, callback) {
       const handler = (e) => {
+        if (e.type === 'pointerup') e.preventDefault();
         e.stopPropagation();
         const now = performance.now();
-        if (now - lastModeTap < 220) return;
+        if (now - lastModeTap < 300) return;
         lastModeTap = now;
         callback(e);
       };
