@@ -1179,9 +1179,10 @@
       measurementId: "G-PX4FBGHFC7"
     };
 
-    const rawConfig = EXTERNAL_CLOUD_CONFIG && EXTERNAL_CLOUD_CONFIG.apiKey
-      ? EXTERNAL_CLOUD_CONFIG
-      : (typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null);
+    const isPreviewEnv = typeof __firebase_config !== 'undefined';
+    const rawConfig = isPreviewEnv
+      ? JSON.parse(__firebase_config)
+      : EXTERNAL_CLOUD_CONFIG;
 
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'casino-reale-vip';
 
@@ -1227,7 +1228,17 @@
           }
         })();
 
-        const scoresColRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores');
+        // On GitHub Pages (your xxvaprilefrasi project), use a clean top-level 'classifica' collection
+        // so that it immediately appears in the root of your Firebase Console Data tab!
+        const getScoresColRef = () => isPreviewEnv
+          ? collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores')
+          : collection(db, 'classifica');
+
+        const getScoreDocRef = (docKey) => isPreviewEnv
+          ? doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores', docKey)
+          : doc(db, 'classifica', docKey);
+
+        const scoresColRef = getScoresColRef();
 
         const processSnapshotDocs = (docsArray) => {
           const cloudScores = {};
@@ -1261,7 +1272,7 @@
             if (err && err.code === 'permission-denied') {
               setCloudBadgeStatus(
                 'error',
-                '⚠️ <strong>Permesso negato da Firebase Firestore:</strong> Vai su Firebase Console → <em>Firestore Database</em> → scheda <em>Rules</em>, incolla le regole con <code>allow read, write: if true;</code> e premi <strong>Publish</strong>.'
+                '⚠️ <strong>Permesso negato da Firebase Firestore:</strong> Vai su Firebase Console → <em>Firestore Database</em> → scheda <em>Rules</em>, incolla le regole per <code>/classifica/{player}</code> con <code>allow read, write: if true;</code> e premi <strong>Publish</strong>.'
               );
             } else {
               setCloudBadgeStatus('error', '⚠️ Connessione Cloud non riuscita: ' + (err.message || 'verifica Firestore Database.'));
@@ -1286,7 +1297,7 @@
           const docKey = encodeURIComponent(cleanName.toLowerCase()).replace(/\./g, '%2E');
 
           try {
-            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard_scores', docKey);
+            const docRef = getScoreDocRef(docKey);
             let finalScore = numericScore;
             let displayName = cleanName;
 
@@ -1315,7 +1326,7 @@
             if (err && err.code === 'permission-denied') {
               setCloudBadgeStatus(
                 'error',
-                '⚠️ <strong>Salvataggio bloccato dalle Regole Firebase:</strong> Vai su Firebase Console → <em>Firestore Database</em> → <em>Rules</em> e pubblica le regole per abilitare la scrittura.'
+                '⚠️ <strong>Salvataggio bloccato dalle Regole Firebase:</strong> Vai su Firebase Console → <em>Firestore Database</em> → <em>Rules</em> e pubblica le regole per <code>/classifica/{player}</code>.'
               );
             }
           }
