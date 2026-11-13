@@ -797,23 +797,32 @@
 
           <!-- "IL MILIARDARIO" SCORE & PROGRESS HUD (Hidden in Storia mode) -->
           <div id="miliardario-hud" class="hidden flex-col items-center justify-center mt-1.5 w-full max-w-md mx-auto">
-            <div class="flex items-center justify-between w-full px-2 mb-1 text-[10px] sm:text-xs font-casino font-bold gap-1">
+            <div class="flex flex-wrap items-center justify-between w-full px-2 mb-1 text-[10px] sm:text-xs font-casino font-bold gap-x-2 gap-y-1">
               <div class="flex items-center gap-1 text-amber-200 truncate">
                 <span>👤</span>
-                <span id="miliardario-player-label" class="text-amber-300 font-black truncate max-w-[95px] sm:max-w-[140px]">OSPITE</span>
+                <span id="miliardario-player-label" class="text-amber-300 font-black truncate max-w-[90px] sm:max-w-[130px]">OSPITE</span>
               </div>
               <div class="flex items-center gap-1 text-amber-200 shrink-0">
                 <span>🏆 PUNTI:</span>
                 <span id="miliardario-score" class="text-amber-300 text-xs sm:text-base font-black">0</span>
-                <span class="text-amber-400/70">/ 100</span>
+                <span id="miliardario-score-max" class="text-amber-400/70">/ 100</span>
               </div>
-              <div id="emerald-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300 text-emerald-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse">
+              <div id="emerald-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300 text-emerald-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse shrink-0">
                 ✨ SALA SMERALDO! ✨
               </div>
               <div class="text-amber-300/80 text-[10px] sm:text-xs shrink-0">
                 RECORD: <span id="miliardario-best" class="text-amber-200 font-extrabold">0</span>
               </div>
             </div>
+
+            <!-- "Saldo: €" Banner (Shown from score 100 onwards, starting at 1,000,000 and adding 100,000 per right answer) -->
+            <div id="miliardario-saldo-wrap" class="hidden items-center justify-center gap-1.5 w-full py-1 px-3 mb-1.5 rounded-full bg-gradient-to-r from-emerald-950/90 via-emerald-800/80 to-emerald-950/90 border border-emerald-300/80 shadow-[0_0_20px_rgba(16,185,129,0.5)]">
+              <span class="text-xs sm:text-sm">💶</span>
+              <span class="font-casino text-[11px] sm:text-sm font-black tracking-wider text-emerald-100 uppercase">
+                Saldo: €<span id="miliardario-saldo-val" class="text-yellow-300">1.000.000</span>
+              </span>
+            </div>
+
             <!-- Progress bar towards 100 points -->
             <div class="w-full h-2 bg-black/80 rounded-full overflow-hidden border border-amber-500/40 p-0.5">
               <div id="miliardario-progress-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-300 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%;"></div>
@@ -1158,6 +1167,47 @@
       </div>
     </div>
   </div>
+
+  <!-- ==============================================================
+       4E. 100 POINTS MILLIONAIRE JACKPOT POPUP MODAL + AUDIO.MP3
+       ============================================================== -->
+  <div id="millionaire-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#064e27] via-[#032e17] to-[#02170b] border-2 sm:border-4 border-amber-300 p-5 sm:p-7 text-center shadow-[0_0_85px_rgba(16,185,129,0.9)] relative overflow-hidden max-h-[92dvh] flex flex-col items-center justify-center">
+      <!-- Top Crown & Sparkles -->
+      <div class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-500/30 border border-emerald-300 text-emerald-100 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-3 animate-bounce">
+        👑 JACKPOT SUPREMO • 100 PUNTI 👑
+      </div>
+
+      <div class="text-4xl sm:text-5xl mb-2">🎉💶🎉</div>
+
+      <!-- Main Requested Banner Text -->
+      <h2 class="font-casino text-xl sm:text-3xl md:text-4xl font-black tracking-wider gold-metallic-text leading-snug mb-3 px-1 break-words">
+        CONGRATULAZIONI! HAI VINTO UN MILIONE DI EURO!!!
+      </h2>
+
+      <!-- Initial Saldo Display Box -->
+      <div class="w-full rounded-xl sm:rounded-2xl bg-black/65 border-2 border-emerald-400/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
+        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-emerald-300/90 mb-1">
+          IL TUO NUOVO SALDO VIP
+        </div>
+        <div class="font-casino text-2xl sm:text-4xl font-black text-yellow-300 drop-shadow-[0_0_15px_rgba(253,224,71,0.75)]">
+          Saldo: €1.000.000
+        </div>
+        <div class="text-[10px] sm:text-xs font-semibold text-emerald-200/90 mt-1">
+          Ogni risposta esatta d'ora in poi aggiunge <strong class="text-yellow-300">+€100.000</strong>!
+        </div>
+      </div>
+
+      <!-- Continua la scalata button -->
+      <button id="continue-climb-btn" type="button"
+        class="w-full py-3.5 sm:py-4 px-6 rounded-full bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-400 text-emerald-950 font-casino font-black text-sm sm:text-lg tracking-wider uppercase shadow-[0_0_35px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+        🚀 CONTINUA LA SCALATA
+      </button>
+    </div>
+  </div>
+
+  <!-- Hidden HTML5 Audio Element for "audio.mp3" uploaded to GitHub -->
+  <audio id="jackpot-mp3-audio" src="audio.mp3" preload="auto"></audio>
 
   <!-- ==============================================================
        4D. CLOUD LEADERBOARD REAL-TIME SYNC MODULE (CROSS-DEVICE)
@@ -1838,9 +1888,15 @@
     // Miliardario HUD Elements
     const miliardarioHud = document.getElementById('miliardario-hud');
     const miliardarioScoreEl = document.getElementById('miliardario-score');
+    const miliardarioScoreMaxEl = document.getElementById('miliardario-score-max');
+    const emeraldStatusPill = document.getElementById('emerald-status-pill');
     const miliardarioBestEl = document.getElementById('miliardario-best');
     const miliardarioProgressBar = document.getElementById('miliardario-progress-bar');
-    const emeraldStatusPill = document.getElementById('emerald-status-pill');
+    const miliardarioSaldoWrap = document.getElementById('miliardario-saldo-wrap');
+    const miliardarioSaldoVal = document.getElementById('miliardario-saldo-val');
+    const millionaireModalOverlay = document.getElementById('millionaire-modal-overlay');
+    const continueClimbBtn = document.getElementById('continue-climb-btn');
+    const jackpotMp3Audio = document.getElementById('jackpot-mp3-audio');
 
     // Top Bar & Paywall Elements
     const soundToggleBtn = document.getElementById('sound-toggle-btn');
@@ -1980,7 +2036,7 @@
       top10.forEach((item, idx) => {
         const rank = idx + 1;
         let badge = `<span class="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-200 font-casino font-bold text-xs flex items-center justify-center shrink-0">${rank}</span>`;
-        if (rank === 1) badge = `<span class="w-6 h-6 rounded-full bg-yellow-400/30 border border-yellow-300 text-yellow-200 font-casino font-black text-sm flex items-center justify-center shrink-0">🥇</span>`;
+        if (rank === 1) badge = `<span class="w-6 h-6 rounded-full bg-yellow-400/30 border border-yellow-300 text-yellow-200 font-casino font-black text-sm flex items-center justify-center shrink-0">👑</span>`;
         else if (rank === 2) badge = `<span class="w-6 h-6 rounded-full bg-slate-300/30 border border-slate-200 text-slate-100 font-casino font-black text-sm flex items-center justify-center shrink-0">🥈</span>`;
         else if (rank === 3) badge = `<span class="w-6 h-6 rounded-full bg-amber-700/40 border border-amber-500 text-amber-200 font-casino font-black text-sm flex items-center justify-center shrink-0">🥉</span>`;
 
@@ -1998,7 +2054,7 @@
 
         const nameSpan = document.createElement('span');
         nameSpan.className = 'font-casino font-bold text-xs sm:text-sm text-amber-100 truncate';
-        nameSpan.textContent = item.name;
+        nameSpan.textContent = rank === 1 ? `👑 ${item.name}` : item.name;
         nameContainer.appendChild(nameSpan);
 
         const scoreSpan = document.createElement('span');
@@ -2075,8 +2131,7 @@
       if (n.includes('palmegiano') || n === 'palme') return 'palme';
       if (n.includes('terrida') || n === 'terry' || n === 'terru') return 'terrida';
       if (n.includes('ghiraldelli') || n.includes('ghirardelli')) return 'ghiraldelli';
-      if (n.includes('stival')) return 'stival';
-      if (n.includes('gianni')) return 'gianni';
+      if (n.includes('stival') || n.includes('gianni')) return 'stival';
       if (n.includes('valente')) return 'valente';
       if (n.includes('prof di fisica')) return 'prof_fisica';
       return n;
@@ -2093,7 +2148,7 @@
       if (low === 'alberto f' || low === 'albertp f' || low === 'alberto') return 'Alberto F.';
       if (low === 'alberto d') return 'Alberto D.';
       if (low.includes('girolama') || low.includes('gambino')) return 'Gambino';
-      if (low.includes('gianni stival') || low === 'stival') return 'Stival';
+      if (low.includes('gianni stival') || low === 'stival' || low === 'gianni') return 'Stival';
       if (low.includes('franca paludetto') || low === 'paludetto') return 'Paludetto';
       if (low === 'palu') return 'Palu';
       if (low.includes('rocco milidone') || low === 'milidone') return 'Milidone';
@@ -2106,10 +2161,10 @@
       return raw.charAt(0).toUpperCase() + raw.slice(1);
     }
 
-    // Pool of single names for "Il Miliardario" (no first+last name pairs, Alberto always has initial)
+    // Pool of single names for "Il Miliardario" (no first+last name pairs, Gianni & Stival unified as Stival, Alberto always has initial)
     const SINGLE_NAMES_POOL = [
       "Paludetto", "Gambino", "Michela", "Alberto F.", "Irene",
-      "Palme", "Pitaccolo", "Catto", "Milidone", "Mario", "Gianni",
+      "Palme", "Pitaccolo", "Catto", "Milidone", "Mario",
       "Nicolò", "Terrida", "Cesetti", "Carraro", "Zago", "Peru", "Simone",
       "Carlotta", "Greta", "Stival", "Panigutto", "Valente", "Anna",
       "Venturin", "Filippo", "Emma", "Vincentini", "Giovanna", "Tecla",
@@ -2339,13 +2394,73 @@
 
       if (miliardarioScore >= 100) {
         document.body.classList.add('emerald-jackpot-theme');
-        emeraldStatusPill.classList.remove('hidden');
-        emeraldStatusPill.classList.add('inline-flex');
+        if (miliardarioScoreMaxEl) {
+          miliardarioScoreMaxEl.textContent = '★ VIP';
+        }
+        if (emeraldStatusPill) {
+          emeraldStatusPill.classList.remove('hidden');
+          emeraldStatusPill.classList.add('inline-flex');
+        }
+        // Calculate Saldo: at score 100 = 1,000,000; every point above 100 adds 100,000
+        const saldoValue = 1000000 + (miliardarioScore - 100) * 100000;
+        if (miliardarioSaldoVal) {
+          miliardarioSaldoVal.textContent = saldoValue.toLocaleString('it-IT');
+        }
+        if (miliardarioSaldoWrap) {
+          miliardarioSaldoWrap.classList.remove('hidden');
+          miliardarioSaldoWrap.classList.add('flex');
+        }
       } else {
         document.body.classList.remove('emerald-jackpot-theme');
-        emeraldStatusPill.classList.add('hidden');
-        emeraldStatusPill.classList.remove('inline-flex');
+        if (miliardarioScoreMaxEl) {
+          miliardarioScoreMaxEl.textContent = '/ 100';
+        }
+        if (emeraldStatusPill) {
+          emeraldStatusPill.classList.add('hidden');
+          emeraldStatusPill.classList.remove('inline-flex');
+        }
+        if (miliardarioSaldoWrap) {
+          miliardarioSaldoWrap.classList.add('hidden');
+          miliardarioSaldoWrap.classList.remove('flex');
+        }
       }
+    }
+
+    function playJackpotMp3() {
+      if (!audio.enabled) return;
+      try {
+        if (jackpotMp3Audio) {
+          jackpotMp3Audio.currentTime = 0;
+          const playPromise = jackpotMp3Audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Fallback to synth chime if audio.mp3 is not yet uploaded or blocked
+              audio.playWinChime();
+            });
+          }
+        }
+      } catch (e) {
+        audio.playWinChime();
+      }
+    }
+
+    function openMillionaireJackpotModal() {
+      if (nextQuestionTimer) {
+        clearTimeout(nextQuestionTimer);
+        nextQuestionTimer = null;
+      }
+      playJackpotMp3();
+      burstGoldConfetti();
+      setTimeout(burstGoldConfetti, 250);
+      setTimeout(burstGoldConfetti, 500);
+      millionaireModalOverlay.classList.remove('hidden');
+      millionaireModalOverlay.classList.add('flex');
+    }
+
+    function closeMillionaireJackpotModalAndContinue() {
+      millionaireModalOverlay.classList.add('hidden');
+      millionaireModalOverlay.classList.remove('flex');
+      loadNextMiliardarioQuestion();
     }
 
     // Prompt for player name every time "Il Miliardario" mode is chosen
@@ -2525,17 +2640,22 @@
 
         if (miliardarioScore === 100) {
           miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-emerald-500/30 border border-emerald-300 text-emerald-200 animate-bounce';
-          miliardarioFeedback.textContent = '🎉 100 PUNTI RAGGIUNTI! IL CASINÒ È DIVENTATO VERDE SMERALDO! 🎉';
-          setTimeout(burstGoldConfetti, 250);
-          setTimeout(burstGoldConfetti, 500);
+          miliardarioFeedback.textContent = '🎉 CONGRATULAZIONI! HAI VINTO UN MILIONE DI EURO!!! 🎉';
+          openMillionaireJackpotModal();
+        } else if (miliardarioScore > 100) {
+          const currentSaldo = (1000000 + (miliardarioScore - 100) * 100000).toLocaleString('it-IT');
+          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/35 border border-emerald-300 text-yellow-200';
+          miliardarioFeedback.textContent = `✅ +€100.000! SALDO: €${currentSaldo}`;
+          nextQuestionTimer = setTimeout(() => {
+            loadNextMiliardarioQuestion();
+          }, 900);
         } else {
           miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/30 border border-emerald-400 text-emerald-200';
           miliardarioFeedback.textContent = `✅ ESATTO! +1 PUNTO (TOTALE: ${miliardarioScore})`;
+          nextQuestionTimer = setTimeout(() => {
+            loadNextMiliardarioQuestion();
+          }, 850);
         }
-
-        nextQuestionTimer = setTimeout(() => {
-          loadNextMiliardarioQuestion();
-        }, miliardarioScore === 100 ? 1800 : 850);
       } else {
         audio.playLoseBuzzer();
 
@@ -2565,6 +2685,8 @@
       quizLocked = false;
       paywallOverlay.classList.add('hidden');
       paywallOverlay.classList.remove('flex');
+      millionaireModalOverlay.classList.add('hidden');
+      millionaireModalOverlay.classList.remove('flex');
       miliardarioRestartBtn.classList.add('hidden');
       miliardarioRestartBtn.classList.remove('inline-flex');
 
@@ -2745,6 +2867,11 @@
       usedQuizIndicesInRun.clear();
       updateMiliardarioUI();
       loadNextMiliardarioQuestion();
+    });
+
+    bindTapAndClick(continueClimbBtn, () => {
+      audio.init();
+      closeMillionaireJackpotModalAndContinue();
     });
 
     optionButtons.forEach((btn, idx) => {
