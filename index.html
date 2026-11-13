@@ -2054,7 +2054,7 @@
 
         const nameSpan = document.createElement('span');
         nameSpan.className = 'font-casino font-bold text-xs sm:text-sm text-amber-100 truncate';
-        nameSpan.textContent = rank === 1 ? `👑 ${item.name}` : item.name;
+        nameSpan.textContent = rank === 1 ? `${item.name}` : item.name;
         nameContainer.appendChild(nameSpan);
 
         const scoreSpan = document.createElement('span');
