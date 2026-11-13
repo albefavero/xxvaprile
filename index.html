@@ -1641,7 +1641,7 @@
       "La lunghezza la rimango - Ghiraldelli",
       "Son quelle che usano Moodle... tajarghe le mani è sempre troppo tardi - Terrida",
       "C'è la Rizzi, una Chiara e un'altra imbecille - Terrida",
-      "Giovanna: Sai chi è Yotobi? Non è quello di Star Wars? - Giovanna",
+      "Sai chi è Yotobi? Non è quello di Star Wars? - Giovanna",
       "San Tommaso non è quello che mette le dita nei buchi di Gesù? - Carraro",
       "Giovanna, Camilla e Carlotta sono tutti nomi a me familiari, una è mia mamma, una mia nipote e l'altra è un nome che avrei voluto utilizzare in altro modo - Tirone",
       "I contadini avevano geneticamente le caviglie più tozze, lo diceva già Darwin - Tecla",
@@ -1878,6 +1878,7 @@
     let quizLocked = false;
     let nextQuestionTimer = null;
     let questionLoadedAt = 0;
+    let usedQuizIndicesInRun = new Set();
 
     // Additional DOM Elements for Username Prompt & Leaderboard Modal
     const miliardarioPlayerLabel = document.getElementById('miliardario-player-label');
@@ -2373,6 +2374,7 @@
       }
       currentPlayerName = entered;
       miliardarioScore = 0;
+      usedQuizIndicesInRun.clear();
       miliardarioBest = getPlayerBestScore(currentPlayerName);
       recordPlayerScore(currentPlayerName, 0);
       closeUsernameModal();
@@ -2421,6 +2423,7 @@
         storiaControlsWrap.classList.remove('flex');
         miliardarioControlsWrap.classList.remove('hidden');
         miliardarioControlsWrap.classList.add('flex');
+        usedQuizIndicesInRun.clear();
         updateMiliardarioUI();
         loadNextMiliardarioQuestion();
       }
@@ -2434,10 +2437,15 @@
       quizLocked = false;
       questionLoadedAt = performance.now();
 
-      let poolIdx;
-      do {
-        poolIdx = VALID_QUIZ_INDICES[Math.floor(Math.random() * VALID_QUIZ_INDICES.length)];
-      } while (poolIdx === lastQuoteIndex && VALID_QUIZ_INDICES.length > 1);
+      // Filter out questions already shown in the current run
+      let availableIndices = VALID_QUIZ_INDICES.filter(idx => !usedQuizIndicesInRun.has(idx));
+      if (availableIndices.length === 0) {
+        usedQuizIndicesInRun.clear();
+        availableIndices = VALID_QUIZ_INDICES.filter(idx => idx !== lastQuoteIndex);
+      }
+
+      const poolIdx = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      usedQuizIndicesInRun.add(poolIdx);
       lastQuoteIndex = poolIdx;
 
       currentQuizQuestion = buildMiliardarioQuestion(FRASI_DB[poolIdx]);
@@ -2561,6 +2569,7 @@
       miliardarioRestartBtn.classList.remove('inline-flex');
 
       miliardarioScore = 0;
+      usedQuizIndicesInRun.clear();
       updateMiliardarioUI();
 
       if (currentMode === 'miliardario') {
@@ -2733,6 +2742,7 @@
     bindTapAndClick(miliardarioRestartBtn, () => {
       audio.init();
       miliardarioScore = 0;
+      usedQuizIndicesInRun.clear();
       updateMiliardarioUI();
       loadNextMiliardarioQuestion();
     });
