@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#0b0706" />
-  <title>LIVE CASINO • L'Oracolo delle Frasi</title>
+  <meta name="theme-color" content="#020514" />
+  <title>CHI VUOL ESSERE MILIONARIO? • L'Oracolo delle Frasi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold-light: #ffe89e;
-      --gold-mid: #d4af37;
-      --gold-dark: #8a6415;
-      --crimson-deep: #3d060b;
-      --crimson-velvet: #6e0d16;
-      --neon-red: #ff2a2a;
+      --gold-mid: #f59e0b;
+      --gold-dark: #b45309;
+      --studio-deep: #020514;
+      --studio-blue: #09133a;
+      --studio-indigo: #1e1b4b;
+      --silver-border: #93c5fd;
     }
 
     * {
@@ -37,7 +38,7 @@
       height: 100dvh;
       overflow: hidden;
       overscroll-behavior: none;
-      background-color: #0b0706;
+      background-color: #020514;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #fff;
     }
@@ -62,38 +63,33 @@
     }
 
     .font-quote {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Montserrat', sans-serif;
     }
 
     /* ==========================================
-       PARK MGM VEGAS LOUNGE ARCHITECTURAL SCENE
+       WHO WANTS TO BE A MILLIONAIRE TV STUDIO SCENE (STATIC)
        ========================================== */
     #scene-container {
       position: fixed;
-      inset: -4%;
-      width: 108%;
-      height: 108%;
-      perspective: 1400px;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       z-index: 0;
-      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: transform;
-      background: #070304;
+      background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 50%, #02040d 100%);
     }
 
+    /* Barely visible background image layer */
     .bg-photo-layer {
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(circle at 50% 38%, rgba(255, 190, 90, 0.16) 0%, rgba(120, 15, 25, 0.25) 45%, rgba(5, 2, 3, 0.92) 95%),
-        url('image_023078.png');
+      background-image: url('images.jpg');
       background-size: cover;
       background-position: center;
-      opacity: 0.42;
-      mix-blend-mode: screen;
-      filter: contrast(1.12) saturate(1.15);
-      z-index: 2;
+      opacity: 0.15;
       pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: overlay; /* Helps it blend perfectly with the blue/cerulean colors */
     }
 
     .casino-ceiling {
@@ -103,17 +99,16 @@
       right: 0;
       height: 27%;
       background:
-        radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.22) 0%, transparent 70%),
-        repeating-linear-gradient(90deg, rgba(255, 215, 120, 0.03) 0px, rgba(255, 215, 120, 0.03) 1px, transparent 1px, transparent 140px),
-        linear-gradient(180deg, #040303 0%, #0b0706 60%, #170e0b 94%, #291911 100%);
-      border-bottom: 4px solid #c99e3b;
+        radial-gradient(ellipse at 50% 100%, rgba(59, 130, 246, 0.28) 0%, transparent 72%),
+        repeating-linear-gradient(90deg, rgba(147, 197, 253, 0.04) 0px, rgba(147, 197, 253, 0.04) 1px, transparent 1px, transparent 120px),
+        linear-gradient(180deg, #01030a 0%, #050b24 65%, #0c1947 94%, #1d3678 100%);
+      border-bottom: 3px solid #60a5fa;
       box-shadow:
-        0 6px 0 #593d0b,
+        0 4px 0 #1e3a8a,
         0 14px 45px rgba(0, 0, 0, 0.95),
-        0 4px 28px rgba(255, 185, 65, 0.32),
-        inset 0 -3px 12px rgba(255, 220, 130, 0.35);
+        0 4px 28px rgba(59, 130, 246, 0.38),
+        inset 0 -3px 12px rgba(147, 197, 253, 0.35);
       z-index: 1;
-      transform-origin: top center;
     }
 
     .casino-walls {
@@ -123,29 +118,23 @@
       right: 0;
       height: 46.5%;
       background:
-        radial-gradient(circle at 50% 42%, rgba(255, 175, 65, 0.2) 0%, transparent 58%),
-        radial-gradient(circle at 15% 50%, rgba(255, 60, 40, 0.14) 0%, transparent 35%),
-        radial-gradient(circle at 85% 50%, rgba(255, 60, 40, 0.14) 0%, transparent 35%),
+        radial-gradient(circle at 50% 42%, rgba(99, 102, 241, 0.26) 0%, transparent 60%),
+        radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 38%),
+        radial-gradient(circle at 85% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 38%),
         repeating-linear-gradient(90deg,
-          rgba(15, 2, 4, 0.55) 0px,
-          rgba(15, 2, 4, 0.55) 3px,
-          rgba(212, 175, 55, 0.12) 3px,
-          rgba(212, 175, 55, 0.12) 4px,
+          rgba(2, 6, 23, 0.6) 0px,
+          rgba(2, 6, 23, 0.6) 3px,
+          rgba(96, 165, 250, 0.14) 3px,
+          rgba(96, 165, 250, 0.14) 4px,
           transparent 4px,
           transparent 110px
         ),
-        repeating-linear-gradient(45deg,
-          rgba(0, 0, 0, 0.12) 0px,
-          rgba(0, 0, 0, 0.12) 2px,
-          transparent 2px,
-          transparent 18px
-        ),
-        linear-gradient(180deg, #4f0912 0%, #690d18 28%, #47070f 74%, #210306 100%);
-      border-bottom: 5px solid #d4af37;
+        linear-gradient(180deg, #0a143d 0%, #111c54 35%, #091032 76%, #030617 100%);
+      border-bottom: 4px solid #60a5fa;
       box-shadow:
         inset 0 28px 65px rgba(0, 0, 0, 0.85),
         inset 0 -18px 40px rgba(0, 0, 0, 0.9),
-        0 6px 25px rgba(0, 0, 0, 0.9);
+        0 6px 25px rgba(37, 99, 235, 0.4);
       z-index: 1;
     }
 
@@ -158,14 +147,14 @@
       height: 22%;
       background:
         repeating-linear-gradient(90deg,
-          #1c0d06 0px,
-          #1c0d06 48px,
-          #3b1e0e 48px,
-          #3b1e0e 52px,
-          #261208 52px,
-          #261208 100px
+          #04091e 0px,
+          #04091e 48px,
+          #0f1f4d 48px,
+          #0f1f4d 52px,
+          #07102e 52px,
+          #07102e 100px
         );
-      border-top: 2px solid rgba(212, 175, 55, 0.7);
+      border-top: 2px solid rgba(96, 165, 250, 0.6);
       box-shadow: inset 0 6px 16px rgba(0, 0, 0, 0.85);
       opacity: 0.85;
       pointer-events: none;
@@ -177,112 +166,108 @@
       left: -10%;
       right: -10%;
       height: 29%;
-      background-color: #3d2208;
+      background-color: #030718;
       background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(255, 195, 85, 0.34) 0%, rgba(18, 9, 4, 0.92) 85%),
-        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.07) 0px, rgba(212, 175, 55, 0.07) 2px, transparent 2px, transparent 14px),
-        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.07) 0px, rgba(212, 175, 55, 0.07) 2px, transparent 2px, transparent 14px),
-        radial-gradient(#1a0d03 24%, transparent 27%),
-        radial-gradient(#522f0c 20%, transparent 23%),
-        radial-gradient(#9e6b20 26%, transparent 30%);
-      background-size: 100% 100%, 28px 28px, 28px 28px, 22px 16px, 30px 22px, 26px 20px;
-      background-position: 0 0, 0 0, 0 0, 0 0, 11px 8px, 6px 13px;
+        radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.28) 0%, rgba(2, 6, 23, 0.95) 85%),
+        repeating-radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.12) 0px, rgba(96, 165, 250, 0.12) 2px, transparent 2px, transparent 36px),
+        repeating-linear-gradient(90deg, rgba(59, 130, 246, 0.06) 0px, rgba(59, 130, 246, 0.06) 2px, transparent 2px, transparent 60px);
       box-shadow: inset 0 30px 75px rgba(0, 0, 0, 0.92);
       z-index: 1;
       transition: background-color 0.8s ease, background-image 0.8s ease;
     }
 
     /* ==========================================================
-       100 POINTS EMERALD GREEN BACKGROUND TRANSFORMATION
+       100 POINTS CERULEAN / LIGHT BLUE BACKGROUND TRANSFORMATION
        ========================================================== */
-    body.emerald-jackpot-theme {
-      background-color: #031f10 !important;
+    body.cerulean-jackpot-theme {
+      background-color: #031c2b !important;
     }
-    body.emerald-jackpot-theme .casino-ceiling {
-      background: linear-gradient(180deg, #02140a 0%, #062915 75%, #0a3d20 100%);
-      border-bottom-color: #34d399;
-      box-shadow: 0 8px 35px rgba(16, 185, 129, 0.45), inset 0 -4px 12px rgba(110, 231, 183, 0.4);
+    body.cerulean-jackpot-theme #scene-container {
+      background: radial-gradient(circle at 50% 50%, #0c4a6e 0%, #072e47 50%, #020b14 100%);
     }
-    body.emerald-jackpot-theme .casino-walls {
+    body.cerulean-jackpot-theme .casino-ceiling {
+      background: linear-gradient(180deg, #010f1a 0%, #063c5e 75%, #085280 100%);
+      border-bottom-color: #38bdf8;
+      box-shadow: 0 8px 35px rgba(56, 189, 248, 0.45), inset 0 -4px 12px rgba(125, 211, 252, 0.4);
+    }
+    body.cerulean-jackpot-theme .casino-walls {
       background: 
-        radial-gradient(circle at 50% 45%, rgba(52, 211, 153, 0.28) 0%, transparent 60%),
+        radial-gradient(circle at 50% 45%, rgba(56, 189, 248, 0.28) 0%, transparent 60%),
         repeating-linear-gradient(90deg, 
           rgba(0,0,0,0.28) 0px, 
           rgba(0,0,0,0.28) 2px, 
           transparent 2px, 
           transparent 90px
         ),
-        linear-gradient(180deg, #065f31 0%, #044724 50%, #022914 100%);
-      border-bottom-color: #6ee7b7;
+        linear-gradient(180deg, #095985 0%, #063c5c 50%, #021a2b 100%);
+      border-bottom-color: #7dd3fc;
     }
-    body.emerald-jackpot-theme .casino-floor {
-      background-color: #0b5c30;
+    body.cerulean-jackpot-theme .casino-floor {
+      background-color: #084c75;
       background-image: 
-        radial-gradient(ellipse at 50% 0%, rgba(52, 211, 153, 0.38) 0%, rgba(2, 20, 10, 0.88) 90%),
-        radial-gradient(#032411 22%, transparent 24%),
-        radial-gradient(#063b1d 18%, transparent 20%),
-        radial-gradient(#10b981 28%, transparent 32%);
+        radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.38) 0%, rgba(1, 14, 23, 0.88) 90%),
+        radial-gradient(#052d47 22%, transparent 24%),
+        radial-gradient(#073d61 18%, transparent 20%),
+        radial-gradient(#0ea5e9 28%, transparent 32%);
     }
-    body.emerald-jackpot-theme .lattice-arch {
-      border-color: #064e27;
+    body.cerulean-jackpot-theme .lattice-arch {
+      border-color: #0369a1;
       box-shadow: 
-        0 0 32px rgba(16, 185, 129, 0.65),
-        inset 0 0 22px rgba(5, 150, 105, 0.9),
-        0 0 0 2px #6ee7b7;
+        0 0 32px rgba(14, 165, 233, 0.65),
+        inset 0 0 22px rgba(2, 132, 199, 0.9),
+        0 0 0 2px #7dd3fc;
       background:
-        repeating-linear-gradient(45deg, rgba(4, 60, 30, 0.55) 0px, rgba(4, 60, 30, 0.55) 2px, transparent 2px, transparent 16px),
-        repeating-linear-gradient(-45deg, rgba(4, 60, 30, 0.55) 0px, rgba(4, 60, 30, 0.55) 2px, transparent 2px, transparent 16px),
-        radial-gradient(circle at 50% 50%, #a7f3d0 0%, #10b981 55%, #047857 100%);
+        repeating-linear-gradient(45deg, rgba(3, 105, 161, 0.55) 0px, rgba(3, 105, 161, 0.55) 2px, transparent 2px, transparent 16px),
+        repeating-linear-gradient(-45deg, rgba(3, 105, 161, 0.55) 0px, rgba(3, 105, 161, 0.55) 2px, transparent 2px, transparent 16px),
+        radial-gradient(circle at 50% 50%, #bae6fd 0%, #0ea5e9 55%, #0369a1 100%);
     }
-    body.emerald-jackpot-theme .neon-sconce {
-      background: #ecfdf5;
+    body.cerulean-jackpot-theme .neon-sconce {
+      background: #f0f9ff;
       box-shadow: 
-        0 0 10px #34d399,
-        0 0 22px #10b981,
-        0 0 45px #059669;
+        0 0 10px #7dd3fc,
+        0 0 22px #38bdf8,
+        0 0 45px #0284c7;
     }
-    body.emerald-jackpot-theme .roulette-table-fg {
-      background: radial-gradient(ellipse at 50% 35%, #10b981 0%, #047857 70%, #022c22 100%);
-      box-shadow: 
-        0 -3px 0 #6ee7b7,
-        0 15px 40px rgba(0,0,0,0.95),
-        inset 0 8px 20px rgba(0,0,0,0.65);
+    body.cerulean-jackpot-theme .millionaire-logo {
+      background: radial-gradient(circle at 50% 50%, #0c4a6e 0%, #072e47 60%, #020b14 100%);
+      border-color: #7dd3fc;
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.6), inset 0 0 30px rgba(0,0,0,0.8);
     }
-    body.emerald-jackpot-theme .casino-cabinet {
-      background: linear-gradient(145deg, #052e16 0%, #02170b 55%, #042412 100%);
-      border-color: #6ee7b7;
+    body.cerulean-jackpot-theme .casino-cabinet {
+      background: linear-gradient(145deg, #073552 0%, #031521 55%, #042133 100%);
+      border-color: #7dd3fc;
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.92),
-        0 0 50px rgba(16, 185, 129, 0.45),
+        0 0 50px rgba(56, 189, 248, 0.45),
         inset 0 0 35px rgba(0, 0, 0, 0.85);
     }
-    body.emerald-jackpot-theme .velvet-display-well {
-      background: radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.95) 0%, rgba(2, 28, 18, 0.98) 100%);
-      border-color: rgba(110, 231, 183, 0.7);
+    body.cerulean-jackpot-theme .velvet-display-well {
+      background: radial-gradient(circle at 50% 50%, rgba(5, 62, 97, 0.95) 0%, rgba(2, 21, 33, 0.98) 100%);
+      border-color: rgba(125, 211, 252, 0.7);
     }
 
     /* Mode Switcher Segmented Control */
     .mode-switch-pill {
-      background: rgba(12, 3, 5, 0.9);
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.85), 0 0 18px rgba(212, 175, 55, 0.2);
+      background: rgba(3, 8, 28, 0.92);
+      border: 2px solid rgba(96, 165, 250, 0.65);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.85), 0 0 18px rgba(59, 130, 246, 0.3);
     }
     .mode-tab-btn {
       transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       cursor: pointer;
     }
     .mode-tab-btn.active {
-      background: linear-gradient(180deg, #ffe89e 0%, #d4af37 55%, #9a6f18 100%);
-      color: #260407;
-      box-shadow: 0 0 16px rgba(251, 191, 36, 0.65);
+      background: linear-gradient(180deg, #ffedd5 0%, #f59e0b 52%, #b45309 100%);
+      color: #020617;
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.75);
       text-shadow: none;
     }
 
-    /* Quiz Option Buttons for "Il miliardario" */
+    /* Quiz Option Buttons — Classic "Who Wants to Be a Millionaire" Hexagonal/Lozenge TV Style */
     .quiz-option-btn {
-      background: linear-gradient(145deg, rgba(45, 8, 14, 0.95) 0%, rgba(22, 3, 6, 0.98) 100%);
-      border: 2px solid rgba(212, 175, 55, 0.55);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.65), inset 0 1px 4px rgba(255, 230, 150, 0.2);
+      background: linear-gradient(180deg, #172554 0%, #0a1128 50%, #020617 100%);
+      border: 2px solid #93c5fd;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 12px rgba(59, 130, 246, 0.3), inset 0 1px 6px rgba(191, 219, 254, 0.35);
       transition: all 0.14s ease;
       cursor: pointer;
       touch-action: manipulation;
@@ -290,57 +275,56 @@
     @media (hover: hover) {
       .quiz-option-btn:hover:not(:disabled) {
         border-color: #fde047;
-        background: linear-gradient(145deg, rgba(75, 14, 24, 0.95) 0%, rgba(35, 5, 10, 0.98) 100%);
+        background: linear-gradient(180deg, #f59e0b 0%, #d97706 55%, #92400e 100%);
         transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), 0 0 15px rgba(251, 191, 36, 0.35);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85), 0 0 20px rgba(245, 158, 11, 0.65);
       }
     }
     .quiz-option-btn:active:not(:disabled) {
       transform: translateY(2px) scale(0.99);
     }
     .quiz-option-btn.correct-choice {
-      background: linear-gradient(145deg, #059669 0%, #065f46 100%) !important;
-      border-color: #6ee7b7 !important;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.85) !important;
-      color: #ecfdf5 !important;
+      background: linear-gradient(180deg, #22c55e 0%, #16a34a 55%, #14532d 100%) !important;
+      border-color: #bbf7d0 !important;
+      box-shadow: 0 0 28px rgba(34, 197, 94, 0.9) !important;
+      color: #ffffff !important;
     }
     .quiz-option-btn.wrong-choice {
-      background: linear-gradient(145deg, #dc2626 0%, #7f1d1d 100%) !important;
-      border-color: #fca5a5 !important;
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.85) !important;
-      color: #fef2f2 !important;
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 55%, #7f1d1d 100%) !important;
+      border-color: #fecaca !important;
+      box-shadow: 0 0 28px rgba(239, 68, 68, 0.9) !important;
+      color: #ffffff !important;
     }
 
-    /* Arched Diamond-Lattice Glowing Windows */
+    /* Studio Light Pillars */
     .lattice-arch {
       position: absolute;
-      top: 10%;
+      top: 8%;
       width: clamp(46px, 9vw, 130px);
       height: clamp(110px, 26vh, 270px);
-      border-radius: 999px 999px 8px 8px;
-      border: 4px solid #4a2a0c;
+      border-radius: 999px 999px 12px 12px;
+      border: 3px solid #3b82f6;
       box-shadow: 
-        0 0 30px rgba(255, 165, 30, 0.45),
-        inset 0 0 20px rgba(255, 120, 0, 0.85),
-        0 0 0 2px #d4af37;
+        0 0 35px rgba(59, 130, 246, 0.55),
+        inset 0 0 25px rgba(37, 99, 235, 0.85),
+        0 0 0 2px #93c5fd;
       background:
-        repeating-linear-gradient(45deg, rgba(90, 45, 5, 0.55) 0px, rgba(90, 45, 5, 0.55) 2px, transparent 2px, transparent 16px),
-        repeating-linear-gradient(-45deg, rgba(90, 45, 5, 0.55) 0px, rgba(90, 45, 5, 0.55) 2px, transparent 2px, transparent 16px),
-        radial-gradient(circle at 50% 50%, #ffdf85 0%, #f59e0b 55%, #b45309 100%);
+        repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.65) 0px, rgba(15, 23, 42, 0.65) 4px, transparent 4px, transparent 16px),
+        radial-gradient(circle at 50% 50%, #bae6fd 0%, #3b82f6 55%, #1d4ed8 100%);
       z-index: 2;
     }
 
-    /* Glowing Red Vertical Neon Sconces */
+    /* Glowing Blue Vertical Studio Light Tubes */
     .neon-sconce {
       position: absolute;
       width: 5px;
       height: clamp(50px, 10vh, 90px);
-      background: #fff0f0;
+      background: #e0f2fe;
       border-radius: 99px;
       box-shadow: 
-        0 0 10px #ff3b3b,
-        0 0 22px #ff1a1a,
-        0 0 45px #ff0000;
+        0 0 10px #38bdf8,
+        0 0 22px #2563eb,
+        0 0 45px #1d4ed8;
       animation: neonPulse 4s infinite alternate ease-in-out;
       z-index: 2;
     }
@@ -352,7 +336,7 @@
       transform: translateY(-50%);
       width: 17px;
       height: 10px;
-      background: linear-gradient(90deg, #8a6415, #ffd700, #8a6415);
+      background: linear-gradient(90deg, #1e3a8a, #93c5fd, #1e3a8a);
       border-radius: 3px;
     }
 
@@ -361,60 +345,75 @@
       50% { opacity: 1; filter: brightness(1.25); }
     }
 
-    /* Park MGM Style Background Matrix Wall Sign */
-    .park-marquee-wall {
+    /* Millionaire Circular Studio Background Logo */
+    .millionaire-logo {
       position: absolute;
-      top: 4%;
+      top: 45%;
       left: 50%;
-      transform: translateX(-50%);
-      width: clamp(200px, 52vw, 430px);
-      height: clamp(82px, 16vh, 195px);
-      background-color: #210e04;
-      background-image: radial-gradient(#ffb732 22%, transparent 28%);
-      background-size: 12px 12px;
-      border: 4px solid #2b180a;
-      outline: 2px solid #d4af37;
-      box-shadow: 0 0 45px rgba(255, 165, 20, 0.4), inset 0 0 30px rgba(0,0,0,0.85);
+      transform: translate(-50%, -50%);
+      width: clamp(260px, 65vw, 560px);
+      height: clamp(260px, 65vw, 560px);
+      background: radial-gradient(circle at 50% 50%, #030712 0%, #1e1b4b 60%, #312e81 100%);
+      border: 10px solid #f59e0b; /* Thick gold ring */
+      border-radius: 50%;
+      box-shadow: 0 0 60px rgba(59, 130, 246, 0.6), inset 0 0 50px rgba(0,0,0,0.85);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 2;
-      opacity: 0.88;
-      padding: 0.35rem 0.5rem;
-      text-align: center;
+      opacity: 0.85;
     }
-
-    /* Foreground Roulette Table Silhouette */
-    .roulette-table-fg {
+    .millionaire-logo::before {
+      content: '';
       position: absolute;
-      bottom: -5%;
-      right: -4%;
-      width: clamp(230px, 50vw, 660px);
-      height: clamp(90px, 18vh, 220px);
-      background: radial-gradient(ellipse at 50% 35%, #b8141c 0%, #6e080d 70%, #380305 100%);
-      border-top: 12px solid #1a120e;
-      border-left: 16px solid #241813;
-      border-radius: 160px 40px 0 0;
-      box-shadow: 
-        0 -3px 0 #d4af37,
-        0 15px 40px rgba(0,0,0,0.95),
-        inset 0 8px 20px rgba(0,0,0,0.65);
-      transform: perspective(500px) rotateX(22deg) rotateZ(-4deg);
+      inset: 15px;
+      border-radius: 50%;
+      border: 4px dashed #60a5fa;
+      animation: spinLogo 55s linear infinite;
+    }
+    .millionaire-logo::after {
+      content: '';
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+    @keyframes spinLogo {
+      100% { transform: rotate(360deg); }
+    }
+    .logo-text-center {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      color: #fbbf24;
+      text-align: center;
+      line-height: 1;
+      text-shadow: 0 0 15px rgba(245, 158, 11, 0.9);
       z-index: 3;
-      pointer-events: none;
+    }
+    .logo-text-center .big-q {
+      font-size: clamp(4rem, 16vw, 11rem);
+      color: #3b82f6;
+      text-shadow: 0 0 35px rgba(59, 130, 246, 0.95);
+      margin-bottom: -5px;
+    }
+    .logo-text-center .small-text {
+      font-size: clamp(0.6rem, 1.5vw, 1.1rem);
+      letter-spacing: 0.15em;
+      opacity: 0.9;
     }
 
     /* ==========================================
-       MAIN HIGH-ROLLER SLOT / CASINO MACHINE
+       MAIN MILLIONAIRE STUDIO CONSOLE
        ========================================== */
     .casino-cabinet {
-      background: linear-gradient(145deg, #2b070a 0%, #140304 55%, #240508 100%);
-      border: 3px solid #d4af37;
+      background: linear-gradient(160deg, rgba(15, 23, 62, 0.96) 0%, rgba(6, 10, 30, 0.98) 55%, rgba(12, 18, 52, 0.96) 100%);
+      border: 3px solid #93c5fd;
       box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.92),
-        0 0 45px rgba(212, 175, 55, 0.25),
-        inset 0 0 35px rgba(0, 0, 0, 0.85);
+        0 20px 60px rgba(0, 0, 0, 0.95),
+        0 0 50px rgba(59, 130, 246, 0.4),
+        inset 0 0 35px rgba(29, 78, 216, 0.35);
       position: relative;
       width: 100%;
       max-width: 42rem;
@@ -422,13 +421,13 @@
     }
 
     .gold-metallic-text {
-      background: linear-gradient(180deg, #fff8d6 0%, #f5c956 45%, #b58019 85%, #fff0a8 100%);
+      background: linear-gradient(180deg, #ffffff 0%, #fde68a 45%, #f59e0b 85%, #fffbeb 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.75));
+      filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.6));
     }
 
-    /* Chasing Marquee Bulbs (Gold & Red alternating) */
+    /* Studio Rim LEDs (Blue & Gold alternating) */
     .bulb-strip {
       display: flex;
       justify-content: space-between;
@@ -436,35 +435,35 @@
       pointer-events: none;
     }
     .marquee-bulb {
-      width: clamp(7px, 1.8vw, 10px);
-      height: clamp(7px, 1.8vw, 10px);
+      width: clamp(6px, 1.6vw, 9px);
+      height: clamp(6px, 1.6vw, 9px);
       border-radius: 50%;
-      background: #ffefc2;
-      box-shadow: 0 0 8px #ffb700, 0 0 14px #ff8800;
-      animation: bulbChase 0.9s infinite ease-in-out;
+      background: #e0f2fe;
+      box-shadow: 0 0 8px #38bdf8, 0 0 14px #2563eb;
+      animation: bulbChase 1.2s infinite ease-in-out;
     }
     .marquee-bulb:nth-child(even) {
-      background: #ffd6d6;
-      box-shadow: 0 0 8px #ff2a2a, 0 0 16px #ff0000;
+      background: #fef3c7;
+      box-shadow: 0 0 8px #fbbf24, 0 0 16px #d97706;
     }
-    .marquee-bulb:nth-child(3n) { animation-delay: 0.3s; }
-    .marquee-bulb:nth-child(3n+1) { animation-delay: 0.6s; }
+    .marquee-bulb:nth-child(3n) { animation-delay: 0.4s; }
+    .marquee-bulb:nth-child(3n+1) { animation-delay: 0.8s; }
 
     @keyframes bulbChase {
-      0%, 100% { opacity: 0.32; transform: scale(0.82); }
-      50% { opacity: 1; transform: scale(1.16); }
+      0%, 100% { opacity: 0.35; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.14); }
     }
 
-    /* 3D Tactile Casino Spin Button */
+    /* 3D Tactile Millionaire Action Button */
     .spin-button-3d {
       position: relative;
-      background: radial-gradient(circle at 50% 25%, #ff5252 0%, #d91414 55%, #7d0606 100%);
-      border: 3px solid #fce08b;
+      background: linear-gradient(180deg, #f59e0b 0%, #d97706 50%, #92400e 100%);
+      border: 2px solid #fef08a;
       box-shadow: 
-        0 7px 0 #590404,
-        0 12px 22px rgba(0, 0, 0, 0.85),
-        0 0 30px rgba(255, 50, 50, 0.55),
-        inset 0 3px 10px rgba(255, 255, 255, 0.55);
+        0 6px 0 #451a03,
+        0 12px 24px rgba(0, 0, 0, 0.85),
+        0 0 30px rgba(245, 158, 11, 0.55),
+        inset 0 2px 8px rgba(255, 255, 255, 0.55);
       transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
       cursor: pointer;
       touch-action: manipulation;
@@ -473,43 +472,43 @@
       .spin-button-3d:hover {
         transform: translateY(-2px) scale(1.015);
         box-shadow: 
-          0 9px 0 #590404,
+          0 8px 0 #451a03,
           0 16px 28px rgba(0, 0, 0, 0.9),
-          0 0 45px rgba(255, 190, 60, 0.85),
+          0 0 45px rgba(251, 191, 36, 0.85),
           inset 0 4px 15px rgba(255, 255, 255, 0.7);
       }
     }
     .spin-button-3d:active, .spin-button-3d.pressed {
       transform: translateY(5px) scale(0.985);
       box-shadow: 
-        0 2px 0 #590404,
+        0 2px 0 #451a03,
         0 4px 10px rgba(0, 0, 0, 0.85),
-        0 0 22px rgba(255, 50, 50, 0.75),
+        0 0 22px rgba(245, 158, 11, 0.75),
         inset 0 2px 8px rgba(0, 0, 0, 0.5);
     }
 
-    /* Slot Display Screen with internal vertical scroll support for long quotes on small screens */
+    /* Millionaire Main Question Lozenge Display Box */
     .velvet-display-well {
       background: 
-        radial-gradient(circle at 50% 50%, rgba(92, 11, 20, 0.94) 0%, rgba(23, 3, 6, 0.98) 100%);
-      border: 2px solid rgba(212, 175, 55, 0.65);
+        radial-gradient(circle at 50% 50%, rgba(23, 37, 84, 0.96) 0%, rgba(7, 12, 34, 0.99) 100%);
+      border: 2px solid #93c5fd;
       box-shadow: 
-        inset 0 8px 30px rgba(0, 0, 0, 0.95),
-        0 0 22px rgba(212, 175, 55, 0.18);
+        inset 0 0 30px rgba(30, 58, 138, 0.75),
+        0 0 24px rgba(59, 130, 246, 0.35);
       min-height: clamp(110px, 19dvh, 200px);
       max-height: clamp(150px, 30dvh, 260px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
       scrollbar-width: thin;
-      scrollbar-color: rgba(212, 175, 55, 0.5) transparent;
+      scrollbar-color: rgba(147, 197, 253, 0.6) transparent;
       transition: background 0.6s ease, border-color 0.6s ease;
     }
     .velvet-display-well::-webkit-scrollbar {
       width: 4px;
     }
     .velvet-display-well::-webkit-scrollbar-thumb {
-      background: rgba(212, 175, 55, 0.5);
+      background: rgba(147, 197, 253, 0.6);
       border-radius: 99px;
     }
 
@@ -584,81 +583,48 @@
     .animate-card-reveal {
       animation: cardReveal 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-
-    @keyframes floatChip {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(6deg); }
-    }
-    .floating-chip {
-      animation: floatChip 3.5s infinite ease-in-out;
-    }
   </style>
 </head>
 <body class="relative select-none overflow-hidden">
 
   <!-- ==============================================================
-       1. DYNAMIC PARK MGM VEGAS CASINO BACKGROUND SCENE
+       1. STATIC "WHO WANTS TO BE A MILLIONAIRE" TV STUDIO BACKGROUND
        ============================================================== -->
   <div id="scene-container">
-    <!-- Ceiling with recessed warm spotlights -->
+    <!-- Studio Lighting Grid Ceiling -->
     <div class="casino-ceiling"></div>
 
-    <!-- Velvet Crimson Walls -->
+    <!-- Deep Navy & Indigo Studio Walls -->
     <div class="casino-walls">
-      <!-- Left & Right Arched Lattice Windows -->
+      <!-- Left & Right Studio Light Towers -->
       <div class="lattice-arch left-[3%] sm:left-[6%]"></div>
       <div class="lattice-arch right-[3%] sm:right-[6%]"></div>
 
-      <!-- Red Neon Wall Sconces -->
+      <!-- Blue Studio Light Tubes -->
       <div class="neon-sconce left-[16%] top-[24%] hidden sm:block"></div>
       <div class="neon-sconce right-[16%] top-[24%] hidden sm:block"></div>
 
-      <!-- Central Golden Matrix Board: "IN DIRETTA DAL CASINÒ REALE — SALA VIP" -->
-      <div class="park-marquee-wall rounded-lg">
-        <div class="flex gap-1 mb-1">
-          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">V</span>
-          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">I</span>
-          <span class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-200 text-amber-950 font-extrabold text-[9px] sm:text-xs flex items-center justify-center shadow-[0_0_10px_#fbbf24]">P</span>
-        </div>
-        <div class="font-casino text-amber-100 font-black tracking-[0.12em] text-[10px] sm:text-sm md:text-base leading-tight drop-shadow-[0_0_10px_rgba(251,191,36,0.9)]">
-          IN DIRETTA DAL CASINÒ REALE — SALA VIP
+      <!-- Central Studio Emblem: Millionaire CSS Logo perfectly centered behind the console -->
+      <div class="millionaire-logo">
+        <div class="logo-text-center">
+          <div class="small-text">CHI VUOL ESSERE</div>
+          <div class="big-q">?</div>
+          <div class="small-text mt-1">MILIONARIO</div>
         </div>
       </div>
     </div>
 
-    <!-- Leopard / Gold Patterned Casino Carpet -->
+    <!-- Illuminated Glass Studio Floor -->
     <div class="casino-floor"></div>
-
-    <!-- Reference Photo Blend Layer -->
+    
+    <!-- Barely Visible Photo Background Layer -->
     <div class="bg-photo-layer"></div>
 
-    <!-- Foreground Roulette Table Silhouette -->
-    <div class="roulette-table-fg">
-      <div class="absolute -top-6 sm:-top-9 left-8 sm:left-14 w-24 sm:w-36 h-11 sm:h-16 rounded-full bg-gradient-to-b from-amber-700 via-amber-950 to-black border-2 sm:border-4 border-amber-400/80 shadow-2xl flex items-center justify-center overflow-hidden">
-        <div class="w-16 sm:w-24 h-5 sm:h-8 rounded-full border-2 border-dashed border-amber-300 animate-spin" style="animation-duration: 7s;"></div>
-        <div class="absolute w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-amber-300 shadow-[0_0_10px_#fcd34d]"></div>
-      </div>
-      <div class="mt-4 sm:mt-7 ml-36 sm:ml-52 mr-6 sm:mr-12 h-14 sm:h-24 border border-amber-300/40 grid grid-cols-6 grid-rows-3 opacity-60">
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-        <div class="border border-amber-300/30 bg-black/50"></div>
-        <div class="border border-amber-300/30 bg-red-800/50"></div>
-      </div>
-    </div>
-
-    <!-- Dynamic Canvas for Spotlights, Floating Gold Dust & Sparkles -->
+    <!-- Dynamic Canvas for Studio Spotlights & Confetti -->
     <canvas id="casino-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
 
-    <!-- Warm Vignette Overlay -->
-    <div class="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(5,2,3,0.8)_100%)]"></div>
+    <!-- Studio Deep Blue Vignette Overlay -->
+    <div class="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(2,4,15,0.85)_100%)]"></div>
   </div>
 
   <!-- ==============================================================
@@ -666,44 +632,44 @@
        ============================================================== -->
   <div class="app-safe-wrapper">
 
-    <!-- 2. TOP BAR HUD (ITALIAN VIP BADGE & SOUND TOGGLE) -->
+    <!-- 2. TOP BAR HUD (TV STUDIO BADGE & SOUND TOGGLE) -->
     <header class="w-full max-w-5xl mx-auto flex items-center justify-between gap-2 shrink-0">
-      <!-- Left VIP Badge (Non-clickable production badge) -->
-      <div class="flex items-center gap-2 bg-black/80 border border-amber-500/50 rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-        <span class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-amber-200 uppercase">
-          CASINÒ REALE • VIP
+      <!-- Left Studio Badge -->
+      <div class="flex items-center gap-2 bg-slate-950/85 border border-blue-400/60 rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <span class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-blue-100 uppercase">
+          STUDIO TV • MILIONARIO
         </span>
       </div>
 
       <!-- Right Controls: Leaderboard, Audio Toggle & Home Reset -->
       <div class="flex items-center gap-1.5 sm:gap-2">
         <button id="leaderboard-open-btn" type="button" title="Visualizza la Classifica"
-          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          class="flex items-center gap-1.5 bg-slate-950/85 active:bg-blue-950/90 hover:bg-blue-950/70 border border-blue-400/60 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
           <span>🏆</span>
           <span class="font-casino font-bold tracking-wider">CLASSIFICA</span>
         </button>
 
-        <button id="sound-toggle-btn" type="button" title="Attiva/Disattiva Audio Casinò"
-          class="flex items-center gap-1.5 bg-black/80 active:bg-amber-950/90 hover:bg-amber-950/70 border border-amber-500/50 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+        <button id="sound-toggle-btn" type="button" title="Attiva/Disattiva Audio Studio"
+          class="flex items-center gap-1.5 bg-slate-950/85 active:bg-blue-950/90 hover:bg-blue-950/70 border border-blue-400/60 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-blue-100 transition backdrop-blur-md cursor-pointer">
           <span id="sound-icon">🔊</span>
           <span id="sound-label" class="hidden sm:inline">AUDIO ATTIVO</span>
         </button>
 
         <button id="reset-home-btn" type="button" title="Torna alla pagina iniziale"
-          class="hidden items-center gap-1 bg-red-950/85 active:bg-red-800 hover:bg-red-900 border border-amber-400/60 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
+          class="hidden items-center gap-1 bg-blue-950/85 active:bg-blue-800 hover:bg-blue-900 border border-blue-400/60 rounded-full px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-amber-200 transition backdrop-blur-md cursor-pointer">
           <span>↺</span>
           <span>INIZIO</span>
         </button>
       </div>
     </header>
 
-    <!-- 3. CENTER STAGE: LAS VEGAS VIP RANDOMIZER MACHINE -->
+    <!-- 3. CENTER STAGE: MILLIONAIRE TV GAME CONSOLE -->
     <main class="flex-1 flex flex-col items-center justify-center w-full my-auto py-1">
       
       <div class="casino-cabinet rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 transition-all duration-300">
         
-        <!-- Top Chasing Marquee Bulbs -->
+        <!-- Top Chasing Studio Bulbs -->
         <div class="bulb-strip mb-2 sm:mb-3 px-1">
           <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
           <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
@@ -713,51 +679,51 @@
         </div>
 
         <!-- ==========================================================
-             INITIAL LANDING VIEW: CHOOSE MODE ("STORIA" vs "IL MILIARDARIO")
+             INITIAL LANDING VIEW: CHOOSE MODE ("STORIA" vs "IL MILIONARIO")
              ========================================================== -->
         <div id="landing-mode-select-view" class="flex flex-col items-center justify-center py-2 sm:py-4 px-1 sm:px-3 text-center">
-          <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-1">
-            ★ BENVENUTO AL CASINÒ REALE ★
+          <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/50 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-1">
+            ★ BENVENUTO NELLO STUDIO DI CHI VUOL ESSERE MILIONARIO ★
           </div>
           <h1 class="font-casino text-lg sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-tight mb-1">
-            SCEGLI LA TUA MODALITÀ
+            SCEGLI LA TUA MODALITÀ DI GIOCO
           </h1>
-          <p class="text-[11px] sm:text-xs text-amber-200/80 mb-3 sm:mb-4">
-            Seleziona un tavolo VIP per iniziare a giocare
+          <p class="text-[11px] sm:text-xs text-blue-200/85 mb-3 sm:mb-4">
+            Accomodati sulla postazione centrale per iniziare la scalata
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-xl">
             <!-- Card 1: STORIA (Max 10 words description) -->
             <button id="landing-choose-storia" type="button"
               class="quiz-option-btn rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2 group cursor-pointer">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/20 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(251,191,36,0.4)] group-hover:scale-105 transition">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/25 border-2 border-blue-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-105 transition">
                 📖
               </div>
-              <div class="font-casino font-black text-sm sm:text-lg text-amber-200 tracking-wider uppercase">
+              <div class="font-casino font-black text-sm sm:text-lg text-amber-300 tracking-wider uppercase">
                 STORIA
               </div>
-              <p class="text-xs sm:text-sm text-amber-100/90 leading-snug font-medium">
+              <p class="text-xs sm:text-sm text-blue-100/95 leading-snug font-medium">
                 Estrai frasi casuali con autore e sfida la fortuna.
               </p>
-              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
-                ENTRA NEL TAVOLO →
+              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-500/25 border border-blue-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
+                ENTRA IN STUDIO →
               </span>
             </button>
 
-            <!-- Card 2: IL MILIARDARIO (Max 10 words description) -->
-            <button id="landing-choose-miliardario" type="button"
+            <!-- Card 2: IL MILIONARIO (Max 10 words description) -->
+            <button id="landing-choose-milionario" type="button"
               class="quiz-option-btn rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2 group cursor-pointer">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/20 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(251,191,36,0.4)] group-hover:scale-105 transition">
-                💰
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/25 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-2xl shadow-[0_0_15px_rgba(251,191,36,0.5)] group-hover:scale-105 transition">
+                💎
               </div>
-              <div class="font-casino font-black text-sm sm:text-lg text-amber-200 tracking-wider uppercase">
-                IL MILIARDARIO
+              <div class="font-casino font-black text-sm sm:text-lg text-amber-300 tracking-wider uppercase">
+                IL MILIONARIO
               </div>
-              <p class="text-xs sm:text-sm text-amber-100/90 leading-snug font-medium">
+              <p class="text-xs sm:text-sm text-blue-100/95 leading-snug font-medium">
                 Indovina chi ha detto la frase e raggiungi cento punti.
               </p>
-              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
-                INIZIA LA SFIDA →
+              <span class="mt-1 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-400/25 border border-amber-300/60 text-amber-200 font-casino font-bold text-[10px] tracking-widest uppercase">
+                INIZIA LA SCALATA →
               </span>
             </button>
           </div>
@@ -769,63 +735,63 @@
         <div id="main-game-content" class="hidden flex-col w-full">
 
         <!-- ==========================================================
-             MODE SWITCHER ("STORIA" vs "IL MILIARDARIO")
+             MODE SWITCHER ("STORIA" vs "IL MILIONARIO")
              ========================================================== -->
         <div class="flex flex-col items-center justify-center mb-2 sm:mb-3">
           <div class="mode-switch-pill p-1 rounded-full grid grid-cols-2 gap-1 w-full max-w-xs sm:max-w-sm">
             <button id="mode-storia-btn" type="button"
-              class="mode-tab-btn active rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-amber-200">
+              class="mode-tab-btn active rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-blue-100">
               <span>📖</span>
               <span>STORIA</span>
             </button>
-            <button id="mode-miliardario-btn" type="button"
-              class="mode-tab-btn rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-amber-200">
-              <span>💰</span>
-              <span>IL MILIARDARIO</span>
+            <button id="mode-milionario-btn" type="button"
+              class="mode-tab-btn rounded-full py-1.5 sm:py-2 px-3 font-casino font-extrabold text-[11px] sm:text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 text-blue-100">
+              <span>💎</span>
+              <span>IL MILIONARIO</span>
             </button>
           </div>
         </div>
 
         <!-- Machine Header Plaque -->
         <div class="cabinet-header-wrap text-center mb-2 sm:mb-3">
-          <div id="mode-subtitle-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-0.5">
-            ★ SALA DELLE PERLE D'ORO ★
+          <div id="mode-subtitle-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/50 text-amber-300 text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase mb-0.5">
+            ★ L'ARCHIVIO DELLE FRASI CELEBRI ★
           </div>
           <h1 id="machine-main-title" class="font-casino text-base sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-tight">
-            LA ROULETTE DELLE FRASI
+            CHI VUOL ESSERE MILIONARIO?
           </h1>
 
-          <!-- "IL MILIARDARIO" SCORE & PROGRESS HUD (Hidden in Storia mode) -->
-          <div id="miliardario-hud" class="hidden flex-col items-center justify-center mt-1.5 w-full max-w-md mx-auto">
+          <!-- "IL MILIONARIO" SCORE & PROGRESS HUD (Hidden in Storia mode) -->
+          <div id="milionario-hud" class="hidden flex-col items-center justify-center mt-1.5 w-full max-w-md mx-auto">
             <div class="flex flex-wrap items-center justify-between w-full px-2 mb-1 text-[10px] sm:text-xs font-casino font-bold gap-x-2 gap-y-1">
-              <div class="flex items-center gap-1 text-amber-200 truncate">
+              <div class="flex items-center gap-1 text-blue-100 truncate">
                 <span>👤</span>
-                <span id="miliardario-player-label" class="text-amber-300 font-black truncate max-w-[90px] sm:max-w-[130px]">OSPITE</span>
+                <span id="milionario-player-label" class="text-amber-300 font-black truncate max-w-[90px] sm:max-w-[130px]">CONCORRENTE</span>
               </div>
-              <div class="flex items-center gap-1 text-amber-200 shrink-0">
-                <span>🏆 PUNTI:</span>
-                <span id="miliardario-score" class="text-amber-300 text-xs sm:text-base font-black">0</span>
-                <span id="miliardario-score-max" class="text-amber-400/70">/ 100</span>
+              <div class="flex items-center gap-1 text-blue-100 shrink-0">
+                <span>🏆 DOMANDA:</span>
+                <span id="milionario-score" class="text-amber-300 text-xs sm:text-base font-black">0</span>
+                <span id="milionario-score-max" class="text-blue-300/75">/ 100</span>
               </div>
-              <div id="emerald-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300 text-emerald-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse shrink-0">
-                ✨ SALA SMERALDO! ✨
+              <div id="cerulean-status-pill" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/25 border border-cyan-300 text-cyan-200 text-[9px] sm:text-[10px] tracking-widest uppercase animate-pulse shrink-0">
+                ✨ SALA DEI MILIONARI! ✨
               </div>
-              <div class="text-amber-300/80 text-[10px] sm:text-xs shrink-0">
-                RECORD: <span id="miliardario-best" class="text-amber-200 font-extrabold">0</span>
+              <div class="text-blue-200/85 text-[10px] sm:text-xs shrink-0">
+                RECORD: <span id="milionario-best" class="text-amber-300 font-extrabold">0</span>
               </div>
             </div>
 
             <!-- "Saldo: €" Banner (Shown from score 100 onwards, starting at 1,000,000 and adding 100,000 per right answer) -->
-            <div id="miliardario-saldo-wrap" class="hidden items-center justify-center gap-1.5 w-full py-1 px-3 mb-1.5 rounded-full bg-gradient-to-r from-emerald-950/90 via-emerald-800/80 to-emerald-950/90 border border-emerald-300/80 shadow-[0_0_20px_rgba(16,185,129,0.5)]">
+            <div id="milionario-saldo-wrap" class="hidden items-center justify-center gap-1.5 w-full py-1 px-3 mb-1.5 rounded-full bg-gradient-to-r from-cyan-950/90 via-cyan-800/80 to-cyan-950/90 border border-cyan-300/80 shadow-[0_0_20px_rgba(6,182,212,0.5)]">
               <span class="text-xs sm:text-sm">💶</span>
-              <span class="font-casino text-[11px] sm:text-sm font-black tracking-wider text-emerald-100 uppercase">
-                Saldo: €<span id="miliardario-saldo-val" class="text-yellow-300">1.000.000</span>
+              <span class="font-casino text-[11px] sm:text-sm font-black tracking-wider text-cyan-100 uppercase">
+                Saldo: €<span id="milionario-saldo-val" class="text-yellow-300">1.000.000</span>
               </span>
             </div>
 
             <!-- Progress bar towards 100 points -->
-            <div class="w-full h-2 bg-black/80 rounded-full overflow-hidden border border-amber-500/40 p-0.5">
-              <div id="miliardario-progress-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-300 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%;"></div>
+            <div class="w-full h-2 bg-slate-950/90 rounded-full overflow-hidden border border-blue-400/50 p-0.5">
+              <div id="milionario-progress-bar" class="h-full bg-gradient-to-r from-blue-500 via-amber-400 to-cyan-400 rounded-full transition-all duration-300" style="width: 0%;"></div>
             </div>
           </div>
         </div>
@@ -835,154 +801,153 @@
              ========================================================== -->
         <div id="display-well" class="velvet-display-well rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col items-center justify-center text-center relative">
           
-          <!-- Corner Gold Ornaments -->
-          <div class="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-amber-400/70 pointer-events-none"></div>
-          <div class="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-amber-400/70 pointer-events-none"></div>
-          <div class="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-amber-400/70 pointer-events-none"></div>
-          <div class="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-amber-400/70 pointer-events-none"></div>
+          <!-- Corner Silver/Blue Ornaments -->
+          <div class="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-blue-300/75 pointer-events-none"></div>
+          <div class="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-blue-300/75 pointer-events-none"></div>
+          <div class="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-blue-300/75 pointer-events-none"></div>
+          <div class="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-blue-300/75 pointer-events-none"></div>
 
           <!-- STATE A: INITIAL ATTRACT MODE SCREEN (PAGINA INIZIALE) -->
           <div id="initial-attract-view" class="flex flex-col items-center justify-center space-y-2 sm:space-y-3 max-w-lg mx-auto my-auto">
             <div class="attract-chips-row flex items-center justify-center gap-3 sm:gap-4 mb-0.5">
-              <div class="floating-chip w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 sm:border-4 border-dashed border-amber-300 bg-red-700 flex items-center justify-center shadow-[0_0_15px_rgba(251,191,36,0.5)]">
-                <span class="font-casino font-black text-amber-200 text-[9px] sm:text-xs">VIP</span>
+              <!-- Classic TV Lifelines styling instead of casino chips -->
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-blue-400 bg-blue-900 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.6)]">
+                <span class="font-casino font-black text-amber-300 text-[10px] sm:text-xs">50:50</span>
               </div>
-              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-amber-800 p-0.5 shadow-[0_0_25px_rgba(245,158,11,0.65)] flex items-center justify-center">
-                <div class="w-full h-full rounded-full bg-red-950 flex items-center justify-center text-lg sm:text-xl">
-                  🎰
-                </div>
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-amber-300 bg-gradient-to-br from-blue-700 to-indigo-950 p-0.5 shadow-[0_0_25px_rgba(59,130,246,0.85)] flex items-center justify-center">
+                <span class="font-casino font-black text-amber-300 text-lg sm:text-xl">📞</span>
               </div>
-              <div class="floating-chip w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 sm:border-4 border-dashed border-amber-300 bg-neutral-900 flex items-center justify-center shadow-[0_0_15px_rgba(251,191,36,0.5)]" style="animation-delay: 0.7s;">
-                <span class="font-casino font-black text-amber-300 text-[9px] sm:text-xs">777</span>
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-blue-400 bg-blue-900 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.6)]">
+                <span class="font-casino font-black text-amber-300 text-[10px] sm:text-xs">👥</span>
               </div>
             </div>
 
-            <h2 id="attract-headline-text" class="font-quote responsive-quote-text text-amber-50 font-semibold px-1">
-              Premi il pulsante dorato per tentare la fortuna ed estrarre una perla di saggezza!
+            <h2 id="attract-headline-text" class="font-quote responsive-quote-text text-white font-semibold px-1">
+              Premi il pulsante dorato per accendere i riflettori ed estrarre una perla celebre!
             </h2>
 
-            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-900/70 via-amber-700/60 to-amber-900/70 border border-amber-300/70 shadow-[0_0_15px_rgba(212,175,55,0.25)]">
-              <span class="text-amber-300 text-xs">♛</span>
-              <span id="attract-pill-label" class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-amber-100 uppercase">
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-blue-950/90 via-indigo-900/80 to-blue-950/90 border border-blue-300/70 shadow-[0_0_15px_rgba(59,130,246,0.35)]">
+              <span class="text-amber-300 text-xs">★</span>
+              <span id="attract-pill-label" class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-blue-100 uppercase">
                 MODALITÀ STORIA
               </span>
             </div>
           </div>
 
-          <!-- STATE B: SLOT REEL SHUFFLING ANIMATION -->
+          <!-- STATE B: STUDIO QUESTION LOADING ANIMATION -->
           <div id="slot-shuffle-view" class="hidden flex-col items-center justify-center space-y-2 w-full my-auto">
-            <div class="text-[10px] sm:text-xs font-casino tracking-[0.25em] text-amber-400 uppercase animate-pulse">
-              ⚡ LA RUOTA STA GIRANDO... ⚡
+            <div class="text-[10px] sm:text-xs font-casino tracking-[0.25em] text-amber-300 uppercase animate-pulse">
+              ⚡ ESTRAZIONE DOMANDA IN CORSO... ⚡
             </div>
-            <div id="shuffle-preview-text" class="font-quote italic text-sm sm:text-lg md:text-xl text-amber-200/90 px-2 line-clamp-2">
-              Mescolando le perle...
+            <div id="shuffle-preview-text" class="font-quote italic text-sm sm:text-lg md:text-xl text-blue-100/90 px-2 line-clamp-2">
+              Ricerca nell'archivio dello studio...
             </div>
-            <div class="w-36 sm:w-44 h-1.5 bg-amber-950 rounded-full overflow-hidden border border-amber-500/40">
-              <div class="h-full bg-gradient-to-r from-amber-500 via-yellow-200 to-amber-500 w-full animate-pulse"></div>
+            <div class="w-36 sm:w-44 h-1.5 bg-slate-950 rounded-full overflow-hidden border border-blue-400/50">
+              <div class="h-full bg-gradient-to-r from-blue-500 via-amber-300 to-blue-500 w-full animate-pulse"></div>
             </div>
           </div>
 
           <!-- STATE C: RANDOMIZED SENTENCE POPUP CARD -->
           <div id="quote-result-view" class="hidden flex-col items-center justify-center w-full px-1 sm:px-3 my-auto">
-            <div id="quote-top-pill" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-300 text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase mb-1.5">
-              <span>🎲</span>
-              <span id="quote-top-pill-text">PERLA ESTRATTA</span>
-              <span>🎲</span>
+            <div id="quote-top-pill" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-300/50 text-amber-300 text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase mb-1.5">
+              <span>🔹</span>
+              <span id="quote-top-pill-text">FRASE IN GARA</span>
+              <span>🔹</span>
             </div>
 
-            <blockquote id="quote-main-text" class="font-quote responsive-quote-text text-amber-50 font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] mb-2">
+            <blockquote id="quote-main-text" class="font-quote responsive-quote-text text-white font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] mb-2">
               "..."
             </blockquote>
 
-            <!-- VIP Author Plaque (Shown ONLY in "Storia" mode, hidden in "Il miliardario") -->
-            <div id="quote-author-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-900/70 via-amber-700/60 to-amber-900/70 border border-amber-300/70 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
-              <span class="text-amber-300 text-xs">♛</span>
-              <span id="quote-author-text" class="font-casino text-[11px] sm:text-xs md:text-sm font-bold tracking-wider text-amber-100 uppercase">
+            <!-- Author Plaque (Shown ONLY in "Storia" mode, hidden in "Il milionario") -->
+            <div id="quote-author-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-blue-950/90 via-indigo-800/80 to-blue-950/90 border border-amber-300/80 shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+              <span class="text-amber-300 text-xs">◆</span>
+              <span id="quote-author-text" class="font-casino text-[11px] sm:text-xs md:text-sm font-bold tracking-wider text-amber-200 uppercase">
                 ANONIMO
               </span>
             </div>
 
-            <!-- Feedback Banner for "Il miliardario" after choosing an option -->
-            <div id="miliardario-feedback" class="hidden mt-1 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase max-w-full break-words">
+            <!-- Feedback Banner for "Il milionario" after choosing an option -->
+            <div id="milionario-feedback" class="hidden mt-1 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase max-w-full break-words">
             </div>
           </div>
 
-          <!-- STATE D: "HAI PERSO!" FLASHING SLOT DISPLAY -->
+          <!-- STATE D: "HAI PERSO!" FLASHING DISPLAY -->
           <div id="lost-slot-view" class="hidden flex-col items-center justify-center w-full px-2 animate-pulse my-auto">
             <div class="text-2xl sm:text-3xl mb-1">🚨</div>
             <h2 class="font-casino text-xl sm:text-3xl font-black tracking-widest text-red-500 drop-shadow-[0_0_20px_rgba(255,0,0,0.9)]">
-              HAI PERSO!
+              ELIMINATO!
             </h2>
             <p class="text-[10px] sm:text-xs text-red-200 uppercase tracking-widest mt-1">
-              CREDITI ESAURITI AL TAVOLO VIP
+              AIUTI ESAURITI NELLO STUDIO TV
             </p>
           </div>
 
         </div>
 
         <!-- ==========================================================
-             MODE 1 CONTROLS: TACTILE 3D CASINO RANDOMIZER BUTTON ("STORIA")
+             MODE 1 CONTROLS: TACTILE 3D RANDOMIZER BUTTON ("STORIA")
              ========================================================== -->
         <div id="storia-controls-wrap" class="button-section-wrap mt-3 sm:mt-4 flex flex-col items-center">
           <button id="randomize-btn" type="button"
-            class="spin-button-3d w-full sm:w-auto min-w-[240px] sm:min-w-[320px] rounded-full px-6 py-3 sm:px-8 sm:py-3.5 flex items-center justify-center gap-2 text-white font-casino font-black tracking-wider text-sm sm:text-lg">
-            <span id="spin-btn-text">🎰 ESTRAI UNA FRASE 🎰</span>
+            class="spin-button-3d w-full sm:w-auto min-w-[240px] sm:min-w-[320px] rounded-full px-6 py-3 sm:px-8 sm:py-3.5 flex items-center justify-center gap-2 text-slate-950 font-casino font-black tracking-wider text-sm sm:text-lg">
+            <span id="spin-btn-text">💎 ESTRAI UNA FRASE 💎</span>
           </button>
 
-          <div class="mt-2 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-amber-200/75">
-            <span>PUNTATA: <strong class="text-amber-300">GRATUITA</strong></span>
+          <div class="mt-2 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-blue-200/80">
+            <span>ACCESSO: <strong class="text-amber-300">LIBERO</strong></span>
             <span>•</span>
             <span>MODALITÀ: <strong class="text-amber-300">STORIA</strong></span>
           </div>
         </div>
 
         <!-- ==========================================================
-             MODE 2 CONTROLS: 3 OPTIONS QUIZ ("IL MILIARDARIO")
+             MODE 2 CONTROLS: 3 OPTIONS QUIZ ("IL MILIONARIO")
              ========================================================== -->
-        <div id="miliardario-controls-wrap" class="button-section-wrap mt-2.5 sm:mt-3.5 hidden flex-col items-center w-full">
-          <div id="miliardario-quiz-prompt" class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5 text-center">
-            CHI HA PRONUNCIATO QUESTA FRASE? (SCEGLI 1 DELLE 3 OPZIONI)
+        <div id="milionario-controls-wrap" class="button-section-wrap mt-2.5 sm:mt-3.5 hidden flex-col items-center w-full">
+          <div id="milionario-quiz-prompt" class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5 text-center">
+            CHI HA PRONUNCIATO QUESTA FRASE? (SCEGLI LA TUA RISPOSTA)
           </div>
 
-          <!-- 3 Option Buttons -->
-          <div id="miliardario-options-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+          <!-- 3 Option Buttons in Classic Millionaire Lozenge Style -->
+          <div id="milionario-options-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
             <button type="button" data-opt-idx="0"
-              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
-              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">A</span>
-              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione A</span>
+              class="quiz-option-btn rounded-full px-4 py-2.5 sm:py-3 flex items-center justify-start gap-2.5 text-left">
+              <span class="font-casino font-black text-xs sm:text-sm text-amber-400 shrink-0">◆ A:</span>
+              <span class="opt-label font-quote font-bold text-xs sm:text-sm text-white leading-snug line-clamp-2">Opzione A</span>
             </button>
 
             <button type="button" data-opt-idx="1"
-              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
-              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">B</span>
-              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione B</span>
+              class="quiz-option-btn rounded-full px-4 py-2.5 sm:py-3 flex items-center justify-start gap-2.5 text-left">
+              <span class="font-casino font-black text-xs sm:text-sm text-amber-400 shrink-0">◆ B:</span>
+              <span class="opt-label font-quote font-bold text-xs sm:text-sm text-white leading-snug line-clamp-2">Opzione B</span>
             </button>
 
             <button type="button" data-opt-idx="2"
-              class="quiz-option-btn rounded-xl px-3 py-2 sm:py-3 flex items-center sm:flex-col justify-start sm:justify-center gap-2 sm:gap-1 text-left sm:text-center">
-              <span class="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/70 text-amber-200 font-casino font-black text-xs flex items-center justify-center shrink-0">C</span>
-              <span class="opt-label font-casino font-bold text-xs sm:text-sm text-amber-50 leading-snug line-clamp-2">Opzione C</span>
+              class="quiz-option-btn rounded-full px-4 py-2.5 sm:py-3 flex items-center justify-start gap-2.5 text-left">
+              <span class="font-casino font-black text-xs sm:text-sm text-amber-400 shrink-0">◆ C:</span>
+              <span class="opt-label font-quote font-bold text-xs sm:text-sm text-white leading-snug line-clamp-2">Opzione C</span>
             </button>
           </div>
 
           <!-- "Ricomincia da capo" Button shown inside the outer cabinet box when the user chooses the wrong option -->
-          <button id="miliardario-restart-btn" type="button"
-            class="hidden my-1 w-full sm:w-auto min-w-[220px] max-w-xs px-5 py-2.5 sm:px-7 sm:py-3 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-105 active:scale-95 transition cursor-pointer text-center">
+          <button id="milionario-restart-btn" type="button"
+            class="hidden my-1 w-full sm:w-auto min-w-[220px] max-w-xs px-5 py-2.5 sm:px-7 sm:py-3 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-105 active:scale-95 transition cursor-pointer text-center">
             ↻ RICOMINCIA DA CAPO
           </button>
 
-          <div class="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs text-amber-200/75 text-center">
-            <span>✅ ESATTA: <strong class="text-emerald-300">+1 PUNTO</strong></span>
+          <div class="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs text-blue-200/80 text-center">
+            <span>✅ ESATTA: <strong class="text-cyan-300">+1 PUNTO</strong></span>
             <span>•</span>
-            <span>❌ ERRATA: <strong class="text-red-400">PERDI TUTTI I PUNTI (0)</strong></span>
+            <span>❌ ERRATA: <strong class="text-red-400">TORNI A ZERO (0)</strong></span>
             <span>•</span>
-            <span>🎯 100 PUNTI: <strong class="text-emerald-300">SORPRESA</strong></span>
+            <span>🎯 100 PUNTI: <strong class="text-amber-300">€1.000.000</strong></span>
           </div>
         </div>
 
         </div><!-- /#main-game-content -->
 
-        <!-- Bottom Chasing Marquee Bulbs -->
+        <!-- Bottom Chasing Studio Bulbs -->
         <div class="bulb-strip mt-3 sm:mt-3.5 px-1">
           <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
           <span class="marquee-bulb"></span><span class="marquee-bulb"></span><span class="marquee-bulb"></span>
@@ -995,8 +960,8 @@
     </main>
 
     <!-- Subtle Bottom Status Line -->
-    <footer class="text-center text-[10px] text-amber-200/50 tracking-widest uppercase shrink-0">
-      CASINÒ REALE LAS VEGAS • TOCCA O CLICCA PER GIOCARE
+    <footer class="text-center text-[10px] text-blue-200/50 tracking-widest uppercase shrink-0">
+      CHI VUOL ESSERE MILIONARIO • STUDIO TELEVISIVO CENTRALE
     </footer>
   </div>
 
@@ -1007,57 +972,57 @@
   <div id="paywall-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 siren-backdrop cursor-pointer">
     
     <!-- Modal Card (Responsive & Phone-Friendly) -->
-    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-7 text-center shadow-[0_0_80px_rgba(255,30,30,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0f172a] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-blue-400 p-4 sm:p-7 text-center shadow-[0_0_80px_rgba(59,130,246,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
       
       <!-- Top Flashing Siren Banner -->
       <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-red-600/30 border border-red-400 text-red-200 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-bounce">
-        🚨 BANCAROTTA • SALA VIP 🚨
+        🚨 ELIMINAZIONE • STUDIO TV 🚨
       </div>
 
       <!-- Giant HAI PERSO Headline -->
-      <h2 class="font-casino text-2xl sm:text-4xl md:text-5xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-red-400 to-red-700 drop-shadow-[0_4px_15px_rgba(255,0,0,0.8)] mb-1.5">
-        🎰 HAI PERSO! 🎰
+      <h2 class="font-casino text-2xl sm:text-4xl md:text-5xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-amber-300 to-amber-500 drop-shadow-[0_4px_15px_rgba(245,158,11,0.8)] mb-1.5">
+        💡 HAI PERSO! 💡
       </h2>
 
-      <p class="text-amber-100/95 text-xs sm:text-base font-semibold mb-3.5 sm:mb-5 px-1">
-        CREDITI ESAURITI! La fortuna ti ha voltato le spalle.
+      <p class="text-blue-100/95 text-xs sm:text-base font-semibold mb-3.5 sm:mb-5 px-1">
+        AIUTI DA CASA ESAURITI! La scalata al milione si interrompe qui.
       </p>
 
       <!-- €2,99 Paywall Box -->
-      <div class="rounded-xl sm:rounded-2xl bg-black/75 border-2 border-amber-500/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
-        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-amber-300/80 mb-0.5">
-          PASS ESCLUSIVO CASINÒ REALE
+      <div class="rounded-xl sm:rounded-2xl bg-slate-950/85 border-2 border-blue-400/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
+        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-blue-300/90 mb-0.5">
+          PASS ESCLUSIVO CONCORRENTE MILIONARIO
         </div>
         <div class="flex items-baseline justify-center gap-2 my-0.5">
-          <span class="text-amber-400/60 line-through text-xs sm:text-base">€9,99</span>
+          <span class="text-blue-400/60 line-through text-xs sm:text-base">€9,99</span>
           <span class="font-casino text-3xl sm:text-5xl font-black gold-metallic-text">€2,99</span>
         </div>
         <div class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-amber-300 mt-0.5">
-          Sblocca Giri Illimitati VIP
+          Sblocca Domande e Aiuti Illimitati
         </div>
       </div>
 
-      <!-- Fake Casino Payment Buttons in Italian -->
+      <!-- Fake Payment Buttons in Italian -->
       <div class="flex flex-col gap-2">
         <button type="button"
-          class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-base tracking-wider shadow-[0_0_30px_rgba(251,191,36,0.8)] active:scale-95 transition cursor-pointer">
+          class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-base tracking-wider shadow-[0_0_30px_rgba(251,191,36,0.8)] active:scale-95 transition cursor-pointer">
           🔓 SBLOCCA ORA — €2,99
         </button>
 
         <div class="grid grid-cols-2 gap-2">
           <button type="button"
-            class="py-2 sm:py-2.5 px-3 rounded-full bg-amber-950/80 border border-amber-400/60 text-amber-100 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
-            💳 CARTA VIP
+            class="py-2 sm:py-2.5 px-3 rounded-full bg-blue-950/80 border border-blue-400/60 text-blue-100 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
+            💳 PASS STUDIO
           </button>
           <button type="button"
-            class="py-2 sm:py-2.5 px-3 rounded-full bg-neutral-900/90 border border-amber-500/30 text-amber-200/80 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
+            class="py-2 sm:py-2.5 px-3 rounded-full bg-slate-900/90 border border-blue-500/30 text-blue-200/80 font-casino font-bold text-[10px] sm:text-xs tracking-wider transition cursor-pointer">
             ✕ TORNA ALL'INIZIO
           </button>
         </div>
       </div>
 
       <!-- Hint that tapping or clicking anywhere returns to initial page -->
-      <p class="mt-3 sm:mt-4 text-[11px] sm:text-xs text-amber-200/80 italic">
+      <p class="mt-3 sm:mt-4 text-[11px] sm:text-xs text-blue-200/80 italic">
         (Tocca o clicca in qualsiasi punto per tornare all'inizio)
       </p>
     </div>
@@ -1065,33 +1030,33 @@
   </div>
 
   <!-- ==============================================================
-       4B. USERNAME ENTRY MODAL (SHOWN EVERY TIME "IL MILIARDARIO" IS CHOSEN)
+       4B. USERNAME ENTRY MODAL (SHOWN EVERY TIME "IL MILIONARIO" IS CHOSEN)
        ============================================================== -->
   <div id="username-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
-    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_60px_rgba(212,175,55,0.45)] relative">
-      <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
-        ★ REGISTRAZIONE TAVOLO VIP ★
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0f172a] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-blue-400 p-4 sm:p-6 text-center shadow-[0_0_60px_rgba(59,130,246,0.55)] relative">
+      <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/50 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
+        ★ REGISTRAZIONE CONCORRENTE ★
       </div>
       <h2 class="font-casino text-xl sm:text-2xl font-black tracking-wider gold-metallic-text mb-1">
-        IL MILIARDARIO
+        IL MILIONARIO
       </h2>
-      <p class="text-xs sm:text-sm text-amber-100/85 mb-4">
+      <p class="text-xs sm:text-sm text-blue-100/90 mb-4">
         Inserisci il tuo nome per salvare i tuoi punteggi in classifica:
       </p>
       <form id="username-form" class="flex flex-col gap-3">
         <input id="username-input" type="text" maxlength="24" placeholder="Il tuo nome o nickname..." autocomplete="off"
           style="user-select: text; -webkit-user-select: text;"
-          class="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-black/80 border-2 border-amber-400/70 text-amber-100 placeholder-amber-300/40 font-casino font-bold text-sm sm:text-base text-center focus:outline-none focus:border-yellow-300 shadow-inner" />
+          class="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-slate-950/90 border-2 border-blue-400/70 text-white placeholder-blue-300/40 font-casino font-bold text-sm sm:text-base text-center focus:outline-none focus:border-amber-300 shadow-inner" />
         <p id="username-error" class="hidden text-[11px] text-red-400 font-semibold -mt-1">
           Inserisci un nome valido per iniziare!
         </p>
         <div class="flex items-center gap-2 mt-1">
           <button id="username-cancel-btn" type="button"
-            class="w-1/3 py-2.5 px-3 rounded-full bg-neutral-900/90 border border-amber-500/40 text-amber-200/80 font-casino font-bold text-xs tracking-wider uppercase hover:bg-neutral-800 transition cursor-pointer">
+            class="w-1/3 py-2.5 px-3 rounded-full bg-slate-900/90 border border-blue-400/40 text-blue-200/80 font-casino font-bold text-xs tracking-wider uppercase hover:bg-slate-800 transition cursor-pointer">
             ANNULLA
           </button>
           <button id="username-submit-btn" type="submit"
-            class="w-2/3 py-2.5 sm:py-3 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.75)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+            class="w-2/3 py-2.5 sm:py-3 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.75)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
             ENTRA IN SFIDA →
           </button>
         </div>
@@ -1103,28 +1068,28 @@
        4C. CLASSIFICA (LEADERBOARD) MODAL (TOP 10 + USER SEARCH)
        ============================================================== -->
   <div id="leaderboard-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
-    <div class="animate-modal-pop w-full max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_65px_rgba(212,175,55,0.5)] relative max-h-[90dvh] flex flex-col">
+    <div class="animate-modal-pop w-full max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0f172a] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-blue-400 p-4 sm:p-6 text-center shadow-[0_0_65px_rgba(59,130,246,0.55)] relative max-h-[90dvh] flex flex-col">
       <!-- Top Header -->
-      <div class="flex items-center justify-between border-b border-amber-500/30 pb-2.5 mb-3 shrink-0">
+      <div class="flex items-center justify-between border-b border-blue-400/30 pb-2.5 mb-3 shrink-0">
         <div class="flex items-center gap-2">
           <span class="text-xl sm:text-2xl">🏆</span>
           <div class="text-left">
             <div class="flex items-center gap-2 flex-wrap">
               <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text leading-none">
-                CLASSIFICA VIP
+                CLASSIFICA MILIONARIO
               </h2>
-              <span id="cloud-sync-badge" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-200 text-[9px] font-bold tracking-wider uppercase">
+              <span id="cloud-sync-badge" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/50 text-blue-200 text-[9px] font-bold tracking-wider uppercase">
                 <span id="cloud-sync-dot" class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                 <span id="cloud-sync-text">CONNESSIONE...</span>
               </span>
             </div>
-            <p class="text-[10px] text-amber-300/75 uppercase tracking-widest mt-0.5">
-              I MIGLIORI 10 PUNTEGGI • IL MILIARDARIO
+            <p class="text-[10px] text-blue-300/80 uppercase tracking-widest mt-0.5">
+              I MIGLIORI 10 PUNTEGGI • IL MILIONARIO
             </p>
           </div>
         </div>
         <button id="leaderboard-close-btn" type="button"
-          class="w-8 h-8 rounded-full bg-red-950/90 border border-amber-400/60 text-amber-200 font-bold text-sm flex items-center justify-center hover:bg-red-800 transition cursor-pointer">
+          class="w-8 h-8 rounded-full bg-blue-950/90 border border-blue-400/60 text-blue-100 font-bold text-sm flex items-center justify-center hover:bg-blue-800 transition cursor-pointer">
           ✕
         </button>
       </div>
@@ -1141,13 +1106,13 @@
         <div class="flex items-center gap-1.5">
           <input id="leaderboard-search-input" type="text" maxlength="24" placeholder="Digita un nome utente..." autocomplete="off"
             style="user-select: text; -webkit-user-select: text;"
-            class="flex-1 px-3 py-2 rounded-xl bg-black/80 border border-amber-400/60 text-amber-100 placeholder-amber-300/40 text-xs sm:text-sm focus:outline-none focus:border-yellow-300" />
+            class="flex-1 px-3 py-2 rounded-xl bg-slate-950/90 border border-blue-400/60 text-white placeholder-blue-300/40 text-xs sm:text-sm focus:outline-none focus:border-amber-300" />
           <button id="leaderboard-search-btn" type="button"
-            class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-red-950 font-casino font-black text-xs tracking-wider uppercase shrink-0 cursor-pointer">
+            class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-casino font-black text-xs tracking-wider uppercase shrink-0 cursor-pointer">
             CERCA
           </button>
         </div>
-        <div id="leaderboard-search-result" class="hidden mt-2 px-3 py-2 rounded-xl bg-amber-950/70 border border-amber-400/50 text-xs sm:text-sm text-amber-100 font-semibold text-left">
+        <div id="leaderboard-search-result" class="hidden mt-2 px-3 py-2 rounded-xl bg-blue-950/75 border border-blue-400/50 text-xs sm:text-sm text-blue-100 font-semibold text-left">
         </div>
       </div>
 
@@ -1159,9 +1124,9 @@
       </div>
 
       <!-- Footer Close -->
-      <div class="mt-3 pt-2 border-t border-amber-500/30 shrink-0">
+      <div class="mt-3 pt-2 border-t border-blue-400/30 shrink-0">
         <button id="leaderboard-footer-close-btn" type="button"
-          class="w-full py-2.5 rounded-full bg-amber-950/80 hover:bg-amber-900 border border-amber-400/60 text-amber-200 font-casino font-bold text-xs tracking-widest uppercase transition cursor-pointer">
+          class="w-full py-2.5 rounded-full bg-blue-950/85 hover:bg-blue-900 border border-blue-400/60 text-amber-200 font-casino font-bold text-xs tracking-widest uppercase transition cursor-pointer">
           CHIUDI CLASSIFICA
         </button>
       </div>
@@ -1172,16 +1137,16 @@
        4E-1. 99 POINTS MILESTONE MODAL ("PRONTI PER L'ULTIMA DOMANDA?")
        ============================================================== -->
   <div id="milestone-99-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
-    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#3b0710] via-[#1c0307] to-[#0a0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-7 text-center shadow-[0_0_85px_rgba(251,191,36,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#172554] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-amber-400 p-4 sm:p-7 text-center shadow-[0_0_85px_rgba(251,191,36,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
       <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-300 text-amber-200 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-pulse">
         ⚡ 99 PUNTI • DOMANDA FINALE DA €1.000.000 ⚡
       </div>
-      <div class="text-3xl sm:text-5xl mb-2">🔊💰🔥</div>
+      <div class="text-3xl sm:text-5xl mb-2">🔊💎🔥</div>
       <h2 class="font-casino text-base sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-snug mb-4 sm:mb-6 px-1 break-words">
         PRONTI PER L'ULTIMA DOMANDA? STAI GIOCANDO PER VINCERE UN MILIONE DI EURO. ALZA IL VOLUME!
       </h2>
       <button id="show-question-100-btn" type="button"
-        class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+        class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
         🔥 DAI FAMMI VEDERE LA DOMANDA
       </button>
     </div>
@@ -1191,26 +1156,26 @@
        4E-2. QUESTION 100 FINAL ANSWER CONFIRMATION MODAL ("L'ACCENDIAMO?")
        ============================================================== -->
   <div id="confirm-100-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
-    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_75px_rgba(251,191,36,0.75)] relative">
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#172554] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_75px_rgba(251,191,36,0.75)] relative">
       <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
         ★ DOMANDA DA €1.000.000 ★
       </div>
       <h2 class="font-casino text-lg sm:text-2xl font-black tracking-wider gold-metallic-text mb-1.5">
         SEI SICURO DELLA TUA RISPOSTA?
       </h2>
-      <p class="text-xs sm:text-sm text-amber-100/90 mb-3">
+      <p class="text-xs sm:text-sm text-blue-100/95 mb-3">
         Hai selezionato: <strong id="confirm-100-chosen-label" class="text-yellow-300 font-casino uppercase">---</strong>
       </p>
-      <p class="text-[11px] sm:text-xs text-amber-200/75 italic mb-4">
+      <p class="text-[11px] sm:text-xs text-blue-200/80 italic mb-4">
         È la tua risposta definitiva? L'accendiamo?
       </p>
       <div class="flex flex-col sm:flex-row items-center gap-2.5">
         <button id="confirm-100-back-btn" type="button"
-          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-neutral-900/90 border border-amber-400/60 text-amber-200 font-casino font-bold text-xs tracking-wider uppercase hover:bg-neutral-800 transition cursor-pointer">
+          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-slate-900/90 border border-blue-400/60 text-blue-100 font-casino font-bold text-xs tracking-wider uppercase hover:bg-slate-800 transition cursor-pointer">
           ↩ CAMBIA RISPOSTA
         </button>
         <button id="confirm-100-yes-btn" type="button"
-          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
           ✅ CONFERMA RISPOSTA
         </button>
       </div>
@@ -1221,9 +1186,9 @@
        4E. 100 POINTS MILLIONAIRE JACKPOT MODAL + AUDIO.MP3
        ============================================================== -->
   <div id="millionaire-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
-    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#064e3b] via-[#022c22] to-[#011c15] border-2 sm:border-4 border-emerald-300 p-4 sm:p-7 text-center shadow-[0_0_85px_rgba(16,185,129,0.9)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0c4a6e] via-[#082f49] to-[#020617] border-2 sm:border-4 border-cyan-300 p-4 sm:p-7 text-center shadow-[0_0_85px_rgba(6,182,212,0.9)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
       
-      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/30 border border-emerald-300 text-emerald-100 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-bounce">
+      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/30 border border-cyan-300 text-cyan-100 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-bounce">
         👑 TRAGUARDO LEGGENDARIO • 100 PUNTI 👑
       </div>
 
@@ -1233,26 +1198,26 @@
         CONGRATULAZIONI! HAI VINTO UN MILIONE DI EURO!!!
       </h2>
 
-      <div class="rounded-xl sm:rounded-2xl bg-black/65 border-2 border-emerald-400/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
-        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-emerald-200/90 mb-0.5">
+      <div class="rounded-xl sm:rounded-2xl bg-black/65 border-2 border-cyan-400/70 p-3 sm:p-4 mb-4 sm:mb-5 shadow-inner">
+        <div class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-cyan-200/90 mb-0.5">
           NUOVO SALDO SBLOCCATO
         </div>
         <div class="font-casino text-2xl sm:text-4xl font-black text-yellow-300 drop-shadow-[0_0_15px_rgba(253,224,71,0.8)] my-0.5">
           Saldo: €1.000.000
         </div>
-        <div class="text-[10px] sm:text-xs font-bold text-emerald-200 mt-1">
+        <div class="text-[10px] sm:text-xs font-bold text-cyan-200 mt-1">
           Ogni risposta esatta da ora aggiunge <strong class="text-yellow-300">+€100.000</strong> al tuo Saldo!
         </div>
       </div>
 
       <button id="continue-climb-btn" type="button"
-        class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-emerald-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+        class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-cyan-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
         🚀 CONTINUA LA SCALATA
       </button>
     </div>
   </div>
 
-  <!-- Preloaded Audio Elements for "Il Miliardario" Soundtracks & 1MM Sequence -->
+  <!-- Preloaded Audio Elements for "Il Milionario" Soundtracks & 1MM Sequence -->
   <audio id="jackpot-mp3-audio" src="audio.mp3" preload="auto"></audio>
   <audio id="bgm-1-49" src="soundtrack%201-49.mp3" loop preload="auto"></audio>
   <audio id="bgm-50-99" src="soundtrack%2050-99.mp3" loop preload="auto"></audio>
@@ -1315,7 +1280,6 @@
         const app = initializeApp(rawConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const pendingWrites = [];
         let firestoreReady = false;
 
         try {
@@ -1886,9 +1850,9 @@
     const landingModeSelectView = document.getElementById('landing-mode-select-view');
     const mainGameContent = document.getElementById('main-game-content');
     const landingChooseStoriaBtn = document.getElementById('landing-choose-storia');
-    const landingChooseMiliardarioBtn = document.getElementById('landing-choose-miliardario');
+    const landingChooseMilionarioBtn = document.getElementById('landing-choose-milionario');
     const modeStoriaBtn = document.getElementById('mode-storia-btn');
-    const modeMiliardarioBtn = document.getElementById('mode-miliardario-btn');
+    const modeMilionarioBtn = document.getElementById('mode-milionario-btn');
     const modeSubtitleBadge = document.getElementById('mode-subtitle-badge');
     const machineMainTitle = document.getElementById('machine-main-title');
 
@@ -1910,21 +1874,22 @@
     const storiaControlsWrap = document.getElementById('storia-controls-wrap');
     const randomizeBtn = document.getElementById('randomize-btn');
     const spinBtnText = document.getElementById('spin-btn-text');
-    const miliardarioControlsWrap = document.getElementById('miliardario-controls-wrap');
-    const miliardarioQuizPrompt = document.getElementById('miliardario-quiz-prompt');
-    const miliardarioOptionsGrid = document.getElementById('miliardario-options-grid');
-    const optionButtons = Array.from(miliardarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
-    const miliardarioFeedback = document.getElementById('miliardario-feedback');
-    const miliardarioRestartBtn = document.getElementById('miliardario-restart-btn');
+    const milionarioControlsWrap = document.getElementById('milionario-controls-wrap');
+    const milionarioQuizPrompt = document.getElementById('milionario-quiz-prompt');
+    const milionarioOptionsGrid = document.getElementById('milionario-options-grid');
+    const optionButtons = Array.from(milionarioOptionsGrid.querySelectorAll('.quiz-option-btn'));
+    const milionarioFeedback = document.getElementById('milionario-feedback');
+    const milionarioRestartBtn = document.getElementById('milionario-restart-btn');
 
-    // Miliardario HUD Elements
-    const miliardarioHud = document.getElementById('miliardario-hud');
-    const miliardarioScoreEl = document.getElementById('miliardario-score');
-    const miliardarioBestEl = document.getElementById('miliardario-best');
-    const miliardarioProgressBar = document.getElementById('miliardario-progress-bar');
-    const emeraldStatusPill = document.getElementById('emerald-status-pill');
-    const miliardarioSaldoWrap = document.getElementById('miliardario-saldo-wrap');
-    const miliardarioSaldoVal = document.getElementById('miliardario-saldo-val');
+    // Il Milionario HUD Elements
+    const milionarioHud = document.getElementById('milionario-hud');
+    const milionarioScoreEl = document.getElementById('milionario-score');
+    const milionarioBestEl = document.getElementById('milionario-best');
+    const milionarioProgressBar = document.getElementById('milionario-progress-bar');
+    const ceruleanStatusPill = document.getElementById('cerulean-status-pill');
+    const milionarioSaldoWrap = document.getElementById('milionario-saldo-wrap');
+    const milionarioSaldoVal = document.getElementById('milionario-saldo-val');
+    
     // 100-Point Millionaire Modal, 99-Point Modal, Confirmation Modal & Audio Elements
     const millionaireModalOverlay = document.getElementById('millionaire-modal-overlay');
     const continueClimbBtn = document.getElementById('continue-climb-btn');
@@ -2010,20 +1975,16 @@
     }
 
     // Sync background loop according to current question number (score + 1)
-    // Question 1..49 -> score 0..48 ("soundtrack 1-49.mp3")
-    // Question 50..99 -> score 49..98 ("soundtrack 50-99.mp3")
-    // Question 100 (score 99) -> "domanda 1mm.mp3"
-    // After score 100 -> "afterlife.mp3"
-    function syncMiliardarioBackgroundMusic() {
-      if (currentMode !== 'miliardario') {
+    function syncMilionarioBackgroundMusic() {
+      if (currentMode !== 'milionario') {
         stopAllMp3Tracks();
         return;
       }
-      if (miliardarioScore >= 100) {
+      if (milionarioScore >= 100) {
         playLoopingTrack(bgmAfterlife);
-      } else if (miliardarioScore === 99) {
+      } else if (milionarioScore === 99) {
         playLoopingTrack(bgmDomanda1mm);
-      } else if (miliardarioScore >= 49) {
+      } else if (milionarioScore >= 49) {
         playLoopingTrack(bgm50to99);
       } else {
         playLoopingTrack(bgm1to49);
@@ -2037,7 +1998,7 @@
     const resetHomeBtn = document.getElementById('reset-home-btn');
     const paywallOverlay = document.getElementById('paywall-overlay');
 
-    // "Il miliardario" state & Shared Cloud + LocalStorage Leaderboard
+    // "Il milionario" state & Shared Cloud + LocalStorage Leaderboard
     const LOCAL_STORAGE_SCORES_KEY = 'casino_reale_vip_scores_v2';
     window.__earlyScoreQueue = window.__earlyScoreQueue || [];
     let sharedScoresMap = {};
@@ -2052,8 +2013,8 @@
     } catch (e) {}
 
     let currentPlayerName = '';
-    let miliardarioScore = 0;
-    let miliardarioBest = 0;
+    let milionarioScore = 0;
+    let milionarioBest = 0;
     let currentQuizQuestion = null;
     let quizLocked = false;
     let nextQuestionTimer = null;
@@ -2061,7 +2022,7 @@
     let usedQuizIndicesInRun = new Set();
 
     // Additional DOM Elements for Username Prompt & Leaderboard Modal
-    const miliardarioPlayerLabel = document.getElementById('miliardario-player-label');
+    const milionarioPlayerLabel = document.getElementById('milionario-player-label');
     const usernameModalOverlay = document.getElementById('username-modal-overlay');
     const usernameForm = document.getElementById('username-form');
     const usernameInput = document.getElementById('username-input');
@@ -2084,16 +2045,14 @@
     }
 
     // Receive live updates from the shared Cloud Leaderboard
-    // Firebase is the single source of truth: deleting or editing a score in Firebase Console
-    // immediately removes or updates it on the website and in localStorage.
     window.__onCloudLeaderboardUpdate = function (cloudMap) {
       if (!cloudMap || typeof cloudMap !== 'object') return;
       sharedScoresMap = { ...cloudMap };
       persistLocalScores();
 
       if (currentPlayerName) {
-        miliardarioBest = Math.max(miliardarioScore, getPlayerBestScore(currentPlayerName));
-        updateMiliardarioUI();
+        milionarioBest = Math.max(milionarioScore, getPlayerBestScore(currentPlayerName));
+        updateMilionarioUI();
       }
 
       if (!leaderboardModalOverlay.classList.contains('hidden')) {
@@ -2145,7 +2104,7 @@
       if (top10.length === 0) {
         leaderboardListContainer.innerHTML = `
           <div class="text-center py-8 text-amber-200/60 text-xs sm:text-sm italic">
-            Nessun punteggio registrato finora.<br/>Gioca a "Il Miliardario" per inaugurare la classifica!
+            Nessun punteggio registrato finora.<br/>Gioca a "Il Milionario" per inaugurare la classifica!
           </div>
         `;
         return;
@@ -2163,7 +2122,7 @@
         row.className = `flex items-center justify-between px-3 py-2 rounded-xl border ${
           isCurrentUser
             ? 'bg-amber-500/25 border-yellow-300 shadow-[0_0_12px_rgba(251,191,36,0.3)]'
-            : 'bg-black/60 border-amber-500/30'
+            : 'bg-black/60 border-blue-500/30'
         }`;
 
         const nameContainer = document.createElement('div');
@@ -2171,7 +2130,7 @@
         nameContainer.innerHTML = badge;
 
         const nameSpan = document.createElement('span');
-        nameSpan.className = 'font-casino font-bold text-xs sm:text-sm text-amber-100 truncate';
+        nameSpan.className = 'font-casino font-bold text-xs sm:text-sm text-blue-100 truncate';
         nameSpan.textContent = rank === 1 ? `${item.name} 👑` : item.name;
         nameContainer.appendChild(nameSpan);
 
@@ -2257,18 +2216,6 @@
       return n;
     }
 
-    // Format every option name for "Il Miliardario" according to user rules:
-    // - Paludetto / Palu / Franca Paludetto -> "Paludetto"
-    // - Def / Alberto D. -> "Alberto D."
-    // - Marco / Carraro -> "Carraro"
-    // - Marso / Nicolò / Nicolo -> "Nicolò"
-    // - Tecla / Vincentini -> "Vincentini"
-    // - Tommaso / Zago -> "Zago" (while "Pietro" remains "Pietro")
-    // - Gianni / Stival / Gianni Stival -> "Stival"
-    // - Girolama / Gambino / Girolama Gambino -> "Gambino"
-    // - Rocco Milidone / Milidone -> "Milidone"
-    // - Chiara Valente / Valente -> "Valente"
-    // - Terry / Terru / Terrida -> "Terrida"
     function formatQuizOptionPersonName(rawName) {
       const raw = rawName.trim();
       const low = raw.toLowerCase().replace(/\./g, '').trim();
@@ -2293,7 +2240,6 @@
       return raw.charAt(0).toUpperCase() + raw.slice(1);
     }
 
-    // Pool of 40 distinct single names for "Il Miliardario" (with Pietro separate from Zago)
     const SINGLE_NAMES_POOL = [
       "Alberto D.", "Alberto F.", "Anna", "Carlotta", "Carraro",
       "Catto", "Cesetti", "Cristian", "Cruciani", "Emma",
@@ -2330,7 +2276,7 @@
       };
     }
 
-    function buildMiliardarioQuestion(raw) {
+    function buildMilionarioQuestion(raw) {
       const cleaned = raw.trim();
 
       let quotePart = cleaned;
@@ -2348,7 +2294,6 @@
         }
       }
 
-      // Specific masking rule: "Io ho un nome brutto: Girolama" -> "Io ho un nome brutto: [NOME]"
       if (/Io ho un nome brutto:\s*Girolama/i.test(quotePart)) {
         quotePart = quotePart.replace(/Girolama/gi, '[NOME]');
       }
@@ -2510,7 +2455,7 @@
 
     const VALID_QUIZ_INDICES = [];
     FRASI_DB.forEach((raw, idx) => {
-      const q = buildMiliardarioQuestion(raw);
+      const q = buildMilionarioQuestion(raw);
       if (q && q.correctOption && q.correctOption.toLowerCase() !== 'anonimo') {
         VALID_QUIZ_INDICES.push(idx);
       }
@@ -2534,7 +2479,7 @@
         milestone99ModalOverlay.classList.remove('flex');
       }
       playLoopingTrack(bgmDomanda1mm);
-      loadNextMiliardarioQuestion();
+      loadNextMilionarioQuestion();
     }
 
     function openConfirm100Modal(selectedIndex) {
@@ -2567,7 +2512,7 @@
         confirm100ModalOverlay.classList.remove('flex');
       }
       if (chosenIdx !== null && chosenIdx !== undefined) {
-        evaluateMiliardarioChoice(chosenIdx, true);
+        evaluateMilionarioChoice(chosenIdx, true);
       }
     }
 
@@ -2589,46 +2534,46 @@
         millionaireModalOverlay.classList.add('hidden');
         millionaireModalOverlay.classList.remove('flex');
       }
-      if (currentMode === 'miliardario') {
+      if (currentMode === 'milionario') {
         playLoopingTrack(bgmAfterlife);
-        loadNextMiliardarioQuestion();
+        loadNextMilionarioQuestion();
       }
     }
 
-    function updateMiliardarioUI() {
-      if (miliardarioPlayerLabel) {
-        miliardarioPlayerLabel.textContent = currentPlayerName || 'OSPITE';
+    function updateMilionarioUI() {
+      if (milionarioPlayerLabel) {
+        milionarioPlayerLabel.textContent = currentPlayerName || 'CONCORRENTE';
       }
-      miliardarioScoreEl.textContent = String(miliardarioScore);
-      miliardarioBestEl.textContent = String(miliardarioBest);
-      const pct = Math.min(100, Math.max(0, miliardarioScore));
-      miliardarioProgressBar.style.width = `${pct}%`;
+      milionarioScoreEl.textContent = String(milionarioScore);
+      milionarioBestEl.textContent = String(milionarioBest);
+      const pct = Math.min(100, Math.max(0, milionarioScore));
+      milionarioProgressBar.style.width = `${pct}%`;
 
-      if (miliardarioScore >= 100) {
-        document.body.classList.add('emerald-jackpot-theme');
-        emeraldStatusPill.classList.remove('hidden');
-        emeraldStatusPill.classList.add('inline-flex');
-        const saldoValue = 1000000 + (miliardarioScore - 100) * 100000;
-        if (miliardarioSaldoVal) {
-          miliardarioSaldoVal.textContent = formatEuroAmount(saldoValue);
+      if (milionarioScore >= 100) {
+        document.body.classList.add('cerulean-jackpot-theme');
+        ceruleanStatusPill.classList.remove('hidden');
+        ceruleanStatusPill.classList.add('inline-flex');
+        const saldoValue = 1000000 + (milionarioScore - 100) * 100000;
+        if (milionarioSaldoVal) {
+          milionarioSaldoVal.textContent = formatEuroAmount(saldoValue);
         }
-        if (miliardarioSaldoWrap) {
-          miliardarioSaldoWrap.classList.remove('hidden');
-          miliardarioSaldoWrap.classList.add('flex');
+        if (milionarioSaldoWrap) {
+          milionarioSaldoWrap.classList.remove('hidden');
+          milionarioSaldoWrap.classList.add('flex');
         }
       } else {
-        document.body.classList.remove('emerald-jackpot-theme');
-        emeraldStatusPill.classList.add('hidden');
-        emeraldStatusPill.classList.remove('inline-flex');
-        if (miliardarioSaldoWrap) {
-          miliardarioSaldoWrap.classList.add('hidden');
-          miliardarioSaldoWrap.classList.remove('flex');
+        document.body.classList.remove('cerulean-jackpot-theme');
+        ceruleanStatusPill.classList.add('hidden');
+        ceruleanStatusPill.classList.remove('inline-flex');
+        if (milionarioSaldoWrap) {
+          milionarioSaldoWrap.classList.add('hidden');
+          milionarioSaldoWrap.classList.remove('flex');
         }
       }
     }
 
-    // Prompt for player name every time "Il Miliardario" mode is chosen
-    function requestMiliardarioModeWithUsername() {
+    // Prompt for player name every time "Il Milionario" mode is chosen
+    function requestMilionarioModeWithUsername() {
       audio.init();
       usernameError.classList.add('hidden');
       usernameInput.value = currentPlayerName || '';
@@ -2652,12 +2597,12 @@
         return;
       }
       currentPlayerName = entered;
-      miliardarioScore = 0;
+      milionarioScore = 0;
       usedQuizIndicesInRun.clear();
-      miliardarioBest = getPlayerBestScore(currentPlayerName);
+      milionarioBest = getPlayerBestScore(currentPlayerName);
       recordPlayerScore(currentPlayerName, 0);
       closeUsernameModal();
-      switchMode('miliardario');
+      switchMode('milionario');
     });
 
     usernameCancelBtn.addEventListener('click', (e) => {
@@ -2682,41 +2627,41 @@
       if (newMode === 'storia') {
         stopAllMp3Tracks();
         modeStoriaBtn.classList.add('active');
-        modeMiliardarioBtn.classList.remove('active');
-        modeSubtitleBadge.textContent = '★ SALA DELLE PERLE D\'ORO ★';
-        machineMainTitle.textContent = 'LA ROULETTE DELLE FRASI';
-        miliardarioHud.classList.add('hidden');
-        miliardarioHud.classList.remove('flex');
+        modeMilionarioBtn.classList.remove('active');
+        modeSubtitleBadge.textContent = '★ L\'ARCHIVIO DELLE FRASI CELEBRI ★';
+        machineMainTitle.textContent = 'CHI VUOL ESSERE MILIONARIO?';
+        milionarioHud.classList.add('hidden');
+        milionarioHud.classList.remove('flex');
         storiaControlsWrap.classList.remove('hidden');
         storiaControlsWrap.classList.add('flex');
-        miliardarioControlsWrap.classList.add('hidden');
-        miliardarioControlsWrap.classList.remove('flex');
+        milionarioControlsWrap.classList.add('hidden');
+        milionarioControlsWrap.classList.remove('flex');
         resetToInitialPage();
       } else {
-        modeMiliardarioBtn.classList.add('active');
+        modeMilionarioBtn.classList.add('active');
         modeStoriaBtn.classList.remove('active');
-        modeSubtitleBadge.textContent = '★ SFIDA A 100 PUNTI • SALA VIP ★';
-        machineMainTitle.textContent = 'IL MILIARDARIO DELLE FRASI';
-        miliardarioHud.classList.remove('hidden');
-        miliardarioHud.classList.add('flex');
+        modeSubtitleBadge.textContent = '★ SCALATA A 100 DOMANDE • STUDIO TV ★';
+        machineMainTitle.textContent = 'CHI VUOL ESSERE MILIONARIO?';
+        milionarioHud.classList.remove('hidden');
+        milionarioHud.classList.add('flex');
         storiaControlsWrap.classList.add('hidden');
         storiaControlsWrap.classList.remove('flex');
-        miliardarioControlsWrap.classList.remove('hidden');
-        miliardarioControlsWrap.classList.add('flex');
-        updateMiliardarioUI();
-        syncMiliardarioBackgroundMusic();
-        loadNextMiliardarioQuestion();
+        milionarioControlsWrap.classList.remove('hidden');
+        milionarioControlsWrap.classList.add('flex');
+        updateMilionarioUI();
+        syncMilionarioBackgroundMusic();
+        loadNextMilionarioQuestion();
       }
     }
 
-    function loadNextMiliardarioQuestion() {
+    function loadNextMilionarioQuestion() {
       if (nextQuestionTimer) {
         clearTimeout(nextQuestionTimer);
         nextQuestionTimer = null;
       }
       quizLocked = false;
       questionLoadedAt = performance.now();
-      syncMiliardarioBackgroundMusic();
+      syncMilionarioBackgroundMusic();
 
       // Filter out questions already asked during the current run
       let availablePool = VALID_QUIZ_INDICES.filter(idx => !usedQuizIndicesInRun.has(idx));
@@ -2730,7 +2675,7 @@
       usedQuizIndicesInRun.add(poolIdx);
       lastQuoteIndex = poolIdx;
 
-      currentQuizQuestion = buildMiliardarioQuestion(FRASI_DB[poolIdx]);
+      currentQuizQuestion = buildMilionarioQuestion(FRASI_DB[poolIdx]);
 
       attractView.classList.add('hidden');
       attractView.classList.remove('flex');
@@ -2748,12 +2693,12 @@
       quoteAuthorBadge.classList.add('hidden');
       quoteAuthorBadge.classList.remove('inline-flex');
 
-      miliardarioFeedback.classList.add('hidden');
-      miliardarioRestartBtn.classList.add('hidden');
-      miliardarioRestartBtn.classList.remove('inline-flex');
-      miliardarioQuizPrompt.classList.remove('hidden');
-      miliardarioOptionsGrid.classList.remove('hidden');
-      miliardarioOptionsGrid.classList.add('grid');
+      milionarioFeedback.classList.add('hidden');
+      milionarioRestartBtn.classList.add('hidden');
+      milionarioRestartBtn.classList.remove('inline-flex');
+      milionarioQuizPrompt.classList.remove('hidden');
+      milionarioOptionsGrid.classList.remove('hidden');
+      milionarioOptionsGrid.classList.add('grid');
 
       quoteResultView.classList.remove('hidden');
       quoteResultView.classList.add('flex', 'animate-card-reveal');
@@ -2772,24 +2717,24 @@
       resetHomeBtn.classList.add('flex');
     }
 
-    function handleMiliardarioChoice(selectedIndex, e) {
+    function handleMilionarioChoice(selectedIndex, e) {
       if (e) e.stopPropagation();
-      if (currentMode !== 'miliardario' || quizLocked || !currentQuizQuestion) return;
+      if (currentMode !== 'milionario' || quizLocked || !currentQuizQuestion) return;
       if (performance.now() - questionLoadedAt < 350) return;
 
       audio.init();
       quizLocked = true;
 
       // On the 100th question (when current score is 99), ask for confirmation and play "confermi 1mm.mp3"
-      if (miliardarioScore === 99) {
+      if (milionarioScore === 99) {
         openConfirm100Modal(selectedIndex);
         return;
       }
 
-      evaluateMiliardarioChoice(selectedIndex, false);
+      evaluateMilionarioChoice(selectedIndex, false);
     }
 
-    function evaluateMiliardarioChoice(selectedIndex, wasQuestion100) {
+    function evaluateMilionarioChoice(selectedIndex, wasQuestion100) {
       const isCorrect = selectedIndex === currentQuizQuestion.correctIndex;
 
       optionButtons.forEach((btn, idx) => {
@@ -2801,46 +2746,46 @@
         }
       });
 
-      miliardarioFeedback.classList.remove('hidden');
+      milionarioFeedback.classList.remove('hidden');
 
       if (isCorrect) {
-        miliardarioScore += 1;
-        if (miliardarioScore > miliardarioBest) {
-          miliardarioBest = miliardarioScore;
+        milionarioScore += 1;
+        if (milionarioScore > milionarioBest) {
+          milionarioBest = milionarioScore;
         }
         if (currentPlayerName) {
-          recordPlayerScore(currentPlayerName, miliardarioScore);
+          recordPlayerScore(currentPlayerName, milionarioScore);
         }
-        updateMiliardarioUI();
+        updateMilionarioUI();
 
-        if (miliardarioScore === 99) {
+        if (milionarioScore === 99) {
           audio.playWinChime();
           burstGoldConfetti();
-          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-amber-500/30 border border-amber-300 text-amber-100';
-          miliardarioFeedback.textContent = '🔥 99 PUNTI! PREPARATI PER L\'ULTIMA DOMANDA! 🔥';
+          milionarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-amber-500/30 border border-amber-300 text-amber-100';
+          milionarioFeedback.textContent = '🔥 99 PUNTI! PREPARATI PER L\'ULTIMA DOMANDA! 🔥';
           nextQuestionTimer = setTimeout(() => {
             openMilestone99Modal();
           }, 550);
-        } else if (miliardarioScore === 100) {
-          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-emerald-500/30 border border-emerald-300 text-emerald-200 animate-bounce';
-          miliardarioFeedback.textContent = '🎉 100 PUNTI! HAI VINTO UN MILIONE DI EURO! 🎉';
+        } else if (milionarioScore === 100) {
+          milionarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-cyan-500/30 border border-cyan-300 text-cyan-200 animate-bounce';
+          milionarioFeedback.textContent = '🎉 100 PUNTI! HAI VINTO UN MILIONE DI EURO! 🎉';
           openMillionaireJackpotModal();
-        } else if (miliardarioScore > 100) {
+        } else if (milionarioScore > 100) {
           audio.playWinChime();
           burstGoldConfetti();
-          const currentSaldo = 1000000 + (miliardarioScore - 100) * 100000;
-          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/30 border border-emerald-400 text-emerald-200';
-          miliardarioFeedback.textContent = `✅ ESATTO! +€100.000 (SALDO: €${formatEuroAmount(currentSaldo)})`;
+          const currentSaldo = 1000000 + (milionarioScore - 100) * 100000;
+          milionarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-cyan-600/30 border border-cyan-400 text-cyan-200';
+          milionarioFeedback.textContent = `✅ ESATTO! +€100.000 (SALDO: €${formatEuroAmount(currentSaldo)})`;
           nextQuestionTimer = setTimeout(() => {
-            loadNextMiliardarioQuestion();
+            loadNextMilionarioQuestion();
           }, 900);
         } else {
           audio.playWinChime();
           burstGoldConfetti();
-          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/30 border border-emerald-400 text-emerald-200';
-          miliardarioFeedback.textContent = `✅ ESATTO! +1 PUNTO (TOTALE: ${miliardarioScore})`;
+          milionarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-emerald-600/30 border border-emerald-400 text-emerald-200';
+          milionarioFeedback.textContent = `✅ ESATTO! +1 PUNTO (TOTALE: ${milionarioScore})`;
           nextQuestionTimer = setTimeout(() => {
-            loadNextMiliardarioQuestion();
+            loadNextMilionarioQuestion();
           }, 850);
         }
       } else {
@@ -2855,15 +2800,15 @@
         quoteAuthorBadge.classList.remove('hidden');
         quoteAuthorBadge.classList.add('inline-flex');
 
-        miliardarioFeedback.className = 'mt-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-red-600/35 border border-red-400 text-red-200 max-w-full break-words';
-        miliardarioFeedback.textContent = `❌ RISPOSTA ERRATA! HAI PERSO TUTTI I PUNTI`;
+        milionarioFeedback.className = 'mt-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-casino font-bold tracking-wider uppercase bg-red-600/35 border border-red-400 text-red-200 max-w-full break-words';
+        milionarioFeedback.textContent = `❌ RISPOSTA ERRATA! HAI PERSO TUTTI I PUNTI`;
 
-        miliardarioQuizPrompt.classList.add('hidden');
-        miliardarioOptionsGrid.classList.add('hidden');
-        miliardarioOptionsGrid.classList.remove('grid');
+        milionarioQuizPrompt.classList.add('hidden');
+        milionarioOptionsGrid.classList.add('hidden');
+        milionarioOptionsGrid.classList.remove('grid');
 
-        miliardarioRestartBtn.classList.remove('hidden');
-        miliardarioRestartBtn.classList.add('inline-flex', 'items-center', 'justify-center');
+        milionarioRestartBtn.classList.remove('hidden');
+        milionarioRestartBtn.classList.add('inline-flex', 'items-center', 'justify-center');
       }
     }
 
@@ -2890,21 +2835,21 @@
         millionaireModalOverlay.classList.add('hidden');
         millionaireModalOverlay.classList.remove('flex');
       }
-      miliardarioRestartBtn.classList.add('hidden');
-      miliardarioRestartBtn.classList.remove('inline-flex');
+      milionarioRestartBtn.classList.add('hidden');
+      milionarioRestartBtn.classList.remove('inline-flex');
 
-      miliardarioScore = 0;
+      milionarioScore = 0;
       usedQuizIndicesInRun.clear();
-      updateMiliardarioUI();
+      updateMilionarioUI();
 
-      if (currentMode === 'miliardario') {
-        syncMiliardarioBackgroundMusic();
-        loadNextMiliardarioQuestion();
+      if (currentMode === 'milionario') {
+        syncMilionarioBackgroundMusic();
+        loadNextMilionarioQuestion();
         return;
       }
 
       stopAllMp3Tracks();
-      attractHeadlineText.textContent = 'Premi il pulsante dorato per tentare la fortuna ed estrarre una perla di saggezza!';
+      attractHeadlineText.textContent = 'Premi il pulsante dorato per accendere i riflettori ed estrarre una perla celebre!';
       attractPillLabel.textContent = 'MODALITÀ STORIA';
       attractView.classList.remove('hidden');
       attractView.classList.add('flex');
@@ -2916,7 +2861,7 @@
       lostSlotView.classList.remove('flex');
 
       displayWell.scrollTop = 0;
-      spinBtnText.textContent = '🎰 ESTRAI UNA FRASE 🎰';
+      spinBtnText.textContent = '💎 ESTRAI UNA FRASE 💎';
       resetHomeBtn.classList.add('hidden');
       resetHomeBtn.classList.remove('flex');
     }
@@ -2997,15 +2942,15 @@
       quoteAuthorText.textContent = parsed.author || 'Anonimo';
       quoteAuthorBadge.classList.remove('hidden');
       quoteAuthorBadge.classList.add('inline-flex');
-      miliardarioFeedback.classList.add('hidden');
-      miliardarioRestartBtn.classList.add('hidden');
-      miliardarioRestartBtn.classList.remove('inline-flex');
+      milionarioFeedback.classList.add('hidden');
+      milionarioRestartBtn.classList.add('hidden');
+      milionarioRestartBtn.classList.remove('inline-flex');
 
       quoteResultView.classList.remove('hidden');
       quoteResultView.classList.add('flex', 'animate-card-reveal');
       displayWell.scrollTop = 0;
 
-      spinBtnText.textContent = '🎰 ESTRAI UNA FRASE 🎰';
+      spinBtnText.textContent = '💎 ESTRAI UNA FRASE 💎';
       resetHomeBtn.classList.remove('hidden');
       resetHomeBtn.classList.add('flex');
 
@@ -3040,13 +2985,13 @@
     }
 
     bindTapAndClick(modeStoriaBtn, () => switchMode('storia'));
-    bindTapAndClick(modeMiliardarioBtn, () => requestMiliardarioModeWithUsername());
+    bindTapAndClick(modeMilionarioBtn, () => requestMilionarioModeWithUsername());
     bindTapAndClick(landingChooseStoriaBtn, () => {
       audio.init();
       switchMode('storia');
     });
-    bindTapAndClick(landingChooseMiliardarioBtn, () => {
-      requestMiliardarioModeWithUsername();
+    bindTapAndClick(landingChooseMilionarioBtn, () => {
+      requestMilionarioModeWithUsername();
     });
 
     // Leaderboard open/close & search bindings
@@ -3066,13 +3011,13 @@
       }
     });
 
-    bindTapAndClick(miliardarioRestartBtn, () => {
+    bindTapAndClick(milionarioRestartBtn, () => {
       audio.init();
-      miliardarioScore = 0;
+      milionarioScore = 0;
       usedQuizIndicesInRun.clear();
-      updateMiliardarioUI();
-      syncMiliardarioBackgroundMusic();
-      loadNextMiliardarioQuestion();
+      updateMilionarioUI();
+      syncMilionarioBackgroundMusic();
+      loadNextMilionarioQuestion();
     });
 
     if (continueClimbBtn) {
@@ -3110,7 +3055,7 @@
         const now = performance.now();
         if (now - lastOptTap < 250) return;
         lastOptTap = now;
-        handleMiliardarioChoice(idx, e);
+        handleMilionarioChoice(idx, e);
       };
       btn.addEventListener('pointerup', optHandler);
       btn.addEventListener('click', optHandler);
@@ -3141,7 +3086,7 @@
             try { el.pause(); } catch (_) {}
           }
         });
-      } else if (currentMode === 'miliardario' && currentLoopTrack) {
+      } else if (currentMode === 'milionario' && currentLoopTrack) {
         try {
           const p = currentLoopTrack.play();
           if (p && typeof p.catch === 'function') p.catch(() => {});
@@ -3164,18 +3109,16 @@
     window.addEventListener('click', handleGlobalPaywallDismiss);
 
     // ==============================================================
-    // DYNAMIC BACKGROUND CANVAS (PIN SPOTLIGHTS, BOKEH & CONFETTI)
+    // STATIC STUDIO BACKGROUND CANVAS (SPOTLIGHTS, BOKEH & CONFETTI)
     // ==============================================================
     const canvas = document.getElementById('casino-canvas');
     const ctx = canvas.getContext('2d');
-    const sceneContainer = document.getElementById('scene-container');
 
     let cw = window.innerWidth;
     let ch = window.innerHeight;
     let particles = [];
     let confettiParticles = [];
     let spotlights = [];
-    let lastPointerMove = 0;
 
     function resizeCanvas() {
       cw = canvas.width = window.innerWidth;
@@ -3203,10 +3146,10 @@
         particles.push({
           x: Math.random() * cw,
           y: Math.random() * ch,
-          r: Math.random() * 2.4 + 0.8,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: -Math.random() * 0.45 - 0.1,
-          alpha: Math.random() * 0.65 + 0.2,
+          r: Math.random() * 2.2 + 0.8,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: -Math.random() * 0.35 - 0.08,
+          alpha: Math.random() * 0.55 + 0.2,
           pulse: Math.random() * Math.PI * 2
         });
       }
@@ -3214,7 +3157,7 @@
 
     function burstGoldConfetti() {
       const count = cw < 640 ? 22 : 34;
-      const isEmerald = document.body.classList.contains('emerald-jackpot-theme');
+      const isCerulean = document.body.classList.contains('cerulean-jackpot-theme');
       for (let i = 0; i < count; i++) {
         confettiParticles.push({
           x: cw / 2 + (Math.random() - 0.5) * Math.min(180, cw * 0.45),
@@ -3222,42 +3165,36 @@
           vx: (Math.random() - 0.5) * 6.5,
           vy: -Math.random() * 5.5 - 2,
           size: Math.random() * 5.5 + 3,
-          color: isEmerald
-            ? (i % 2 === 0 ? '#34d399' : '#ffd700')
-            : (i % 2 === 0 ? '#ffd700' : '#ff4d4d'),
+          color: isCerulean
+            ? (i % 2 === 0 ? '#38bdf8' : '#fef08a')
+            : (i % 2 === 0 ? '#60a5fa' : '#fbbf24'),
           alpha: 1,
           rot: Math.random() * Math.PI
         });
       }
     }
 
-    function animateCasinoScene(timestamp) {
+    function animateCasinoScene() {
       ctx.clearRect(0, 0, cw, ch);
-      const isEmerald = document.body.classList.contains('emerald-jackpot-theme');
-
-      if (timestamp - lastPointerMove > 2500) {
-        const driftX = Math.sin(timestamp * 0.0005) * 5;
-        const driftY = Math.cos(timestamp * 0.00035) * 3.5;
-        sceneContainer.style.transform = `translate3d(${driftX.toFixed(1)}px, ${driftY.toFixed(1)}px, 0)`;
-      }
+      const isCerulean = document.body.classList.contains('cerulean-jackpot-theme');
 
       spotlights.forEach(light => {
         light.phase += light.speed;
         const glow = 0.65 + Math.sin(light.phase) * 0.35;
-        const grad = ctx.createRadialGradient(light.x, light.y, 1, light.x, light.y, 24);
-        if (isEmerald) {
-          grad.addColorStop(0, `rgba(209, 250, 229, ${glow})`);
-          grad.addColorStop(0.35, `rgba(16, 185, 129, ${glow * 0.55})`);
-          grad.addColorStop(1, 'rgba(5, 150, 105, 0)');
+        const grad = ctx.createRadialGradient(light.x, light.y, 1, light.x, light.y, 28);
+        if (isCerulean) {
+          grad.addColorStop(0, `rgba(207, 250, 254, ${glow})`);
+          grad.addColorStop(0.35, `rgba(6, 182, 212, ${glow * 0.55})`);
+          grad.addColorStop(1, 'rgba(8, 145, 178, 0)');
         } else {
-          grad.addColorStop(0, `rgba(255, 248, 210, ${glow})`);
-          grad.addColorStop(0.35, `rgba(255, 190, 75, ${glow * 0.45})`);
-          grad.addColorStop(1, 'rgba(255, 160, 30, 0)');
+          grad.addColorStop(0, `rgba(224, 242, 254, ${glow})`);
+          grad.addColorStop(0.35, `rgba(59, 130, 246, ${glow * 0.5})`);
+          grad.addColorStop(1, 'rgba(29, 78, 216, 0)');
         }
 
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(light.x, light.y, 24, 0, Math.PI * 2);
+        ctx.arc(light.x, light.y, 28, 0, Math.PI * 2);
         ctx.fill();
       });
 
@@ -3271,9 +3208,9 @@
         if (p.x > cw + 10) p.x = -10;
 
         const currentAlpha = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
-        ctx.fillStyle = isEmerald
-          ? `rgba(110, 231, 183, ${currentAlpha})`
-          : `rgba(255, 210, 110, ${currentAlpha})`;
+        ctx.fillStyle = isCerulean
+          ? `rgba(103, 232, 249, ${currentAlpha})`
+          : `rgba(147, 197, 253, ${currentAlpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -3303,30 +3240,6 @@
 
       requestAnimationFrame(animateCasinoScene);
     }
-
-    window.addEventListener('mousemove', (e) => {
-      lastPointerMove = performance.now();
-      const normX = (e.clientX / window.innerWidth - 0.5) * 2;
-      const normY = (e.clientY / window.innerHeight - 0.5) * 2;
-      sceneContainer.style.transform = `translate3d(${(-normX * 10).toFixed(1)}px, ${(-normY * 6).toFixed(1)}px, 0)`;
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
-      if (!e.touches || !e.touches[0]) return;
-      lastPointerMove = performance.now();
-      const touch = e.touches[0];
-      const normX = (touch.clientX / window.innerWidth - 0.5) * 2;
-      const normY = (touch.clientY / window.innerHeight - 0.5) * 2;
-      sceneContainer.style.transform = `translate3d(${(-normX * 7).toFixed(1)}px, ${(-normY * 5).toFixed(1)}px, 0)`;
-    }, { passive: true });
-
-    window.addEventListener('deviceorientation', (e) => {
-      if (e.gamma === null || e.beta === null) return;
-      lastPointerMove = performance.now();
-      const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
-      const tiltY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
-      sceneContainer.style.transform = `translate3d(${(-tiltX * 8).toFixed(1)}px, ${(-tiltY * 5).toFixed(1)}px, 0)`;
-    }, { passive: true });
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('orientationchange', () => {
