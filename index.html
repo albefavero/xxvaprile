@@ -668,7 +668,7 @@
 
     <!-- 2. TOP BAR HUD (ITALIAN VIP BADGE & SOUND TOGGLE) -->
     <header class="w-full max-w-5xl mx-auto flex items-center justify-between gap-2 shrink-0">
-      <!-- Left VIP Badge -->
+      <!-- Left VIP Badge (Non-clickable production badge) -->
       <div class="flex items-center gap-2 bg-black/80 border border-amber-500/50 rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.2)]">
         <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
         <span class="font-casino text-[10px] sm:text-xs font-bold tracking-widest text-amber-200 uppercase">
@@ -1169,6 +1169,55 @@
   </div>
 
   <!-- ==============================================================
+       4E-1. 99 POINTS MILESTONE MODAL ("PRONTI PER L'ULTIMA DOMANDA?")
+       ============================================================== -->
+  <div id="milestone-99-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#3b0710] via-[#1c0307] to-[#0a0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-7 text-center shadow-[0_0_85px_rgba(251,191,36,0.85)] relative overflow-hidden max-h-[92dvh] flex flex-col justify-center">
+      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-300 text-amber-200 text-[10px] sm:text-xs font-extrabold tracking-[0.18em] uppercase mb-2 sm:mb-3 mx-auto animate-pulse">
+        ⚡ 99 PUNTI • DOMANDA FINALE DA €1.000.000 ⚡
+      </div>
+      <div class="text-3xl sm:text-5xl mb-2">🔊💰🔥</div>
+      <h2 class="font-casino text-base sm:text-2xl md:text-3xl font-black tracking-wider gold-metallic-text leading-snug mb-4 sm:mb-6 px-1 break-words">
+        PRONTI PER L'ULTIMA DOMANDA? STAI GIOCANDO PER VINCERE UN MILIONE DI EURO. ALZA IL VOLUME!
+      </h2>
+      <button id="show-question-100-btn" type="button"
+        class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+        🔥 DAI FAMMI VEDERE LA DOMANDA
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       4E-2. QUESTION 100 FINAL ANSWER CONFIRMATION MODAL ("L'ACCENDIAMO?")
+       ============================================================== -->
+  <div id="confirm-100-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#2b0508] via-[#170204] to-[#0d0102] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_75px_rgba(251,191,36,0.75)] relative">
+      <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
+        ★ DOMANDA DA €1.000.000 ★
+      </div>
+      <h2 class="font-casino text-lg sm:text-2xl font-black tracking-wider gold-metallic-text mb-1.5">
+        SEI SICURO DELLA TUA RISPOSTA?
+      </h2>
+      <p class="text-xs sm:text-sm text-amber-100/90 mb-3">
+        Hai selezionato: <strong id="confirm-100-chosen-label" class="text-yellow-300 font-casino uppercase">---</strong>
+      </p>
+      <p class="text-[11px] sm:text-xs text-amber-200/75 italic mb-4">
+        È la tua risposta definitiva? L'accendiamo?
+      </p>
+      <div class="flex flex-col sm:flex-row items-center gap-2.5">
+        <button id="confirm-100-back-btn" type="button"
+          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-neutral-900/90 border border-amber-400/60 text-amber-200 font-casino font-bold text-xs tracking-wider uppercase hover:bg-neutral-800 transition cursor-pointer">
+          ↩ CAMBIA RISPOSTA
+        </button>
+        <button id="confirm-100-yes-btn" type="button"
+          class="w-full sm:w-1/2 py-2.5 sm:py-3 px-4 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-red-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.85)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
+          ✅ CONFERMA RISPOSTA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================
        4E. 100 POINTS MILLIONAIRE JACKPOT MODAL + AUDIO.MP3
        ============================================================== -->
   <div id="millionaire-modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
@@ -1203,8 +1252,15 @@
     </div>
   </div>
 
-  <!-- Preloaded Audio element for "audio.mp3" uploaded to GitHub repository -->
+  <!-- Preloaded Audio Elements for "Il Miliardario" Soundtracks & 1MM Sequence -->
   <audio id="jackpot-mp3-audio" src="audio.mp3" preload="auto"></audio>
+  <audio id="bgm-1-49" src="soundtrack%201-49.mp3" loop preload="auto"></audio>
+  <audio id="bgm-50-99" src="soundtrack%2050-99.mp3" loop preload="auto"></audio>
+  <audio id="bgm-domanda-1mm" src="domanda%201mm.mp3" loop preload="auto"></audio>
+  <audio id="bgm-confermi-1mm" src="confermi%201mm.mp3" loop preload="auto"></audio>
+  <audio id="sfx-sbagliato-1mm" src="sbagliato%201mm.mp3" preload="auto"></audio>
+  <audio id="sfx-esatto-1mm" src="esatto%201mm.mp3" preload="auto"></audio>
+  <audio id="bgm-afterlife" src="afterlife.mp3" loop preload="auto"></audio>
 
   <!-- ==============================================================
        4D. CLOUD LEADERBOARD REAL-TIME SYNC MODULE (CROSS-DEVICE)
@@ -1869,11 +1925,110 @@
     const emeraldStatusPill = document.getElementById('emerald-status-pill');
     const miliardarioSaldoWrap = document.getElementById('miliardario-saldo-wrap');
     const miliardarioSaldoVal = document.getElementById('miliardario-saldo-val');
-
-    // 100-Point Millionaire Modal & Audio
+    // 100-Point Millionaire Modal, 99-Point Modal, Confirmation Modal & Audio Elements
     const millionaireModalOverlay = document.getElementById('millionaire-modal-overlay');
     const continueClimbBtn = document.getElementById('continue-climb-btn');
+    const milestone99ModalOverlay = document.getElementById('milestone-99-modal-overlay');
+    const showQuestion100Btn = document.getElementById('show-question-100-btn');
+    const confirm100ModalOverlay = document.getElementById('confirm-100-modal-overlay');
+    const confirm100ChosenLabel = document.getElementById('confirm-100-chosen-label');
+    const confirm100BackBtn = document.getElementById('confirm-100-back-btn');
+    const confirm100YesBtn = document.getElementById('confirm-100-yes-btn');
+
     const jackpotMp3Audio = document.getElementById('jackpot-mp3-audio');
+    const bgm1to49 = document.getElementById('bgm-1-49');
+    const bgm50to99 = document.getElementById('bgm-50-99');
+    const bgmDomanda1mm = document.getElementById('bgm-domanda-1mm');
+    const bgmConfermi1mm = document.getElementById('bgm-confermi-1mm');
+    const sfxSbagliato1mm = document.getElementById('sfx-sbagliato-1mm');
+    const sfxEsatto1mm = document.getElementById('sfx-esatto-1mm');
+    const bgmAfterlife = document.getElementById('bgm-afterlife');
+
+    const ALL_MP3_TRACKS = [
+      jackpotMp3Audio,
+      bgm1to49,
+      bgm50to99,
+      bgmDomanda1mm,
+      bgmConfermi1mm,
+      sfxSbagliato1mm,
+      sfxEsatto1mm,
+      bgmAfterlife
+    ];
+    let currentLoopTrack = null;
+    let pending100SelectedIndex = null;
+
+    function stopAllMp3Tracks() {
+      currentLoopTrack = null;
+      ALL_MP3_TRACKS.forEach((el) => {
+        if (!el) return;
+        try {
+          el.pause();
+          el.currentTime = 0;
+        } catch (e) {}
+      });
+    }
+
+    function playLoopingTrack(trackEl) {
+      if (!trackEl) return;
+      if (currentLoopTrack === trackEl && !trackEl.paused) return;
+
+      [bgm1to49, bgm50to99, bgmDomanda1mm, bgmConfermi1mm, bgmAfterlife].forEach((el) => {
+        if (el && el !== trackEl) {
+          try {
+            el.pause();
+            el.currentTime = 0;
+          } catch (e) {}
+        }
+      });
+
+      currentLoopTrack = trackEl;
+      if (!audio.enabled) return;
+      try {
+        trackEl.loop = true;
+        const p = trackEl.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+      } catch (e) {}
+    }
+
+    function playOneShotMp3(trackEl, fallbackFn) {
+      if (!audio.enabled) return;
+      if (!trackEl) {
+        if (fallbackFn) fallbackFn();
+        return;
+      }
+      try {
+        trackEl.currentTime = 0;
+        const p = trackEl.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {
+            if (fallbackFn) fallbackFn();
+          });
+        }
+      } catch (e) {
+        if (fallbackFn) fallbackFn();
+      }
+    }
+
+    // Sync background loop according to current question number (score + 1)
+    // Question 1..49 -> score 0..48 ("soundtrack 1-49.mp3")
+    // Question 50..99 -> score 49..98 ("soundtrack 50-99.mp3")
+    // Question 100 (score 99) -> "domanda 1mm.mp3"
+    // After score 100 -> "afterlife.mp3"
+    function syncMiliardarioBackgroundMusic() {
+      if (currentMode !== 'miliardario') {
+        stopAllMp3Tracks();
+        return;
+      }
+      if (miliardarioScore >= 100) {
+        playLoopingTrack(bgmAfterlife);
+      } else if (miliardarioScore === 99) {
+        playLoopingTrack(bgmDomanda1mm);
+      } else if (miliardarioScore >= 49) {
+        playLoopingTrack(bgm50to99);
+      } else {
+        playLoopingTrack(bgm1to49);
+      }
+    }
 
     // Top Bar & Paywall Elements
     const soundToggleBtn = document.getElementById('sound-toggle-btn');
@@ -2372,27 +2527,61 @@
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    function playJackpotMp3() {
-      if (!audio.enabled) return;
-      if (jackpotMp3Audio) {
-        try {
-          jackpotMp3Audio.currentTime = 0;
-          const playPromise = jackpotMp3Audio.play();
-          if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(() => {
-              audio.playWinChime();
-            });
-          }
-        } catch (e) {
-          audio.playWinChime();
-        }
-      } else {
-        audio.playWinChime();
+    function openMilestone99Modal() {
+      playLoopingTrack(bgmDomanda1mm);
+      if (milestone99ModalOverlay) {
+        milestone99ModalOverlay.classList.remove('hidden');
+        milestone99ModalOverlay.classList.add('flex');
+      }
+    }
+
+    function closeMilestone99ModalAndShowQuestion100() {
+      if (milestone99ModalOverlay) {
+        milestone99ModalOverlay.classList.add('hidden');
+        milestone99ModalOverlay.classList.remove('flex');
+      }
+      playLoopingTrack(bgmDomanda1mm);
+      loadNextMiliardarioQuestion();
+    }
+
+    function openConfirm100Modal(selectedIndex) {
+      pending100SelectedIndex = selectedIndex;
+      if (confirm100ChosenLabel && currentQuizQuestion) {
+        confirm100ChosenLabel.textContent = currentQuizQuestion.options[selectedIndex] || '';
+      }
+      playLoopingTrack(bgmConfermi1mm);
+      if (confirm100ModalOverlay) {
+        confirm100ModalOverlay.classList.remove('hidden');
+        confirm100ModalOverlay.classList.add('flex');
+      }
+    }
+
+    function cancelConfirm100Selection() {
+      pending100SelectedIndex = null;
+      quizLocked = false;
+      if (confirm100ModalOverlay) {
+        confirm100ModalOverlay.classList.add('hidden');
+        confirm100ModalOverlay.classList.remove('flex');
+      }
+      playLoopingTrack(bgmDomanda1mm);
+    }
+
+    function confirm100FinalAnswer() {
+      const chosenIdx = pending100SelectedIndex;
+      pending100SelectedIndex = null;
+      if (confirm100ModalOverlay) {
+        confirm100ModalOverlay.classList.add('hidden');
+        confirm100ModalOverlay.classList.remove('flex');
+      }
+      if (chosenIdx !== null && chosenIdx !== undefined) {
+        evaluateMiliardarioChoice(chosenIdx, true);
       }
     }
 
     function openMillionaireJackpotModal() {
-      playJackpotMp3();
+      stopAllMp3Tracks();
+      playOneShotMp3(sfxEsatto1mm, () => audio.playWinChime());
+      playOneShotMp3(jackpotMp3Audio);
       burstGoldConfetti();
       setTimeout(burstGoldConfetti, 250);
       setTimeout(burstGoldConfetti, 500);
@@ -2408,6 +2597,7 @@
         millionaireModalOverlay.classList.remove('flex');
       }
       if (currentMode === 'miliardario') {
+        playLoopingTrack(bgmAfterlife);
         loadNextMiliardarioQuestion();
       }
     }
@@ -2469,6 +2659,7 @@
         return;
       }
       currentPlayerName = entered;
+      isPreview99Run = false;
       miliardarioScore = 0;
       usedQuizIndicesInRun.clear();
       miliardarioBest = getPlayerBestScore(currentPlayerName);
@@ -2497,6 +2688,7 @@
       mainGameContent.classList.add('flex');
 
       if (newMode === 'storia') {
+        stopAllMp3Tracks();
         modeStoriaBtn.classList.add('active');
         modeMiliardarioBtn.classList.remove('active');
         modeSubtitleBadge.textContent = '★ SALA DELLE PERLE D\'ORO ★';
@@ -2520,6 +2712,7 @@
         miliardarioControlsWrap.classList.remove('hidden');
         miliardarioControlsWrap.classList.add('flex');
         updateMiliardarioUI();
+        syncMiliardarioBackgroundMusic();
         loadNextMiliardarioQuestion();
       }
     }
@@ -2531,6 +2724,7 @@
       }
       quizLocked = false;
       questionLoadedAt = performance.now();
+      syncMiliardarioBackgroundMusic();
 
       // Filter out questions already asked during the current run
       let availablePool = VALID_QUIZ_INDICES.filter(idx => !usedQuizIndicesInRun.has(idx));
@@ -2594,6 +2788,16 @@
       audio.init();
       quizLocked = true;
 
+      // On the 100th question (when current score is 99), ask for confirmation and play "confermi 1mm.mp3"
+      if (miliardarioScore === 99) {
+        openConfirm100Modal(selectedIndex);
+        return;
+      }
+
+      evaluateMiliardarioChoice(selectedIndex, false);
+    }
+
+    function evaluateMiliardarioChoice(selectedIndex, wasQuestion100) {
       const isCorrect = selectedIndex === currentQuizQuestion.correctIndex;
 
       optionButtons.forEach((btn, idx) => {
@@ -2617,7 +2821,15 @@
         }
         updateMiliardarioUI();
 
-        if (miliardarioScore === 100) {
+        if (miliardarioScore === 99) {
+          audio.playWinChime();
+          burstGoldConfetti();
+          miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-amber-500/30 border border-amber-300 text-amber-100';
+          miliardarioFeedback.textContent = '🔥 99 PUNTI! PREPARATI PER L\'ULTIMA DOMANDA! 🔥';
+          nextQuestionTimer = setTimeout(() => {
+            openMilestone99Modal();
+          }, 550);
+        } else if (miliardarioScore === 100) {
           miliardarioFeedback.className = 'mt-1 px-3 py-1 rounded-full text-[11px] sm:text-xs font-casino font-black tracking-wider uppercase bg-emerald-500/30 border border-emerald-300 text-emerald-200 animate-bounce';
           miliardarioFeedback.textContent = '🎉 100 PUNTI! HAI VINTO UN MILIONE DI EURO! 🎉';
           openMillionaireJackpotModal();
@@ -2640,7 +2852,12 @@
           }, 850);
         }
       } else {
-        audio.playLoseBuzzer();
+        stopAllMp3Tracks();
+        if (wasQuestion100) {
+          playOneShotMp3(sfxSbagliato1mm, () => audio.playLoseBuzzer());
+        } else {
+          audio.playLoseBuzzer();
+        }
 
         quoteAuthorText.textContent = `RISPOSTA ESATTA: ${currentQuizQuestion.correctOption}`;
         quoteAuthorBadge.classList.remove('hidden');
@@ -2666,8 +2883,21 @@
       isPaywallOpen = false;
       isSpinning = false;
       quizLocked = false;
+      pending100SelectedIndex = null;
       paywallOverlay.classList.add('hidden');
       paywallOverlay.classList.remove('flex');
+      if (milestone99ModalOverlay) {
+        milestone99ModalOverlay.classList.add('hidden');
+        milestone99ModalOverlay.classList.remove('flex');
+      }
+      if (confirm100ModalOverlay) {
+        confirm100ModalOverlay.classList.add('hidden');
+        confirm100ModalOverlay.classList.remove('flex');
+      }
+      if (millionaireModalOverlay) {
+        millionaireModalOverlay.classList.add('hidden');
+        millionaireModalOverlay.classList.remove('flex');
+      }
       miliardarioRestartBtn.classList.add('hidden');
       miliardarioRestartBtn.classList.remove('inline-flex');
 
@@ -2676,10 +2906,12 @@
       updateMiliardarioUI();
 
       if (currentMode === 'miliardario') {
+        syncMiliardarioBackgroundMusic();
         loadNextMiliardarioQuestion();
         return;
       }
 
+      stopAllMp3Tracks();
       attractHeadlineText.textContent = 'Premi il pulsante dorato per tentare la fortuna ed estrarre una perla di saggezza!';
       attractPillLabel.textContent = 'MODALITÀ STORIA';
       attractView.classList.remove('hidden');
@@ -2844,9 +3076,11 @@
 
     bindTapAndClick(miliardarioRestartBtn, () => {
       audio.init();
+      isPreview99Run = false;
       miliardarioScore = 0;
       usedQuizIndicesInRun.clear();
       updateMiliardarioUI();
+      syncMiliardarioBackgroundMusic();
       loadNextMiliardarioQuestion();
     });
 
@@ -2854,6 +3088,27 @@
       bindTapAndClick(continueClimbBtn, () => {
         audio.init();
         closeMillionaireJackpotModalAndContinue();
+      });
+    }
+
+    if (showQuestion100Btn) {
+      bindTapAndClick(showQuestion100Btn, () => {
+        audio.init();
+        closeMilestone99ModalAndShowQuestion100();
+      });
+    }
+
+    if (confirm100BackBtn) {
+      bindTapAndClick(confirm100BackBtn, () => {
+        audio.init();
+        cancelConfirm100Selection();
+      });
+    }
+
+    if (confirm100YesBtn) {
+      bindTapAndClick(confirm100YesBtn, () => {
+        audio.init();
+        confirm100FinalAnswer();
       });
     }
 
@@ -2889,6 +3144,18 @@
       audio.enabled = !audio.enabled;
       soundIcon.textContent = audio.enabled ? '🔊' : '🔇';
       soundLabel.textContent = audio.enabled ? 'AUDIO ATTIVO' : 'AUDIO MUTO';
+      if (!audio.enabled) {
+        ALL_MP3_TRACKS.forEach((el) => {
+          if (el) {
+            try { el.pause(); } catch (_) {}
+          }
+        });
+      } else if (currentMode === 'miliardario' && currentLoopTrack) {
+        try {
+          const p = currentLoopTrack.play();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (_) {}
+      }
     }
     soundToggleBtn.addEventListener('pointerup', handleSoundToggle);
     soundToggleBtn.addEventListener('click', handleSoundToggle);
