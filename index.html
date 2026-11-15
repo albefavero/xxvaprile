@@ -2084,23 +2084,16 @@
     }
 
     // Receive live updates from the shared Cloud Leaderboard
+    // Firebase is the single source of truth: deleting or editing a score in Firebase Console
+    // immediately removes or updates it on the website and in localStorage.
     window.__onCloudLeaderboardUpdate = function (cloudMap) {
       if (!cloudMap || typeof cloudMap !== 'object') return;
-      Object.keys(cloudMap).forEach((key) => {
-        const incoming = cloudMap[key];
-        const existing = sharedScoresMap[key];
-        if (!existing || incoming.score >= existing.score) {
-          sharedScoresMap[key] = incoming;
-        }
-      });
+      sharedScoresMap = { ...cloudMap };
       persistLocalScores();
 
       if (currentPlayerName) {
-        const myBest = getPlayerBestScore(currentPlayerName);
-        if (myBest > miliardarioBest) {
-          miliardarioBest = myBest;
-          updateMiliardarioUI();
-        }
+        miliardarioBest = Math.max(miliardarioScore, getPlayerBestScore(currentPlayerName));
+        updateMiliardarioUI();
       }
 
       if (!leaderboardModalOverlay.classList.contains('hidden')) {
@@ -2659,7 +2652,6 @@
         return;
       }
       currentPlayerName = entered;
-      isPreview99Run = false;
       miliardarioScore = 0;
       usedQuizIndicesInRun.clear();
       miliardarioBest = getPlayerBestScore(currentPlayerName);
@@ -3076,7 +3068,6 @@
 
     bindTapAndClick(miliardarioRestartBtn, () => {
       audio.init();
-      isPreview99Run = false;
       miliardarioScore = 0;
       usedQuizIndicesInRun.clear();
       updateMiliardarioUI();
