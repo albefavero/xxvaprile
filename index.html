@@ -2475,6 +2475,7 @@
     let quizLocked = false;
     let nextQuestionTimer = null;
     let questionLoadedAt = 0;
+    let lastModalCloseAt = 0;
     let usedQuizIndicesInRun = new Set();
 
     // Additional DOM Elements for Username Prompt & Leaderboard Modal
@@ -2953,6 +2954,7 @@
     function cancelConfirm100Selection() {
       pending100SelectedIndex = null;
       quizLocked = false;
+      lastModalCloseAt = performance.now();
       if (confirm100ModalOverlay) {
         confirm100ModalOverlay.classList.add('hidden');
         confirm100ModalOverlay.classList.remove('flex');
@@ -3179,6 +3181,7 @@
       if (e) e.stopPropagation();
       if (currentMode !== 'milionario' || quizLocked || !currentQuizQuestion) return;
       if (performance.now() - questionLoadedAt < 350) return;
+      if (performance.now() - lastModalCloseAt < 400) return;
 
       audio.init();
       quizLocked = true;
@@ -3498,33 +3501,51 @@
     if (lifelineAudienceBtn) {
       bindTapAndClick(lifelineAudienceBtn, () => handleLifelineAudience());
     }
-    if (lifelinePhoneCloseBtn) {
-      bindTapAndClick(lifelinePhoneCloseBtn, () => {
+    function closePhoneLifelineModal(e) {
+      if (e) {
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+      }
+      lastModalCloseAt = performance.now();
+      if (lifelinePhoneModal) {
         lifelinePhoneModal.classList.add('hidden');
         lifelinePhoneModal.classList.remove('flex');
-      });
+      }
     }
-    if (lifelineAudienceCloseBtn) {
-      bindTapAndClick(lifelineAudienceCloseBtn, () => {
+    function closeAudienceLifelineModal(e) {
+      if (e) {
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+      }
+      lastModalCloseAt = performance.now();
+      if (lifelineAudienceModal) {
         lifelineAudienceModal.classList.add('hidden');
         lifelineAudienceModal.classList.remove('flex');
-      });
+      }
+    }
+    if (lifelinePhoneCloseBtn) {
+      bindTapAndClick(lifelinePhoneCloseBtn, (e) => closePhoneLifelineModal(e));
+    }
+    if (lifelineAudienceCloseBtn) {
+      bindTapAndClick(lifelineAudienceCloseBtn, (e) => closeAudienceLifelineModal(e));
     }
     if (lifelinePhoneModal) {
-      lifelinePhoneModal.addEventListener('click', (e) => {
+      const backdropPhoneHandler = (e) => {
         if (e.target === lifelinePhoneModal) {
-          lifelinePhoneModal.classList.add('hidden');
-          lifelinePhoneModal.classList.remove('flex');
+          closePhoneLifelineModal(e);
         }
-      });
+      };
+      lifelinePhoneModal.addEventListener('pointerup', backdropPhoneHandler);
+      lifelinePhoneModal.addEventListener('click', backdropPhoneHandler);
     }
     if (lifelineAudienceModal) {
-      lifelineAudienceModal.addEventListener('click', (e) => {
+      const backdropAudHandler = (e) => {
         if (e.target === lifelineAudienceModal) {
-          lifelineAudienceModal.classList.add('hidden');
-          lifelineAudienceModal.classList.remove('flex');
+          closeAudienceLifelineModal(e);
         }
-      });
+      };
+      lifelineAudienceModal.addEventListener('pointerup', backdropAudHandler);
+      lifelineAudienceModal.addEventListener('click', backdropAudHandler);
     }
     if (reopenPhoneModalBtn) {
       bindTapAndClick(reopenPhoneModalBtn, () => {
@@ -3574,6 +3595,7 @@
     optionButtons.forEach((btn, idx) => {
       let lastOptTap = 0;
       const optHandler = (e) => {
+        if (e.type === 'pointerup' && e.cancelable) e.preventDefault();
         e.stopPropagation();
         const now = performance.now();
         if (now - lastOptTap < 250) return;
