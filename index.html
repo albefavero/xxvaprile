@@ -296,6 +296,73 @@
       color: #ffffff !important;
     }
 
+    /* Classic TV Lifeline Oval Buttons */
+    .lifeline-btn {
+      position: relative;
+      width: clamp(58px, 16vw, 76px);
+      height: clamp(36px, 9.5vw, 46px);
+      border-radius: 999px;
+      background: radial-gradient(ellipse at 50% 35%, #1e3a8a 0%, #0f172a 65%, #020617 100%);
+      border: 2px solid #93c5fd;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 14px rgba(59, 130, 246, 0.45), inset 0 1px 6px rgba(191, 219, 254, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      overflow: hidden;
+    }
+    @media (hover: hover) {
+      .lifeline-btn:hover:not(:disabled) {
+        transform: translateY(-2px) scale(1.04);
+        border-color: #fde047;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.85), 0 0 22px rgba(245, 158, 11, 0.75);
+      }
+    }
+    .lifeline-btn:active:not(:disabled) {
+      transform: translateY(1px) scale(0.97);
+    }
+    .lifeline-btn.used-lifeline {
+      opacity: 0.6;
+      border-color: #ef4444;
+      cursor: not-allowed;
+      filter: grayscale(0.35);
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+    }
+    .lifeline-btn.used-lifeline::before,
+    .lifeline-btn.used-lifeline::after {
+      content: '';
+      position: absolute;
+      width: 118%;
+      height: 3.5px;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ff0000;
+      border-radius: 99px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .lifeline-btn.used-lifeline::before {
+      transform: rotate(-28deg);
+    }
+    .lifeline-btn.used-lifeline::after {
+      transform: rotate(28deg);
+    }
+    .lifeline-btn.used-lifeline.can-reopen-lifeline {
+      opacity: 0.92;
+      cursor: pointer;
+      filter: none;
+      border-color: #fbbf24;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
+    }
+
+    /* Eliminated Option by 50:50 */
+    .quiz-option-btn.eliminated-5050 {
+      opacity: 0.18 !important;
+      pointer-events: none !important;
+      filter: grayscale(1);
+      border-color: rgba(147, 197, 253, 0.25) !important;
+    }
+
     /* Studio Light Pillars */
     .lattice-arch {
       position: absolute;
@@ -475,19 +542,7 @@
           0 8px 0 #451a03,
           0 16px 28px rgba(0, 0, 0, 0.9),
           0 0 45px rgba(251, 191, 36, 0.85),
-          inset 0 4px 15px rgba(255, 255, 255, 0.7);
-      }
-    }
-    .spin-button-3d:active, .spin-button-3d.pressed {
-      transform: translateY(5px) scale(0.985);
-      box-shadow: 
-        0 2px 0 #451a03,
-        0 4px 10px rgba(0, 0, 0, 0.85),
-        0 0 22px rgba(245, 158, 11, 0.75),
-        inset 0 2px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Millionaire Main Question Lozenge Display Box */
+    /* Slot Display Screen with internal vertical scroll support for long quotes on small screens */
     .velvet-display-well {
       background: 
         radial-gradient(circle at 50% 50%, rgba(23, 37, 84, 0.96) 0%, rgba(7, 12, 34, 0.99) 100%);
@@ -495,8 +550,8 @@
       box-shadow: 
         inset 0 0 30px rgba(30, 58, 138, 0.75),
         0 0 24px rgba(59, 130, 246, 0.35);
-      min-height: clamp(110px, 19dvh, 200px);
-      max-height: clamp(150px, 30dvh, 260px);
+      min-height: clamp(92px, 15dvh, 185px);
+      max-height: clamp(135px, 26dvh, 240px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
@@ -514,46 +569,58 @@
 
     /* Responsive Quote Text */
     .responsive-quote-text {
-      font-size: clamp(0.98rem, 3.4vw, 1.55rem);
-      line-height: 1.34;
+      font-size: clamp(0.95rem, 3.2vw, 1.5rem);
+      line-height: 1.32;
       user-select: text;
       -webkit-user-select: text;
     }
 
     /* Compact adjustments for short mobile viewports or landscape mode */
-    @media (max-height: 740px) {
+    @media (max-height: 780px) {
       .casino-cabinet {
-        padding: 0.65rem 0.9rem !important;
+        padding: 0.55rem 0.8rem !important;
       }
       .velvet-display-well {
-        min-height: clamp(92px, 16dvh, 145px);
-        max-height: 24dvh;
-        padding: 0.6rem 0.75rem !important;
+        min-height: clamp(78px, 13dvh, 130px);
+        max-height: 20dvh;
+        padding: 0.5rem 0.65rem !important;
       }
       .responsive-quote-text {
-        font-size: clamp(0.9rem, 3vw, 1.25rem);
+        font-size: clamp(0.88rem, 2.8vw, 1.2rem);
       }
       .bulb-strip {
-        margin-top: 0.25rem !important;
-        margin-bottom: 0.25rem !important;
+        margin-top: 0.2rem !important;
+        margin-bottom: 0.2rem !important;
       }
       .cabinet-header-wrap {
-        margin-bottom: 0.3rem !important;
+        margin-bottom: 0.25rem !important;
       }
       .button-section-wrap {
-        margin-top: 0.45rem !important;
+        margin-top: 0.35rem !important;
       }
       .attract-chips-row {
         display: none !important;
+      }
+      .lifeline-btn {
+        width: 52px;
+        height: 31px;
+      }
+      #milionario-lifelines-row {
+        margin-top: 0.3rem !important;
+      }
+      .quiz-option-btn {
+        padding-top: 0.45rem !important;
+        padding-bottom: 0.45rem !important;
       }
     }
 
     @media (max-width: 768px) {
       .casino-cabinet {
-        padding: 0.9rem 1rem;
-        border-radius: 1.35rem;
-        max-height: calc(100dvh - 4.75rem);
+        padding: 0.75rem 0.9rem;
+        border-radius: 1.25rem;
+        max-height: calc(100dvh - 4.25rem);
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
     }
 
@@ -793,6 +860,24 @@
             <div class="w-full h-2 bg-slate-950/90 rounded-full overflow-hidden border border-blue-400/50 p-0.5">
               <div id="milionario-progress-bar" class="h-full bg-gradient-to-r from-blue-500 via-amber-400 to-cyan-400 rounded-full transition-all duration-300" style="width: 0%;"></div>
             </div>
+
+            <!-- 3 Classic TV Lifelines Row: 50/50, Aiuto da casa (Prof. Terrida), Aiuto dal pubblico -->
+            <div id="milionario-lifelines-row" class="flex items-center justify-center gap-3 sm:gap-5 mt-2">
+              <button id="lifeline-5050-btn" type="button" title="50/50: Elimina una risposta errata"
+                class="lifeline-btn">
+                <span class="font-casino font-black text-[11px] sm:text-xs text-amber-300 tracking-tighter">50:50</span>
+              </button>
+
+              <button id="lifeline-phone-btn" type="button" title="Aiuto da casa: Chiama la Prof. Terrida"
+                class="lifeline-btn">
+                <span class="text-base sm:text-lg leading-none drop-shadow">☎️</span>
+              </button>
+
+              <button id="lifeline-audience-btn" type="button" title="Aiuto dal pubblico: Chiedi il voto dello studio"
+                class="lifeline-btn">
+                <span class="text-base sm:text-lg leading-none drop-shadow">👥</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -905,7 +990,33 @@
              MODE 2 CONTROLS: 3 OPTIONS QUIZ ("IL MILIONARIO")
              ========================================================== -->
         <div id="milionario-controls-wrap" class="button-section-wrap mt-2.5 sm:mt-3.5 hidden flex-col items-center w-full">
-          <div id="milionario-quiz-prompt" class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1.5 text-center">
+          <!-- Persistent Help Hints Box (Visible until the user answers the current question) -->
+          <div id="active-lifelines-hints" class="hidden flex-col gap-1 sm:gap-1.5 w-full mb-1.5 sm:mb-2">
+            <!-- Prof. Terrida Persistent Hint -->
+            <div id="active-phone-hint" class="hidden items-center justify-between gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-amber-950/80 border border-amber-400/75 text-left shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+              <div class="flex items-start sm:items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                <span class="text-xs sm:text-base shrink-0 mt-0.5 sm:mt-0">☎️</span>
+                <p id="active-phone-hint-text" class="text-[10px] sm:text-xs text-amber-100 italic line-clamp-2 leading-tight break-words"></p>
+              </div>
+              <button id="reopen-phone-modal-btn" type="button" class="shrink-0 px-2 py-0.5 rounded-full bg-amber-400/25 border border-amber-300/70 text-amber-200 font-casino font-bold text-[9px] sm:text-[10px] uppercase tracking-wider hover:bg-amber-400/35 cursor-pointer">
+                APRI
+              </button>
+            </div>
+
+            <!-- Audience Poll Persistent Hint -->
+            <div id="active-audience-hint" class="hidden items-center justify-between gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-blue-950/85 border border-blue-400/75 text-left shadow-[0_0_15px_rgba(59,130,246,0.25)]">
+              <div class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 text-[10px] sm:text-xs font-casino font-bold text-blue-100">
+                <span class="text-xs sm:text-base shrink-0">👥</span>
+                <span class="hidden xs:inline sm:inline shrink-0">VOTO:</span>
+                <span id="active-aud-summary" class="text-amber-300 tracking-wide truncate">A: 0% • B: 0% • C: 0%</span>
+              </div>
+              <button id="reopen-audience-modal-btn" type="button" class="shrink-0 px-2 py-0.5 rounded-full bg-blue-500/25 border border-blue-300/70 text-amber-200 font-casino font-bold text-[9px] sm:text-[10px] uppercase tracking-wider hover:bg-blue-500/40 cursor-pointer">
+                GRAFICO
+              </button>
+            </div>
+          </div>
+
+          <div id="milionario-quiz-prompt" class="text-[10px] sm:text-xs font-casino font-bold tracking-widest text-amber-300 uppercase mb-1 sm:mb-1.5 text-center">
             CHI HA PRONUNCIATO QUESTA FRASE? (SCEGLI LA TUA RISPOSTA)
           </div>
 
@@ -1213,6 +1324,93 @@
       <button id="continue-climb-btn" type="button"
         class="w-full py-3 sm:py-3.5 px-5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-cyan-950 font-casino font-black text-xs sm:text-base tracking-wider uppercase shadow-[0_0_30px_rgba(251,191,36,0.9)] hover:scale-[1.02] active:scale-95 transition cursor-pointer">
         🚀 CONTINUA LA SCALATA
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       4F. LIFELINE MODAL: "AIUTO DA CASA" (CHIAMATA ALLA PROF. TERRIDA)
+       ============================================================== -->
+  <div id="lifeline-phone-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#172554] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-amber-400 p-4 sm:p-6 text-center shadow-[0_0_70px_rgba(245,158,11,0.65)] relative max-h-[90dvh] flex flex-col justify-center">
+      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2 mx-auto">
+        ☎️ AIUTO DA CASA • IN LINEA
+      </div>
+      <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blue-950 border-2 border-amber-300 flex items-center justify-center text-xl sm:text-3xl mx-auto mb-1.5 sm:mb-2 shadow-[0_0_20px_rgba(251,191,36,0.45)] shrink-0">
+        👩‍🏫
+      </div>
+      <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text mb-2">
+        PROF.SSA TERRIDA
+      </h2>
+      <div class="rounded-2xl bg-slate-950/90 border border-blue-400/50 p-3 sm:p-4 mb-3.5 sm:mb-4 shadow-inner text-left overflow-y-auto max-h-[38dvh]">
+        <p id="terrida-quote-response" class="font-quote italic text-xs sm:text-sm text-blue-50 leading-relaxed break-words">
+          "..."
+        </p>
+      </div>
+      <button id="lifeline-phone-close-btn" type="button"
+        class="w-full py-2.5 sm:py-3 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.8)] hover:scale-[1.02] active:scale-95 transition cursor-pointer shrink-0">
+        GRAZIE PROF, HO CAPITO!
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       4G. LIFELINE MODAL: "AIUTO DAL PUBBLICO" (VOTO DELLO STUDIO)
+       ============================================================== -->
+  <div id="lifeline-audience-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md">
+    <div class="animate-modal-pop w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#172554] via-[#090d26] to-[#02040d] border-2 sm:border-4 border-blue-400 p-4 sm:p-6 text-center shadow-[0_0_70px_rgba(59,130,246,0.65)] relative max-h-[90dvh] flex flex-col justify-center">
+      <div class="inline-flex items-center justify-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/50 text-amber-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-2 mx-auto">
+        👥 AIUTO DAL PUBBLICO • RISULTATI VOTO
+      </div>
+      <h2 class="font-casino text-base sm:text-xl font-black tracking-wider gold-metallic-text mb-2.5 sm:mb-3">
+        IL VOTO DELLO STUDIO
+      </h2>
+
+      <!-- Vertical Bar Chart for A, B, C -->
+      <div class="rounded-2xl bg-slate-950/90 border border-blue-400/50 p-3 sm:p-4 mb-3.5 sm:mb-4 shadow-inner">
+        <div class="grid grid-cols-3 gap-3 sm:gap-4 items-end h-32 sm:h-44 pt-3 px-2 border-b border-blue-400/40">
+          <!-- Bar A -->
+          <div class="flex flex-col items-center justify-end h-full">
+            <span id="aud-pct-0" class="font-casino font-black text-xs sm:text-sm text-amber-300 mb-1">0%</span>
+            <div class="w-9 sm:w-12 bg-slate-900 rounded-t-lg overflow-hidden flex items-end h-full border border-blue-400/30 p-0.5">
+              <div id="aud-bar-0" class="w-full bg-gradient-to-t from-blue-600 via-blue-400 to-amber-300 rounded-t transition-all duration-700" style="height: 0%;"></div>
+            </div>
+          </div>
+          <!-- Bar B -->
+          <div class="flex flex-col items-center justify-end h-full">
+            <span id="aud-pct-1" class="font-casino font-black text-xs sm:text-sm text-amber-300 mb-1">0%</span>
+            <div class="w-9 sm:w-12 bg-slate-900 rounded-t-lg overflow-hidden flex items-end h-full border border-blue-400/30 p-0.5">
+              <div id="aud-bar-1" class="w-full bg-gradient-to-t from-blue-600 via-blue-400 to-amber-300 rounded-t transition-all duration-700" style="height: 0%;"></div>
+            </div>
+          </div>
+          <!-- Bar C -->
+          <div class="flex flex-col items-center justify-end h-full">
+            <span id="aud-pct-2" class="font-casino font-black text-xs sm:text-sm text-amber-300 mb-1">0%</span>
+            <div class="w-9 sm:w-12 bg-slate-900 rounded-t-lg overflow-hidden flex items-end h-full border border-blue-400/30 p-0.5">
+              <div id="aud-bar-2" class="w-full bg-gradient-to-t from-blue-600 via-blue-400 to-amber-300 rounded-t transition-all duration-700" style="height: 0%;"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Labels A, B, C -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-2 px-1">
+          <div class="flex flex-col items-center min-w-0">
+            <span class="font-casino font-black text-xs sm:text-sm text-amber-400">◆ A</span>
+            <span id="aud-name-0" class="text-[10px] sm:text-xs text-blue-100 truncate w-full text-center">---</span>
+          </div>
+          <div class="flex flex-col items-center min-w-0">
+            <span class="font-casino font-black text-xs sm:text-sm text-amber-400">◆ B</span>
+            <span id="aud-name-1" class="text-[10px] sm:text-xs text-blue-100 truncate w-full text-center">---</span>
+          </div>
+          <div class="flex flex-col items-center min-w-0">
+            <span class="font-casino font-black text-xs sm:text-sm text-amber-400">◆ C</span>
+            <span id="aud-name-2" class="text-[10px] sm:text-xs text-blue-100 truncate w-full text-center">---</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="lifeline-audience-close-btn" type="button"
+        class="w-full py-2.5 sm:py-3 px-5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-500 text-slate-950 font-casino font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(251,191,36,0.8)] hover:scale-[1.02] active:scale-95 transition cursor-pointer shrink-0">
+        CHIUDI GRAFICO
       </button>
     </div>
   </div>
@@ -1899,6 +2097,264 @@
     const confirm100ChosenLabel = document.getElementById('confirm-100-chosen-label');
     const confirm100BackBtn = document.getElementById('confirm-100-back-btn');
     const confirm100YesBtn = document.getElementById('confirm-100-yes-btn');
+
+    // Lifelines DOM Elements
+    const lifeline5050Btn = document.getElementById('lifeline-5050-btn');
+    const lifelinePhoneBtn = document.getElementById('lifeline-phone-btn');
+    const lifelineAudienceBtn = document.getElementById('lifeline-audience-btn');
+    const lifelinePhoneModal = document.getElementById('lifeline-phone-modal');
+    const terridaQuoteResponse = document.getElementById('terrida-quote-response');
+    const lifelinePhoneCloseBtn = document.getElementById('lifeline-phone-close-btn');
+    const lifelineAudienceModal = document.getElementById('lifeline-audience-modal');
+    const lifelineAudienceCloseBtn = document.getElementById('lifeline-audience-close-btn');
+    const activeLifelinesHints = document.getElementById('active-lifelines-hints');
+    const activePhoneHint = document.getElementById('active-phone-hint');
+    const activePhoneHintText = document.getElementById('active-phone-hint-text');
+    const reopenPhoneModalBtn = document.getElementById('reopen-phone-modal-btn');
+    const activeAudienceHint = document.getElementById('active-audience-hint');
+    const activeAudSummary = document.getElementById('active-aud-summary');
+    const reopenAudienceModalBtn = document.getElementById('reopen-audience-modal-btn');
+
+    // Lifelines State (Once per run, reset on game over/restart)
+    let lifelinesUsed = {
+      fiftyFifty: false,
+      phone: false,
+      audience: false
+    };
+    let eliminatedOptionIndexForCurrentQuestion = -1;
+    let currentQuestionPhoneSpeech = null;
+    let currentQuestionAudiencePercentages = null;
+
+    // 25 Sassy, Elegant Italian Responses from Prof. Terrida
+    const TERRIDA_25_TEMPLATES = [
+      "Ma caro mio, mi disturbi per una banalità simile? È palesemente {ANSWER}. Cerca di non farmi fare brutta figura.",
+      "Ti prego, dimmi che stai scherzando. Anche un sasso saprebbe che la risposta è {ANSWER}. Su, svegliati!",
+      "Inevitabilmente io so tutta la letteratura e anche tutte le vostre fregnacce: segna {ANSWER} e ringraziami dopo.",
+      "Con voi tutto diventa ostico e disgraziato, ma per tua fortuna ci sono io: la risposta corretta è senza dubbio {ANSWER}.",
+      "Io vi insulto mentalmente quando avete certi dubbi... è {ANSWER}, a manate proprio!",
+      "Ascoltami bene e non farti trascinare da uno spazio vuoto: clicca su {ANSWER}, fidati della mia eleganza.",
+      "Ma tu ti guardi allo specchio prima di farmi certe domande? È {ANSWER}, elementare!",
+      "Che mal di cuore sentirti esitare così... la risposta giusta è {ANSWER}. Ora vai e conquista questo milione.",
+      "Sui libri di grammatica non lo troverai, ma nella mia memoria infallibile sì: è sicuramente {ANSWER}.",
+      "Non puoi stare lì paludato nel dubbio! È {ANSWER}, te lo garantisco al cento per cento.",
+      "Mi sono svegliata addormentata, ma persino nel sonno so benissimo che si tratta di {ANSWER}.",
+      "C'è un limite all'obbrobrio e all'indecisione! Premi immediatamente su {ANSWER} e non se ne parli più.",
+      "Siete esilaranti quando andate nel panico per così poco. La risposta esatta è {ANSWER}, caro concorrente.",
+      "Così ti tormenti l'anima inutilmente! Dammi retta, la perla appartiene a {ANSWER}.",
+      "Stavo giusto correggendo dei compiti pieni di orrori, ma per te farò un'eccezione: segna {ANSWER}.",
+      "Non farmi ripetere le cose due volte come ai mentecatti: la risposta che cerchi è {ANSWER}.",
+      "Per carità, non cadermi in un orrido proprio adesso! È chiaramente {ANSWER}, procedi con classe.",
+      "Se sbagli questa mi suicido, mi devo suicidare?! Clicca su {ANSWER} e non farmi soffrire!",
+      "Un dubbio alquanto bislacco il tuo... è {ANSWER}, mi sembra limpido come il sole.",
+      "A manate, a borse, a scatoloni ti dico che la risposta corretta è {ANSWER}! Non osare dubitare di me.",
+      "Io non l'ho solo audito, l'ho proprio scolpito nella mente: è {ANSWER}. L'accendiamo, su!",
+      "Ma no, ma dai... totano! Come fai a non ricordare che è {ANSWER}? Meno male che hai chiamato me.",
+      "Con la mia solita classe ti tolgo le castagne dal fuoco: la risposta giusta è {ANSWER}.",
+      "Fai un bel respiro profondo, mantieni il contegno e seleziona {ANSWER}. Non c'è altra opzione plausibile.",
+      "Stoccata vincente della tua prof preferita: punta tutto su {ANSWER} e preparati a incassare!"
+    ];
+
+    function clearCurrentQuestionLifelineViews() {
+      eliminatedOptionIndexForCurrentQuestion = -1;
+      currentQuestionPhoneSpeech = null;
+      currentQuestionAudiencePercentages = null;
+      if (activePhoneHint) {
+        activePhoneHint.classList.add('hidden');
+        activePhoneHint.classList.remove('flex');
+      }
+      if (activeAudienceHint) {
+        activeAudienceHint.classList.add('hidden');
+        activeAudienceHint.classList.remove('flex');
+      }
+      if (activeLifelinesHints) {
+        activeLifelinesHints.classList.add('hidden');
+        activeLifelinesHints.classList.remove('flex');
+      }
+      updateLifelinesButtonsUI();
+    }
+
+    function resetLifelinesForNewRun() {
+      lifelinesUsed = {
+        fiftyFifty: false,
+        phone: false,
+        audience: false
+      };
+      clearCurrentQuestionLifelineViews();
+    }
+
+    function updateLifelinesButtonsUI() {
+      if (lifeline5050Btn) {
+        lifeline5050Btn.disabled = lifelinesUsed.fiftyFifty;
+        lifeline5050Btn.classList.toggle('used-lifeline', lifelinesUsed.fiftyFifty);
+      }
+      if (lifelinePhoneBtn) {
+        const canReopenPhone = lifelinesUsed.phone && Boolean(currentQuestionPhoneSpeech);
+        lifelinePhoneBtn.disabled = lifelinesUsed.phone && !canReopenPhone;
+        lifelinePhoneBtn.classList.toggle('used-lifeline', lifelinesUsed.phone);
+        lifelinePhoneBtn.classList.toggle('can-reopen-lifeline', canReopenPhone);
+      }
+      if (lifelineAudienceBtn) {
+        const canReopenAudience = lifelinesUsed.audience && Boolean(currentQuestionAudiencePercentages);
+        lifelineAudienceBtn.disabled = lifelinesUsed.audience && !canReopenAudience;
+        lifelineAudienceBtn.classList.toggle('used-lifeline', lifelinesUsed.audience);
+        lifelineAudienceBtn.classList.toggle('can-reopen-lifeline', canReopenAudience);
+      }
+    }
+
+    // Lifeline 1: 50/50 (Removes 1 of the 2 wrong options)
+    function handleLifeline5050() {
+      if (currentMode !== 'milionario' || quizLocked || !currentQuizQuestion || lifelinesUsed.fiftyFifty) return;
+      audio.init();
+      audio.playTick(680);
+      lifelinesUsed.fiftyFifty = true;
+      updateLifelinesButtonsUI();
+
+      const wrongIndices = [0, 1, 2].filter(idx => idx !== currentQuizQuestion.correctIndex);
+      const indexToRemove = wrongIndices[Math.floor(Math.random() * wrongIndices.length)];
+      eliminatedOptionIndexForCurrentQuestion = indexToRemove;
+
+      const btnToDisable = optionButtons[indexToRemove];
+      if (btnToDisable) {
+        btnToDisable.disabled = true;
+        btnToDisable.classList.add('eliminated-5050');
+      }
+    }
+
+    // Lifeline 2: Aiuto da casa (Prof. Terrida, 90% probability of giving the right answer, 25 sassy templates)
+    function handleLifelinePhone() {
+      if (currentMode !== 'milionario' || quizLocked || !currentQuizQuestion) return;
+
+      // If already used on THIS question, reopen the modal so the player can read it again
+      if (lifelinesUsed.phone) {
+        if (currentQuestionPhoneSpeech && lifelinePhoneModal) {
+          lifelinePhoneModal.classList.remove('hidden');
+          lifelinePhoneModal.classList.add('flex');
+        }
+        return;
+      }
+
+      audio.init();
+      audio.playWinChime();
+      lifelinesUsed.phone = true;
+
+      const isTerridaRight = Math.random() < 0.90;
+      let suggestedIdx = currentQuizQuestion.correctIndex;
+
+      if (!isTerridaRight) {
+        const availableWrong = [0, 1, 2].filter(
+          idx => idx !== currentQuizQuestion.correctIndex && idx !== eliminatedOptionIndexForCurrentQuestion
+        );
+        if (availableWrong.length > 0) {
+          suggestedIdx = availableWrong[Math.floor(Math.random() * availableWrong.length)];
+        }
+      }
+
+      const letters = ['A', 'B', 'C'];
+      const chosenOptionLabel = `${letters[suggestedIdx]} (${currentQuizQuestion.options[suggestedIdx]})`;
+      const template = TERRIDA_25_TEMPLATES[Math.floor(Math.random() * TERRIDA_25_TEMPLATES.length)];
+      const finalSpeech = template.replace('{ANSWER}', chosenOptionLabel);
+      currentQuestionPhoneSpeech = finalSpeech;
+
+      if (terridaQuoteResponse) {
+        terridaQuoteResponse.textContent = `“${finalSpeech}”`;
+      }
+      if (activePhoneHintText) {
+        activePhoneHintText.textContent = `Prof. Terrida: “${finalSpeech}”`;
+      }
+      if (activePhoneHint && activeLifelinesHints) {
+        activeLifelinesHints.classList.remove('hidden');
+        activeLifelinesHints.classList.add('flex');
+        activePhoneHint.classList.remove('hidden');
+        activePhoneHint.classList.add('flex');
+      }
+      updateLifelinesButtonsUI();
+
+      if (lifelinePhoneModal) {
+        lifelinePhoneModal.classList.remove('hidden');
+        lifelinePhoneModal.classList.add('flex');
+      }
+    }
+
+    // Lifeline 3: Aiuto dal pubblico (85% probability that the highest percentage is on the right answer)
+    function handleLifelineAudience() {
+      if (currentMode !== 'milionario' || quizLocked || !currentQuizQuestion) return;
+
+      // If already used on THIS question, reopen the chart modal so the player can view it again
+      if (lifelinesUsed.audience) {
+        if (currentQuestionAudiencePercentages && lifelineAudienceModal) {
+          lifelineAudienceModal.classList.remove('hidden');
+          lifelineAudienceModal.classList.add('flex');
+        }
+        return;
+      }
+
+      audio.init();
+      audio.playWinChime();
+      lifelinesUsed.audience = true;
+
+      const isAudienceRight = Math.random() < 0.85;
+      const correctIdx = currentQuizQuestion.correctIndex;
+      const activeIndices = [0, 1, 2].filter(idx => idx !== eliminatedOptionIndexForCurrentQuestion);
+
+      let winnerIdx = correctIdx;
+      if (!isAudienceRight) {
+        const wrongActive = activeIndices.filter(idx => idx !== correctIdx);
+        if (wrongActive.length > 0) {
+          winnerIdx = wrongActive[Math.floor(Math.random() * wrongActive.length)];
+        }
+      }
+
+      const percentages = [0, 0, 0];
+      if (activeIndices.length === 2) {
+        // If 50/50 was already used on this question, split 100% between the 2 remaining options
+        const otherIdx = activeIndices.find(idx => idx !== winnerIdx);
+        const winPct = Math.floor(Math.random() * 26) + 58; // 58% to 83%
+        percentages[winnerIdx] = winPct;
+        percentages[otherIdx] = 100 - winPct;
+      } else {
+        // All 3 options active: winner gets 48% to 74%, remaining split between the other 2
+        const others = [0, 1, 2].filter(idx => idx !== winnerIdx);
+        const winPct = Math.floor(Math.random() * 27) + 48; // 48% to 74%
+        const remainder = 100 - winPct;
+        const secondPct = Math.floor(Math.random() * (remainder - 4)) + 2;
+        const thirdPct = remainder - secondPct;
+        percentages[winnerIdx] = winPct;
+        percentages[others[0]] = secondPct;
+        percentages[others[1]] = thirdPct;
+      }
+
+      currentQuestionAudiencePercentages = percentages;
+
+      [0, 1, 2].forEach((idx) => {
+        const pctEl = document.getElementById(`aud-pct-${idx}`);
+        const barEl = document.getElementById(`aud-bar-${idx}`);
+        const nameEl = document.getElementById(`aud-name-${idx}`);
+        if (pctEl) pctEl.textContent = `${percentages[idx]}%`;
+        if (nameEl) nameEl.textContent = currentQuizQuestion.options[idx] || '';
+        if (barEl) {
+          barEl.style.height = '0%';
+          setTimeout(() => {
+            barEl.style.height = `${percentages[idx]}%`;
+          }, 60);
+        }
+      });
+
+      if (activeAudSummary) {
+        activeAudSummary.textContent = `◆ A: ${percentages[0]}% • ◆ B: ${percentages[1]}% • ◆ C: ${percentages[2]}%`;
+      }
+      if (activeAudienceHint && activeLifelinesHints) {
+        activeLifelinesHints.classList.remove('hidden');
+        activeLifelinesHints.classList.add('flex');
+        activeAudienceHint.classList.remove('hidden');
+        activeAudienceHint.classList.add('flex');
+      }
+      updateLifelinesButtonsUI();
+
+      if (lifelineAudienceModal) {
+        lifelineAudienceModal.classList.remove('hidden');
+        lifelineAudienceModal.classList.add('flex');
+      }
+    }
 
     const jackpotMp3Audio = document.getElementById('jackpot-mp3-audio');
     const bgm1to49 = document.getElementById('bgm-1-49');
@@ -2599,6 +3055,7 @@
       currentPlayerName = entered;
       milionarioScore = 0;
       usedQuizIndicesInRun.clear();
+      resetLifelinesForNewRun();
       milionarioBest = getPlayerBestScore(currentPlayerName);
       recordPlayerScore(currentPlayerName, 0);
       closeUsernameModal();
@@ -2703,10 +3160,11 @@
       quoteResultView.classList.remove('hidden');
       quoteResultView.classList.add('flex', 'animate-card-reveal');
       displayWell.scrollTop = 0;
+      clearCurrentQuestionLifelineViews();
 
       optionButtons.forEach((btn, idx) => {
         btn.disabled = false;
-        btn.classList.remove('correct-choice', 'wrong-choice');
+        btn.classList.remove('correct-choice', 'wrong-choice', 'eliminated-5050');
         const labelSpan = btn.querySelector('.opt-label');
         if (labelSpan) {
           labelSpan.textContent = currentQuizQuestion.options[idx];
@@ -2835,11 +3293,20 @@
         millionaireModalOverlay.classList.add('hidden');
         millionaireModalOverlay.classList.remove('flex');
       }
+      if (lifelinePhoneModal) {
+        lifelinePhoneModal.classList.add('hidden');
+        lifelinePhoneModal.classList.remove('flex');
+      }
+      if (lifelineAudienceModal) {
+        lifelineAudienceModal.classList.add('hidden');
+        lifelineAudienceModal.classList.remove('flex');
+      }
       milionarioRestartBtn.classList.add('hidden');
       milionarioRestartBtn.classList.remove('inline-flex');
 
       milionarioScore = 0;
       usedQuizIndicesInRun.clear();
+      resetLifelinesForNewRun();
       updateMilionarioUI();
 
       if (currentMode === 'milionario') {
@@ -3015,10 +3482,66 @@
       audio.init();
       milionarioScore = 0;
       usedQuizIndicesInRun.clear();
+      resetLifelinesForNewRun();
       updateMilionarioUI();
       syncMilionarioBackgroundMusic();
       loadNextMilionarioQuestion();
     });
+
+    // Lifelines Button Bindings
+    if (lifeline5050Btn) {
+      bindTapAndClick(lifeline5050Btn, () => handleLifeline5050());
+    }
+    if (lifelinePhoneBtn) {
+      bindTapAndClick(lifelinePhoneBtn, () => handleLifelinePhone());
+    }
+    if (lifelineAudienceBtn) {
+      bindTapAndClick(lifelineAudienceBtn, () => handleLifelineAudience());
+    }
+    if (lifelinePhoneCloseBtn) {
+      bindTapAndClick(lifelinePhoneCloseBtn, () => {
+        lifelinePhoneModal.classList.add('hidden');
+        lifelinePhoneModal.classList.remove('flex');
+      });
+    }
+    if (lifelineAudienceCloseBtn) {
+      bindTapAndClick(lifelineAudienceCloseBtn, () => {
+        lifelineAudienceModal.classList.add('hidden');
+        lifelineAudienceModal.classList.remove('flex');
+      });
+    }
+    if (lifelinePhoneModal) {
+      lifelinePhoneModal.addEventListener('click', (e) => {
+        if (e.target === lifelinePhoneModal) {
+          lifelinePhoneModal.classList.add('hidden');
+          lifelinePhoneModal.classList.remove('flex');
+        }
+      });
+    }
+    if (lifelineAudienceModal) {
+      lifelineAudienceModal.addEventListener('click', (e) => {
+        if (e.target === lifelineAudienceModal) {
+          lifelineAudienceModal.classList.add('hidden');
+          lifelineAudienceModal.classList.remove('flex');
+        }
+      });
+    }
+    if (reopenPhoneModalBtn) {
+      bindTapAndClick(reopenPhoneModalBtn, () => {
+        if (currentQuestionPhoneSpeech && lifelinePhoneModal) {
+          lifelinePhoneModal.classList.remove('hidden');
+          lifelinePhoneModal.classList.add('flex');
+        }
+      });
+    }
+    if (reopenAudienceModalBtn) {
+      bindTapAndClick(reopenAudienceModalBtn, () => {
+        if (currentQuestionAudiencePercentages && lifelineAudienceModal) {
+          lifelineAudienceModal.classList.remove('hidden');
+          lifelineAudienceModal.classList.add('flex');
+        }
+      });
+    }
 
     if (continueClimbBtn) {
       bindTapAndClick(continueClimbBtn, () => {
